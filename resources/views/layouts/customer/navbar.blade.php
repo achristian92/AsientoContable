@@ -17,8 +17,8 @@
             <!-- end::navigation-toggler -->
 
             <li class="nav-item">
-                <a href="{{ route('admin.customers.collaborators.index',1) }}" class="nav-link ">
-                    <img width="18" class="mr-2" src="{{ asset('img/edex.png') }}" alt="flag"> EDEX SAC
+                <a href="{{ route('admin.customers.collaborators.index',$currentCustomer->id) }}" class="nav-link ">
+                    <img width="18" class="mr-2" src="{{ asset('img/edex.png') }}" alt="flag"> {{ $currentCustomer->name }}
                 </a>
             </li>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AccountingSeat\AccountingSeatController;
 use App\Http\Controllers\Admin\Collaborators\CollaboratorController;
 use App\Http\Controllers\Admin\CostCenter\CostCenterController;
 use App\Http\Controllers\Admin\Customers\CustomerController;
+use App\Http\Controllers\Admin\Customers\CustomerImportController;
 use App\Http\Controllers\Admin\MonthlyPayroll\MonthlyPayrollController;
 use App\Http\Controllers\Admin\Users\UserController;
 
@@ -18,6 +19,7 @@ Route::get('test',\App\Http\Controllers\TestController::class);
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ], function () {
 
     Route::resource('customers', CustomerController::class);
+    Route::post('customers-import', CustomerImportController::class)->name('customers.import');
     Route::resource('users', UserController::class);
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {

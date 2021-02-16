@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
+use App\AsientoContable\Customers\Customer;
 use App\Notifications\UserResetPasswordNotification;
-use App\Voucher\Companies\Company;
-use App\Voucher\Customers\Presenters\CustomerPresenter;
-use App\Voucher\Images\Image;
-use App\Voucher\Users\Presenters\UserPresenter;
+use App\AsientoContable\Images\Image;
+use App\AsientoContable\Users\Presenters\UserPresenter;
 use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,6 +37,11 @@ class User extends Authenticatable
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function customers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Customer::class);
     }
 
     public function getFullNameAttribute()

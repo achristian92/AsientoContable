@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Voucher\Customers\Customer;
+use App\AsientoContable\Customers\Customer;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CustomerFactory extends Factory
@@ -22,7 +22,8 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->company,
+            'ruc' => $this->faker->randomNumber()
         ];
     }
 }

@@ -4,7 +4,77 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="" />
+    <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/AccountPlan.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/CenterCost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Presenters/CenterCostPresenter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Repositories/CenterCostRepo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Repositories/ICenterCost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Requests/StoreCenterCostRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Requests/UpdateCenterCostRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Presenters/AccountPlanPresenter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/AccountPlanRepo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/IAccountPlan.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/StoreAccountPlanRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/UpdateAccountPlanRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Collaborator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Presenters/CollaboratorPresenter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Repositories/CollaboratorRepo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Repositories/ICollaborator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Requests/StoreCollaboratorRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Requests/UpdateCollaboratorRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/PensionFund.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Presenters/PensionFundPresenter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Repositories/IPensionFund.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Repositories/PensionFundRepo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/StorePensionFundRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/UpdatePensionFundRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerImportController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/import.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/collaborators/matriz/partials/row.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vouchers.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vouchers.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Collaborators/CollaboratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Collaborators/CollaboratorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Users/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Users/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RepositoryServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RepositoryServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Customers/Customer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Customers/Presenters/CustomerPresenter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Customers/Repositories/CustomerRepo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Customers/Repositories/ICustomer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Customers/Requests/StoreCustomerRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Customers/Requests/UpdateCustomerRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Images/Image.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Tools/Presenter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Tools/UploadableTrait.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Users/Presenters/UserPresenter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Users/Repositories/IUser.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Users/Repositories/UserRepo.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Voucher/Users/Requests/StoreUserRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/CustomerFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/CustomerFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/CustomerSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CustomerSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/aurel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/logo-vouchers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/img/mga.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/row.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/partials/row.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/partials/row.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/customers/collaborators/matriz/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/collaborators/matriz/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/customer/navbar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/customer/navbar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -153,6 +223,14 @@
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
     </include_path>
   </component>
   <component name="ProjectId" id="1n263CssVGcp1FEyEed25CXz9iv" />
@@ -221,7 +299,8 @@
       <workItem from="1612283335212" duration="825000" />
       <workItem from="1612292480743" duration="16572000" />
       <workItem from="1612846374033" duration="2842000" />
-      <workItem from="1612923547433" duration="142000" />
+      <workItem from="1612923547433" duration="8070000" />
+      <workItem from="1613445607712" duration="7880000" />
     </task>
     <servers />
   </component>
