@@ -1,35 +1,31 @@
 @csrf
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
-        <label for="inputEmail4">Razón social</label>
+        <label for="inputEmail4">Nombre</label>
         @include('components.input-sm',['name' => 'name'])
     </div>
     <div class="form-group col-md-6">
-        <label for="inputPassword4">RUC</label>
-        @include('components.input-number-sm',['name' => 'ruc'])
+        <label for="inputEmail4">RUC</label>
+        @include('components.input-sm',['name' => 'ruc'])
     </div>
 </div>
-<div class="form-row mb-1">
-    <div class="form-group col-md-6">
-        <label for="inputEmail4">Dirección</label>
-        @include('components.input-sm',['name' => 'address'])
+@if(isset($model->id))
+    <div class="form-check mt-0">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            name="is_active"
+            id="isActive"
+            {{ old('is_active',$model->is_active) ? 'checked' : '' }}>
+        <label class="form-check-label" for="isActive" >
+            Activar
+        </label>
     </div>
-    <div class="form-group col-md-6">
-        <label for="inputPassword4">Teléfono</label>
-        @include('components.input-sm',['name' => 'phone'])
+    <div class="form-group row">
+        <div class="col text-right">
+            <a href="#destroy-{{$model->id}}" data-toggle="modal" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash mr-2"></i> Eliminar</a>
+        </div>
     </div>
-</div>
-<h5 class="text-muted">Contacto</h5>
-<div class="form-row mb-1">
-    <div class="form-group col-md-4">
-        @include('components.input-group-sm',['title'=>'Nombre', 'name' => 'contact_name'])
-    </div>
-    <div class="form-group col-md-4">
-        @include('components.input-group-sm',['title'=>'Email', 'name' => 'contact_email'])
-    </div>
-    <div class="form-group col-md-4">
-        @include('components.input-group-sm',['title'=>'Teléfono', 'name' => 'contact_phone'])
-    </div>
-</div>
+@endif
 <button type="submit" class="btn btn-sm btn-primary"> Guardar </button>
 <a href="{{ $back }}" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>

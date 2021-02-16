@@ -4,12 +4,23 @@
 namespace App\Http\Controllers\Admin\Collaborators;
 
 
+use App\AsientoContable\Collaborators\Repositories\ICollaborator;
 use App\Http\Controllers\Controller;
 
 class CollaboratorController extends Controller
 {
-    public function index(int $customer_id)
+    private $collaboratorRepo;
+
+    public function __construct(ICollaborator $ICollaborator)
     {
-        return view('customers.collaborators.matriz.index');
+        $this->collaboratorRepo = $ICollaborator;
+    }
+
+    public function index()
+    {
+        $collaborators = $this->collaboratorRepo->listCollaborators();
+        return view('customers.collaborators.matriz.index',[
+            'collaborators' => $collaborators
+        ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Voucher\Customers\Customer;
+use App\AsientoContable\Customers\Customer;
 use Illuminate\Database\Seeder;
 
 class CustomerSeeder extends Seeder
