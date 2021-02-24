@@ -87,8 +87,8 @@
                                                 v-model="formData.type"
                                                 id="type_document">
                                                 <option disabled value="">Seleccione un tipo</option>
-                                                <option value="Gasto">Gasto</option>
-                                                <option value="Pasivo">Pasivo</option>
+                                                <option value="GASTO">GASTO</option>
+                                                <option value="PASIVO">PASIVO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -122,8 +122,17 @@
                                     </div>
                                     <br>
                                     <br>
-                                    <button type="submit" class="btn btn-sm btn-primary"> Guardar </button>
-                                    <a :href="`/admin/customer/${currentCustomerID}/accounting-plan`" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6">
+                                            <button type="submit" class="btn btn-primary"> Guardar </button>
+                                            <a :href="`/admin/customer/${currentCustomerID}/accounting-plan`" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
+                                        </div>
+                                        <div class="col-md-6 text-right" v-show="isEdit">
+                                            <a href="#" @click.prevent="handleDestroy" type="submit" class="btn btn-sm btn-outline-danger"> Eliminar </a>
+                                        </div>
+
+                                    </div>
+
                                 </form>
                             </div>
                         </div>
@@ -175,6 +184,9 @@ export default {
     computed: {
         isEdit() {
             return !!this.formData.id;
+        },
+        backUrl() {
+            return `/admin/customer/${this.currentCustomerID}/accounting-plan`
         }
     },
     watch: {
@@ -223,7 +235,6 @@ export default {
             this.isLoading = true
             let url = ''
             let data = this.sendParams()
-            console.log(data)
             if (this.isEdit) {
                 url = `/api/customer/${this.currentCustomerID}/plan-account/${this.formData.id}`
                 data['_method'] = 'PUT'
@@ -236,7 +247,7 @@ export default {
                     this.isLoading = false
                     Vue.$toast.success(res.data.msg)
                     setTimeout(() => {
-                        window.location.href = `/admin/customer/${this.currentCustomerID}/accounting-plan`;
+                        window.location.href = this.backUrl;
                     }, 1000)
                 }).
             catch(error => {
@@ -256,6 +267,27 @@ export default {
                 selectedAccount : this.selectedAccount,
                 selectedSubAccount : this.selectedSubAccount,
             }
+        },
+        handleDestroy() {
+            this.isLoading = true
+            axios.delete(`/api/customer/${this.currentCustomerID}/plan-account/${this.formData.id}`)
+                .then(res => {
+                    this.isLoading = false
+                    Vue.$toast.success(res.data.msg)
+                    setTimeout(() => {
+                        window.location.href = this.backUrl;
+                    }, 1000)
+                }).
+                catch(error => {
+                    this.isLoading = false
+                    if (error.response.status === 422){
+                        this.errors = error.response.data.errors;
+                        Vue.$toast.error("Información inválida");
+                    }
+                    if (error.response.status === 401) {
+                        Vue.$toast.error(error.response.data.msg);
+                    }
+                });
         }
     }
 }

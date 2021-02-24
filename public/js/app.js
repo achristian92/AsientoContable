@@ -2569,6 +2569,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2605,6 +2614,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: {
     isEdit: function isEdit() {
       return !!this.formData.id;
+    },
+    backUrl: function backUrl() {
+      return "/admin/customer/".concat(this.currentCustomerID, "/accounting-plan");
     }
   },
   watch: {
@@ -2655,7 +2667,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.isLoading = true;
       var url = '';
       var data = this.sendParams();
-      console.log(data);
 
       if (this.isEdit) {
         url = "/api/customer/".concat(this.currentCustomerID, "/plan-account/").concat(this.formData.id);
@@ -2666,7 +2677,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.isLoading = false;
         Vue.$toast.success(res.data.msg);
         setTimeout(function () {
-          window.location.href = "/admin/customer/".concat(_this2.currentCustomerID, "/accounting-plan");
+          window.location.href = _this2.backUrl;
         }, 1000);
       })["catch"](function (error) {
         _this2.isLoading = false;
@@ -2685,6 +2696,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return _objectSpread(_objectSpread({}, this.formData), {}, {
         selectedAccount: this.selectedAccount,
         selectedSubAccount: this.selectedSubAccount
+      });
+    },
+    handleDestroy: function handleDestroy() {
+      var _this3 = this;
+
+      this.isLoading = true;
+      axios["delete"]("/api/customer/".concat(this.currentCustomerID, "/plan-account/").concat(this.formData.id)).then(function (res) {
+        _this3.isLoading = false;
+        Vue.$toast.success(res.data.msg);
+        setTimeout(function () {
+          window.location.href = _this3.backUrl;
+        }, 1000);
+      })["catch"](function (error) {
+        _this3.isLoading = false;
+
+        if (error.response.status === 422) {
+          _this3.errors = error.response.data.errors;
+          Vue.$toast.error("Información inválida");
+        }
+
+        if (error.response.status === 401) {
+          Vue.$toast.error(error.response.data.msg);
+        }
       });
     }
   }
@@ -41573,12 +41607,12 @@ var render = function() {
                                   [_vm._v("Seleccione un tipo")]
                                 ),
                                 _vm._v(" "),
-                                _c("option", { attrs: { value: "Gasto" } }, [
-                                  _vm._v("Gasto")
+                                _c("option", { attrs: { value: "GASTO" } }, [
+                                  _vm._v("GASTO")
                                 ]),
                                 _vm._v(" "),
-                                _c("option", { attrs: { value: "Pasivo" } }, [
-                                  _vm._v("Pasivo")
+                                _c("option", { attrs: { value: "PASIVO" } }, [
+                                  _vm._v("PASIVO")
                                 ])
                               ]
                             )
@@ -41809,28 +41843,64 @@ var render = function() {
                         _vm._v(" "),
                         _c("br"),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-sm btn-primary",
-                            attrs: { type: "submit" }
-                          },
-                          [_vm._v(" Guardar ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-sm btn-outline-light ml-2",
-                            attrs: {
-                              href:
-                                "/admin/customer/" +
-                                _vm.currentCustomerID +
-                                "/accounting-plan"
-                            }
-                          },
-                          [_vm._v(" Regresar ")]
-                        )
+                        _c("div", { staticClass: "row col-md-12" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary",
+                                attrs: { type: "submit" }
+                              },
+                              [_vm._v(" Guardar ")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "btn btn-sm btn-outline-light ml-2",
+                                attrs: {
+                                  href:
+                                    "/admin/customer/" +
+                                    _vm.currentCustomerID +
+                                    "/accounting-plan"
+                                }
+                              },
+                              [_vm._v(" Regresar ")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.isEdit,
+                                  expression: "isEdit"
+                                }
+                              ],
+                              staticClass: "col-md-6 text-right"
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-sm btn-outline-danger",
+                                  attrs: { href: "#", type: "submit" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.handleDestroy($event)
+                                    }
+                                  }
+                                },
+                                [_vm._v(" Eliminar ")]
+                              )
+                            ]
+                          )
+                        ])
                       ]
                     )
                   ],

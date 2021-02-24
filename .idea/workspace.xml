@@ -5,29 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/AsientoContable/Tools/NestedsetTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/PlanAccount/PlanAccountController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/plan-account/AddPlanAccount.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/mixins/customer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/customers/accounting-plan/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/customers/accounting-plan/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AccountingPlan/AccountImportController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/accounting-plan/partials/import.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/AccountPlan.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/AccountPlan.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/AccountPlanRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/AccountPlanRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/IAccountPlan.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/IAccountPlan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/StoreAccountPlanRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/AccountPlanRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/UpdateAccountPlanRequest.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AccountingPlan/AccountingPlanController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AccountingPlan/AccountingPlanController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/GlobalTemplateServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/GlobalTemplateServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_15_224124_create_account_plan_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_15_224124_create_account_plan_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/PlanAccount/PlanAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/PlanAccount/PlanAccountController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/CustomerSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CustomerSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/files/Plantilla-Empresa.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/files/Plantilla-Empresa.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/plan-account/AddPlanAccount.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/plan-account/AddPlanAccount.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/customers/accounting-plan/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/accounting-plan/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/customer/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/customer/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/customer/sidebar-body.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/customer/sidebar-body.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -259,7 +246,7 @@
       <workItem from="1613512934456" duration="14617000" />
       <workItem from="1613848994908" duration="10988000" />
       <workItem from="1614005607803" duration="280000" />
-      <workItem from="1614121089940" duration="8047000" />
+      <workItem from="1614121089940" duration="15444000" />
     </task>
     <servers />
   </component>

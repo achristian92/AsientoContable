@@ -45,4 +45,9 @@ class PlanAccountController extends Controller
         return response()->json(['msg' => 'Cuenta contable actualizada'],201);
     }
 
+    public function destroy(int $customer_id,int $id)
+    {
+        return response()->json(['msg' => 'Cuenta contable eliminada']);
+    }
+
 }

@@ -53,6 +53,7 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
                         'id' => $account['id'],
                         'code' => $account['code'],
                         'name' => $account['name'],
+                        'type' => $account['type'],
                         'parent_id' => $account['parent_id'],
                         'children' => []
                     ];

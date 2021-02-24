@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\AccountingPlan\AccountImportController;
 use App\Http\Controllers\Admin\AccountingPlan\AccountingPlanController;
 use App\Http\Controllers\Admin\AccountingSeat\AccountingSeatController;
 use App\Http\Controllers\Admin\Collaborators\CollaboratorController;
@@ -29,6 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
         Route::resource('accounting-seat', AccountingSeatController::class);
         Route::resource('cost-center', CostCenterController::class);
         Route::resource('accounting-plan', AccountingPlanController::class);
+        Route::post('account-import', AccountImportController::class)->name('account.import');
     });
 });
 
