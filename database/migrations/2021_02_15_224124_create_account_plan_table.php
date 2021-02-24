@@ -15,9 +15,9 @@ class CreateAccountPlanTable extends Migration
     {
         Schema::create('account_plan', function (Blueprint $table) {
             $table->id();
-            $table->string('account');
-            $table->string('sub_account')->nullable();
-            $table->string('analytical_account')->nullable();
+            $table->string('category');
+            $table->string('code')->nullable();
+            $table->string('parent_id')->nullable();
             $table->string('name');
             $table->string('type');
             $table->boolean('is_analyzable')->default(true);

@@ -2412,6 +2412,286 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default())
+  },
+  data: function data() {
+    return {
+      isLoading: false,
+      formData: {
+        id: '',
+        category: '',
+        code: '',
+        name: '',
+        type: '',
+        is_analyzable: false,
+        has_center_cost: false,
+        has_center_cost2: false
+      },
+      category: 'root',
+      accounts: [],
+      selectedAccount: '',
+      subAccounts: [],
+      selectedSubAccount: '',
+      errors: []
+    };
+  },
+  props: ['p_model'],
+  created: function created() {
+    if (this.p_model) this.formData.id = this.p_model.id;
+    this.loadData();
+    this.getDataPlanAccount();
+  },
+  computed: {
+    isEdit: function isEdit() {
+      return !!this.formData.id;
+    }
+  },
+  watch: {
+    category: function category() {
+      this.code = '';
+      this.name = '';
+      this.type = '';
+      if (this.category === 'subAccount') this.selectedAccount = '';
+
+      if (this.category === 'account') {
+        this.selectedAccount = '';
+        this.selectedSubAccount = '';
+      }
+    },
+    selectedAccount: function selectedAccount() {
+      this.getDataPlanAccount();
+    }
+  },
+  methods: {
+    pageTitle: function pageTitle() {
+      if (this.isEdit) return 'Editar plan de cuentas';
+      return 'Crear plan de cuentas';
+    },
+    loadData: function loadData() {
+      if (this.isEdit) {
+        this.formData = this.p_model;
+        if (this.p_model.category === 'subAccount') this.selectedAccount = this.p_model.parent_id;else if (this.p_model.category === 'account') {
+          this.selectedAccount = this.p_model.parents.parent_id;
+          this.selectedSubAccount = this.p_model.parents.code;
+        }
+      }
+    },
+    getDataPlanAccount: function getDataPlanAccount() {
+      var _this = this;
+
+      axios.get("/api/customer/".concat(this.currentCustomerID, "/plan-account"), {
+        params: {
+          'root': this.selectedAccount
+        }
+      }).then(function (res) {
+        _this.accounts = res.data.accounts;
+        _this.subAccounts = res.data.subAccounts;
+      });
+    },
+    submitAccount: function submitAccount() {
+      var _this2 = this;
+
+      this.isLoading = true;
+      var url = '';
+      var data = this.sendParams();
+      console.log(data);
+
+      if (this.isEdit) {
+        url = "/api/customer/".concat(this.currentCustomerID, "/plan-account/").concat(this.formData.id);
+        data['_method'] = 'PUT';
+      } else url = "/api/customer/".concat(this.currentCustomerID, "/plan-account");
+
+      axios.post(url, data).then(function (res) {
+        _this2.isLoading = false;
+        Vue.$toast.success(res.data.msg);
+        setTimeout(function () {
+          window.location.href = "/admin/customer/".concat(_this2.currentCustomerID, "/accounting-plan");
+        }, 1000);
+      })["catch"](function (error) {
+        _this2.isLoading = false;
+
+        if (error.response.status === 422) {
+          _this2.errors = error.response.data.errors;
+          Vue.$toast.error("Información inválida");
+        }
+
+        if (error.response.status === 401) {
+          Vue.$toast.error(error.response.data.msg);
+        }
+      });
+    },
+    sendParams: function sendParams() {
+      return _objectSpread(_objectSpread({}, this.formData), {}, {
+        selectedAccount: this.selectedAccount,
+        selectedSubAccount: this.selectedSubAccount
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/providers/AddProvider.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/providers/AddProvider.vue?vue&type=script&lang=js& ***!
@@ -3197,6 +3477,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-toast-notification */ "./node_modules/vue-toast-notification/dist/index.min.js");
 /* harmony import */ var vue_toast_notification__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_toast_notification__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_toast_notification_dist_theme_sugar_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-toast-notification/dist/theme-sugar.css */ "./node_modules/vue-toast-notification/dist/theme-sugar.css");
+/* harmony import */ var _mixins_customer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/customer */ "./resources/js/mixins/customer.js");
+/* harmony import */ var _mixins_customer__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mixins_customer__WEBPACK_IMPORTED_MODULE_2__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -3208,6 +3490,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js"
 
 
 Vue.use((vue_toast_notification__WEBPACK_IMPORTED_MODULE_0___default()));
+Vue.component('add-plan-account', __webpack_require__(/*! ./components/plan-account/AddPlanAccount */ "./resources/js/components/plan-account/AddPlanAccount.vue").default);
 Vue.component('add-user', __webpack_require__(/*! ./components/users/AddUser */ "./resources/js/components/users/AddUser.vue").default);
 Vue.component('add-customer', __webpack_require__(/*! ./components/customers/AddCustomer */ "./resources/js/components/customers/AddCustomer.vue").default);
 Vue.component('edit-customer', __webpack_require__(/*! ./components/customers/EditCustomer */ "./resources/js/components/customers/EditCustomer.vue").default);
@@ -3215,6 +3498,8 @@ Vue.component('add-provider', __webpack_require__(/*! ./components/providers/Add
 Vue.component('edit-provider', __webpack_require__(/*! ./components/providers/EditProvider */ "./resources/js/components/providers/EditProvider.vue").default);
 Vue.component('validation-errors', __webpack_require__(/*! ./components/shared/ValidationErrors */ "./resources/js/components/shared/ValidationErrors.vue").default);
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
+
+Vue.mixin((_mixins_customer__WEBPACK_IMPORTED_MODULE_2___default()));
 var app = new Vue({
   el: '#app'
 });
@@ -3262,6 +3547,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/mixins/customer.js":
+/*!*****************************************!*\
+  !*** ./resources/js/mixins/customer.js ***!
+  \*****************************************/
+/***/ ((module) => {
+
+var customerID = document.head.querySelector('meta[name="customerID"]');
+module.exports = {
+  computed: {
+    currentCustomerID: function currentCustomerID() {
+      return JSON.parse(customerID.content);
+    }
+  }
+};
 
 /***/ }),
 
@@ -39158,6 +39460,45 @@ component.options.__file = "resources/js/components/customers/EditCustomer.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/plan-account/AddPlanAccount.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/plan-account/AddPlanAccount.vue ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _AddPlanAccount_vue_vue_type_template_id_d33f8164_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true& */ "./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true&");
+/* harmony import */ var _AddPlanAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddPlanAccount.vue?vue&type=script&lang=js& */ "./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _AddPlanAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _AddPlanAccount_vue_vue_type_template_id_d33f8164_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _AddPlanAccount_vue_vue_type_template_id_d33f8164_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "d33f8164",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/plan-account/AddPlanAccount.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/providers/AddProvider.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/providers/AddProvider.vue ***!
@@ -39362,6 +39703,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddPlanAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddPlanAccount.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddPlanAccount_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/providers/AddProvider.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/providers/AddProvider.vue?vue&type=script&lang=js& ***!
@@ -39473,6 +39830,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCustomer_vue_vue_type_template_id_0b8a0ead_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCustomer_vue_vue_type_template_id_0b8a0ead_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./EditCustomer.vue?vue&type=template&id=0b8a0ead&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/customers/EditCustomer.vue?vue&type=template&id=0b8a0ead&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true& ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddPlanAccount_vue_vue_type_template_id_d33f8164_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+/* harmony export */   "staticRenderFns": () => /* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddPlanAccount_vue_vue_type_template_id_d33f8164_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddPlanAccount_vue_vue_type_template_id_d33f8164_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true&");
 
 
 /***/ }),
@@ -40703,6 +41077,775 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/plan-account/AddPlanAccount.vue?vue&type=template&id=d33f8164&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render,
+/* harmony export */   "staticRenderFns": () => /* binding */ staticRenderFns
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container-fluid" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("h6", { staticClass: "card-title" }, [
+                _vm._v(_vm._s(_vm.pageTitle()))
+              ]),
+              _vm._v(" "),
+              _vm.errors
+                ? _c("validation-errors", { attrs: { errors: _vm.errors } })
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-md-12" },
+                  [
+                    _c("loading", {
+                      attrs: { active: _vm.isLoading, "is-full-page": false },
+                      on: {
+                        "update:active": function($event) {
+                          _vm.isLoading = $event
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.submitAccount($event)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.category,
+                                  expression: "formData.category"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                id: "accountMain",
+                                value: "root"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.formData.category, "root")
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(
+                                    _vm.formData,
+                                    "category",
+                                    "root"
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "accountMain" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Cuenta principal\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.category,
+                                  expression: "formData.category"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                id: "SubAccount",
+                                value: "subAccount"
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.formData.category,
+                                  "subAccount"
+                                )
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(
+                                    _vm.formData,
+                                    "category",
+                                    "subAccount"
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "SubAccount" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Sub cuenta\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.category,
+                                  expression: "formData.category"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: {
+                                type: "radio",
+                                id: "AccountAnalitica",
+                                value: "account"
+                              },
+                              domProps: {
+                                checked: _vm._q(
+                                  _vm.formData.category,
+                                  "account"
+                                )
+                              },
+                              on: {
+                                change: function($event) {
+                                  return _vm.$set(
+                                    _vm.formData,
+                                    "category",
+                                    "account"
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "AccountAnalitica" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Cuenta analítica\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-row mb-1" }, [
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.formData.category !== "root",
+                                  expression: "formData.category !== 'root'"
+                                }
+                              ],
+                              staticClass: "form-group col-md-6"
+                            },
+                            [
+                              _c("label", { attrs: { for: "selectAccount" } }, [
+                                _vm._v("Cuenta principal")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.selectedAccount,
+                                      expression: "selectedAccount"
+                                    }
+                                  ],
+                                  staticClass: "form-control form-control-sm",
+                                  attrs: { id: "selectAccount" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.selectedAccount = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { disabled: "", value: "" } },
+                                    [_vm._v("Seleccionar...")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.accounts, function(account) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: account.code } },
+                                      [
+                                        _vm._v(
+                                          _vm._s(account.code) +
+                                            " - " +
+                                            _vm._s(account.name) +
+                                            " "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.formData.category === "account",
+                                  expression: "formData.category === 'account'"
+                                }
+                              ],
+                              staticClass: "form-group col-md-6"
+                            },
+                            [
+                              _c(
+                                "label",
+                                { attrs: { for: "selectSubAccount" } },
+                                [_vm._v("Sub cuenta")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.selectedSubAccount,
+                                      expression: "selectedSubAccount"
+                                    }
+                                  ],
+                                  staticClass: "form-control form-control-sm",
+                                  attrs: { id: "selectSubAccount" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.selectedSubAccount = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { disabled: "", value: "" } },
+                                    [_vm._v("Seleccionar...")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.subAccounts, function(subAccount) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: subAccount.code } },
+                                      [
+                                        _vm._v(
+                                          _vm._s(subAccount.code) +
+                                            " - " +
+                                            _vm._s(subAccount.name) +
+                                            " "
+                                        )
+                                      ]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-row mb-1" }, [
+                          _c("div", { staticClass: "form-group col-md-2" }, [
+                            _c("label", { attrs: { for: "code" } }, [
+                              _vm._v("Código cuenta")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.code,
+                                  expression: "formData.code"
+                                }
+                              ],
+                              staticClass: "form-control form-control-sm",
+                              attrs: {
+                                type: "text",
+                                maxlength: "255",
+                                id: "code"
+                              },
+                              domProps: { value: _vm.formData.code },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "code",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group col-md-6" }, [
+                            _c("label", { attrs: { for: "name" } }, [
+                              _vm._v("Nombre")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.name,
+                                  expression: "formData.name"
+                                }
+                              ],
+                              staticClass: "form-control form-control-sm",
+                              attrs: {
+                                type: "text",
+                                maxlength: "255",
+                                id: "name"
+                              },
+                              domProps: { value: _vm.formData.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-group col-md-4" }, [
+                            _c("label", { attrs: { for: "type_document" } }, [
+                              _vm._v("Tipo")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.formData.type,
+                                    expression: "formData.type"
+                                  }
+                                ],
+                                staticClass: "form-control form-control-sm",
+                                attrs: { id: "type_document" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.formData,
+                                      "type",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "option",
+                                  { attrs: { disabled: "", value: "" } },
+                                  [_vm._v("Seleccione un tipo")]
+                                ),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Gasto" } }, [
+                                  _vm._v("Gasto")
+                                ]),
+                                _vm._v(" "),
+                                _c("option", { attrs: { value: "Pasivo" } }, [
+                                  _vm._v("Pasivo")
+                                ])
+                              ]
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.is_analyzable,
+                                  expression: "formData.is_analyzable"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "checkbox", id: "analisis" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  _vm.formData.is_analyzable
+                                )
+                                  ? _vm._i(_vm.formData.is_analyzable, null) >
+                                    -1
+                                  : _vm.formData.is_analyzable
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.is_analyzable,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "is_analyzable",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "is_analyzable",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "is_analyzable", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "analisis" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Análisis\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.has_center_cost,
+                                  expression: "formData.has_center_cost"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "checkbox", id: "centerCost1" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  _vm.formData.has_center_cost
+                                )
+                                  ? _vm._i(_vm.formData.has_center_cost, null) >
+                                    -1
+                                  : _vm.formData.has_center_cost
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.has_center_cost,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "has_center_cost",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "has_center_cost",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      _vm.formData,
+                                      "has_center_cost",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "centerCost1" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Centro de costos\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-check form-check-inline" },
+                          [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.has_center_cost2,
+                                  expression: "formData.has_center_cost2"
+                                }
+                              ],
+                              staticClass: "form-check-input",
+                              attrs: { type: "checkbox", id: "centerCost2" },
+                              domProps: {
+                                checked: Array.isArray(
+                                  _vm.formData.has_center_cost2
+                                )
+                                  ? _vm._i(
+                                      _vm.formData.has_center_cost2,
+                                      null
+                                    ) > -1
+                                  : _vm.formData.has_center_cost2
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.has_center_cost2,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "has_center_cost2",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "has_center_cost2",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(
+                                      _vm.formData,
+                                      "has_center_cost2",
+                                      $$c
+                                    )
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "label",
+                              {
+                                staticClass: "form-check-label",
+                                attrs: { for: "centerCost2" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        Centro de costos 2\n                                    "
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: { type: "submit" }
+                          },
+                          [_vm._v(" Guardar ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-sm btn-outline-light ml-2",
+                            attrs: {
+                              href:
+                                "/admin/customer/" +
+                                _vm.currentCustomerID +
+                                "/accounting-plan"
+                            }
+                          },
+                          [_vm._v(" Regresar ")]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ],
+            1
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

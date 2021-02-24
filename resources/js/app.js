@@ -10,6 +10,12 @@ import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(VueToast)
 
+
+
+Vue.component('add-plan-account', require('./components/plan-account/AddPlanAccount').default);
+
+
+
 Vue.component('add-user', require('./components/users/AddUser').default);
 
 
@@ -23,6 +29,8 @@ Vue.component('edit-provider', require('./components/providers/EditProvider').de
 Vue.component('validation-errors', require('./components/shared/ValidationErrors').default);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+import customer from './mixins/customer'
+Vue.mixin(customer);
 
 const app = new Vue({
     el: '#app',

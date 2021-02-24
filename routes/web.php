@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Customers\CustomerController;
 use App\Http\Controllers\Admin\Customers\CustomerImportController;
 use App\Http\Controllers\Admin\MonthlyPayroll\MonthlyPayrollController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Front\PlanAccount\PlanAccountController;
 
 Route::get('/', function () {
     return redirect('login');
@@ -29,9 +30,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
         Route::resource('cost-center', CostCenterController::class);
         Route::resource('accounting-plan', AccountingPlanController::class);
     });
+});
 
-
-
+Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
+    Route::group(['prefix'=>'customer/{customer_id}','as'=>'api.customers.'],function () {
+        //Route::get('plan-account-main', PlanAccountController::class);
+        Route::resource('plan-account', PlanAccountController::class);
+    });
 });
 
 
