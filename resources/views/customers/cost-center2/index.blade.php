@@ -10,10 +10,10 @@
                             <button type="button"
                                     class="btn btn-outline-primary btn-pulse btn-sm"
                                     data-toggle="modal"
-                                    data-target="#importModalCenterCost">
+                                    data-target="#importModalCenterCost2">
                                 <i class="ti-upload mr-1"></i> Importar
                             </button>
-                            <a href="{{ route('admin.customers.cost-center.create',$currentCustomer->id) }}" type="button" class="btn btn-outline-primary btn-pulse btn-sm ml-2">
+                            <a href="{{ route('admin.customers.cost-center2.create',$currentCustomer->id) }}" type="button" class="btn btn-outline-primary btn-pulse btn-sm ml-2">
                                 <i class="ti-plus mr-1"></i> Nuevo
                             </a>
                         </div>
@@ -29,7 +29,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                                @each('customers.cost-center.partials.row', $centerCosts,'centerCost', 'components.row-empty')
+                                @each('customers.cost-center2.partials.row', $centerCosts,'centerCost', 'components.row-empty')
                             </tbody>
                         </table>
                     </div>
@@ -37,5 +37,5 @@
             </div>
         </div>
     </div>
-    @include('customers.cost-center.partials.import')
+    @include('customers.cost-center2.partials.import')
 @endsection

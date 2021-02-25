@@ -9,9 +9,8 @@ use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\CenterCosts\Requests\CenterCostRequest;
 use App\Http\Controllers\Controller;
 
-class CostCenterController extends Controller
+class CostCenter2Controller extends Controller
 {
-
     private $centerCostRepo;
 
     public function __construct(ICenterCost $ICenterCost)
@@ -21,14 +20,14 @@ class CostCenterController extends Controller
 
     public function index()
     {
-        return view('customers.cost-center.index',[
-            'centerCosts' => $this->centerCostRepo->listCostsCenter()
+        return view('customers.cost-center2.index',[
+            'centerCosts' => $this->centerCostRepo->listCostsCenter2()
         ]);
     }
 
     public function create()
     {
-        return view('customers.cost-center.create',[
+        return view('customers.cost-center2.create',[
             'model' => new CenterCost(),
         ]);
     }
@@ -36,7 +35,7 @@ class CostCenterController extends Controller
     public function store(CenterCostRequest $request,$customer_id)
     {
         $this->centerCostRepo->createCostCenter($request->all());
-        return redirect()->route('admin.customers.cost-center.index',$customer_id)->with('message',"Registro creado");
+        return redirect()->route('admin.customers.cost-center2.index',$customer_id)->with('message',"Registro creado");
     }
 
     public function show()
@@ -46,7 +45,7 @@ class CostCenterController extends Controller
 
     public function edit($customer_id,int $id)
     {
-        return view('customers.cost-center.edit',[
+        return view('customers.cost-center2.edit',[
             'model' => $this->centerCostRepo->finCostCenterById($id),
         ]);
     }
@@ -54,7 +53,7 @@ class CostCenterController extends Controller
     public function update(CenterCostRequest $request,$customer_id,$id)
     {
         $this->centerCostRepo->updateCostCenter($request->all(),$id);
-        return redirect()->route('admin.customers.cost-center.index',[$customer_id,'type='.$request->type])->with('message',"Registro actualizado");
+        return redirect()->route('admin.customers.cost-center2.index',[$customer_id,'type='.$request->type])->with('message',"Registro actualizado");
     }
 
 }

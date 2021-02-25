@@ -1,4 +1,4 @@
-@extends('layouts.customer.app')
+@extends('layouts.admin.app')
 @section('content')
     @include('components.errors-and-messages')
     <div class="container-fluid">
@@ -7,13 +7,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 text-right" >
-                            <button type="button"
-                                    class="btn btn-outline-primary btn-pulse btn-sm"
-                                    data-toggle="modal"
-                                    data-target="#importModalCenterCost">
-                                <i class="ti-upload mr-1"></i> Importar
-                            </button>
-                            <a href="{{ route('admin.customers.cost-center.create',$currentCustomer->id) }}" type="button" class="btn btn-outline-primary btn-pulse btn-sm ml-2">
+                            <a href="{{ route('admin.pensions.create') }}" class="btn btn-outline-light btn-pulse btn-sm ml-2">
                                 <i class="ti-plus mr-1"></i> Nuevo
                             </a>
                         </div>
@@ -24,18 +18,20 @@
                             <thead class="thead-light">
                             <tr class="font-italic font-weight-bold">
                                 <th scope="col">Código</th>
-                                <th scope="col">Descripción</th>
-                                <th class="text-right" scope="col">Acciones</th>
+                                <th scope="col">Abreviatura</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Estado</th>
+                                <th class="text-right" scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
-                                @each('customers.cost-center.partials.row', $centerCosts,'centerCost', 'components.row-empty')
+                            @each('admin.pension-fund.partials.row', $pensions,'pension', 'components.row-empty')
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-    @include('customers.cost-center.partials.import')
 @endsection

@@ -5,16 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AccountingPlan/AccountImportController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/customers/accounting-plan/partials/import.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Requests/CenterCostRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/PensionFundRequest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CostCenter/CenterCost2ImportController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CostCenter/CenterCostImportController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CostCenter/CostCenter2Controller.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PensionsFund/PensionFundController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Imports/CenterCostImport.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pension-fund/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pension-fund/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pension-fund/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pension-fund/partials/fields.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/pension-fund/partials/row.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center/partials/fields.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center/partials/import.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center/partials/row.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center2/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center2/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center2/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center2/partials/fields.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center2/partials/import.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/customers/cost-center2/partials/row.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/AccountPlanRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Repositories/AccountPlanRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/PlanAccount/PlanAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/PlanAccount/PlanAccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/CustomerSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CustomerSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/files/Plantilla-Empresa.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/files/Plantilla-Empresa.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/plan-account/AddPlanAccount.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/plan-account/AddPlanAccount.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/CenterCost.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/CenterCost.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Presenters/CenterCostPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Presenters/CenterCostPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Repositories/CenterCostRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Repositories/CenterCostRepo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Repositories/ICenterCost.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Repositories/ICenterCost.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Requests/StoreCenterCostRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/CenterCosts/Requests/UpdateCenterCostRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/AccountPlanRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/AccountPlan/Requests/AccountPlanRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/PensionFund.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/PensionFund.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Presenters/PensionFundPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Presenters/PensionFundPresenter.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Repositories/IPensionFund.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Repositories/IPensionFund.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Repositories/PensionFundRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Repositories/PensionFundRepo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/StorePensionFundRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/UpdatePensionFundRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CostCenter/CostCenterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CostCenter/CostCenterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/AccountPlanImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/AccountPlanImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/RepositoryServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/RepositoryServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_15_224459_create_pension_fund_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_15_224459_create_pension_fund_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/customers/accounting-plan/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/accounting-plan/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/customers/cost-center/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/cost-center/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/customer/sidebar-body.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/customer/sidebar-body.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -187,7 +222,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/layouts/customer" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/customers/cost-center2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
@@ -195,17 +230,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/customers/cost-center2" />
       <recent name="$PROJECT_DIR$/resources/views/layouts/customer" />
       <recent name="$PROJECT_DIR$/public/img" />
       <recent name="$PROJECT_DIR$/resources/views/admin/roles" />
       <recent name="$PROJECT_DIR$/resources/views/admin/permissions" />
-      <recent name="$PROJECT_DIR$/public/css" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/admin/pension-fund/partials" />
+      <recent name="$PROJECT_DIR$/app/AsientoContable" />
       <recent name="$PROJECT_DIR$/resources/views/customers/collaborators" />
       <recent name="$PROJECT_DIR$/resources/views/customers/collaborators/Matriz" />
       <recent name="$PROJECT_DIR$/resources/views/layouts/admin" />
-      <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin/Settings" />
     </key>
   </component>
   <component name="RunManager">
@@ -246,7 +282,8 @@
       <workItem from="1613512934456" duration="14617000" />
       <workItem from="1613848994908" duration="10988000" />
       <workItem from="1614005607803" duration="280000" />
-      <workItem from="1614121089940" duration="15444000" />
+      <workItem from="1614121089940" duration="15672000" />
+      <workItem from="1614218520962" duration="11295000" />
     </task>
     <servers />
   </component>

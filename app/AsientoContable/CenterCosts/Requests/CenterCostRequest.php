@@ -1,19 +1,19 @@
 <?php
 
 
-namespace App\AsientoContable\AccountPlan\Requests;
+namespace App\AsientoContable\CenterCosts\Requests;
 
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class AccountPlanRequest extends FormRequest
+class CenterCostRequest extends FormRequest
 {
     public function rules() {
         $rules = [
             'code' => [
                 'required',
-                Rule::unique('account_plan')->where(function ($query) {
+                Rule::unique('center_cost')->where(function ($query) {
                     return $query->whereCode(trim($this->code))
                                  ->whereCustomerId(customerID());
                 })
@@ -25,9 +25,9 @@ class AccountPlanRequest extends FormRequest
         if ($this->isMethod('PUT')) {
             $rules['code'] = [
                 'required',
-                Rule::unique('account_plan')->where(function ($query) {
+                Rule::unique('center_cost')->where(function ($query) {
                     return $query->whereCode(trim($this->code))
-                        ->whereCustomerId(customerID());
+                                 ->whereCustomerId(customerID());
                 })->ignore($this->segment(5))
             ];
         }
@@ -37,10 +37,11 @@ class AccountPlanRequest extends FormRequest
     public function messages()
     {
         return [
-            'code.required' => "Código de la cuenta es obligatorio",
-            'code.unique' => "El valor del campo código ya está en uso.",
-            'name.required' => "Nombre de la cuenta es obligatorio",
-            'type.required' => "Tipo de cuenta es obligatorio",
+            'code.required' => "Código  es obligatorio",
+            'code.unique' => "El código ya está en uso.",
+            'name.required' => "Nombre es obligatorio",
+            'type.required' => "Tipo es obligatorio",
         ];
     }
+
 }

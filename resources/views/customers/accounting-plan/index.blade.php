@@ -13,7 +13,7 @@
                                     data-target="#importModalAccount">
                                 <i class="ti-upload mr-1"></i> Importar
                             </button>
-                            <a href="{{ route('admin.customers.accounting-plan.create',customerID()) }}" class="btn btn-outline-light btn-pulse btn-sm ml-2">
+                            <a href="{{ route('admin.customers.accounting-plan.create',customerID()) }}" class="btn btn-outline-primary btn-pulse btn-sm ml-2">
                                 <i class="ti-plus mr-1"></i> Nuevo
                             </a>
                         </div>

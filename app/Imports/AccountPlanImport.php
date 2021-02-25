@@ -32,7 +32,7 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
             if ($row['cuenta_analitica'] !== NULL) {
                 AccountPlan::updateOrCreate(
                     [
-                        'code' => $row['cuenta_analitica'],
+                        'code' => trim($row['cuenta_analitica']),
                         'customer_id' => $this->customer_id
                     ],
                     [
@@ -49,7 +49,7 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
             elseif ($row['sub_cuenta'] !== NULL) {
                 AccountPlan::updateOrCreate(
                     [
-                        'code' => $row['sub_cuenta'],
+                        'code' => trim($row['sub_cuenta']),
                         'customer_id' => $this->customer_id
 
                     ],
@@ -67,7 +67,7 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
             elseif ($row['cuenta'] !== NULL) {
                 AccountPlan::updateOrCreate(
                     [
-                        'code' => $row['cuenta'],
+                        'code' => trim($row['cuenta']),
                         'customer_id' => $this->customer_id
                     ],
                     [
