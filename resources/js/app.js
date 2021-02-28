@@ -16,7 +16,8 @@ Vue.component('add-plan-account', require('./components/plan-account/AddPlanAcco
 
 
 
-Vue.component('add-user', require('./components/users/AddUser').default);
+//Vue.component('add-user', require('./components/users/AddUser').default);
+Vue.component('user-form', require('./components/users/UserForm').default);
 
 
 Vue.component('add-customer', require('./components/customers/AddCustomer').default);
@@ -31,6 +32,10 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 import customer from './mixins/customer'
 Vue.mixin(customer);
+
+import routes from './mixins/routes'
+Vue.mixin(routes);
+
 
 const app = new Vue({
     el: '#app',

@@ -18,10 +18,8 @@ class CreateCollaboratorsTable extends Migration
             $table->string('code')->unique();
             $table->string('nro_document')->unique();
             $table->string('full_name')->unique();
-            $table->string('work_area_id');
-            $table->string('work_area');
-            $table->string('position');
             $table->string('date_start_work');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
         });

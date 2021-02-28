@@ -21,12 +21,13 @@ class CreateUsersTable extends Migration
             $table->string('nro_document')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique();
+            $table->text('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('raw_password')->nullable();
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_active')->default(true);
             $table->dateTime('last_login')->nullable();
-            $table->boolean('has_all_customers')->default(0);
+            $table->boolean('all_customers')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

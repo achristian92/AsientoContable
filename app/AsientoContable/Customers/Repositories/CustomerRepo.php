@@ -33,7 +33,11 @@ class CustomerRepo extends BaseRepository implements ICustomer
 
     public function listCustomers($columns = array('*'), string $orderBy = 'name', string $sortBy = 'asc'): Collection
     {
-        return $this->model->orderBy($orderBy,$sortBy)->get($columns);
+        $user = \Auth::user();
+        if ($user->all_customers)
+            return $this->model->orderBy($orderBy,$sortBy)->get($columns);
+
+        return $user->customers()->orderBy($orderBy,$sortBy)->get($columns);
     }
 
 

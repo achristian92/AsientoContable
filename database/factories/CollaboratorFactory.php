@@ -26,9 +26,9 @@ class CollaboratorFactory extends Factory
             'code' => $this->faker->unique()->randomNumber(5),
             'nro_document' => $this->faker->randomNumber(8),
             'full_name' => $this->faker->name(),
-            'work_area_id' => $this->faker->randomNumber(2),
-            'work_area' => $this->faker->jobTitle,
-            'position' => 'Web',
+            /*'work_area_id' => $this->faker->randomNumber(2),
+            'work_area' => $this->faker->jobTitle,*/
+           // 'position' => 'Web',
             'date_start_work' => $this->faker->dateTimeBetween('2021-01-01'),
             'customer_id' => $this->faker->randomElement(Customer::all()->pluck('id')->toArray()),
 

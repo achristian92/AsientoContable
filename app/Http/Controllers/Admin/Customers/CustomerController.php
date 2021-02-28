@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Customers;
 
 
 use App\AsientoContable\Customers\Customer;
+use App\AsientoContable\Customers\Requests\CustomerRequest;
 use App\AsientoContable\Customers\Requests\StoreCustomerRequest;
 use App\AsientoContable\Customers\Requests\UpdateCustomerRequest;
 use App\Http\Controllers\Controller;
@@ -31,7 +32,7 @@ class CustomerController extends Controller
         return view('admin.customers.create', ['model' => new Customer()]);
     }
 
-    public function store(StoreCustomerRequest $request)
+    public function store(CustomerRequest $request)
     {
         $this->customerRepo->createCustomer($request->all());
         return redirect()->route('admin.customers.index')->with('message',"Cliente creado");
@@ -42,7 +43,7 @@ class CustomerController extends Controller
         return view('admin.customers.edit', ['model' => $this->customerRepo->findCustomerById($id)]);
     }
 
-    public function update(UpdateCustomerRequest $request, int $id)
+    public function update(CustomerRequest $request, int $id)
     {
         if (isset($request->is_active))
             $request->merge(['is_active' => 1]);

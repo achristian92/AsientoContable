@@ -33,6 +33,7 @@ class CustomersImport implements ToCollection,WithHeadingRow
                     ],
                     [
                         'name' => $row['empresa'],
+                        'address' => $row['direccion'],
                     ]
                 );
         });

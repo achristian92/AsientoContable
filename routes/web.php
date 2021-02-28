@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\Customers\CustomerImportController;
 use App\Http\Controllers\Admin\MonthlyPayroll\MonthlyPayrollController;
 use App\Http\Controllers\Admin\PensionsFund\PensionFundController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Front\Users\UserController as ApiUserController;
 use App\Http\Controllers\Front\PlanAccount\PlanAccountController;
 
 Route::get('/', function () {
@@ -25,7 +26,7 @@ Route::get('test',\App\Http\Controllers\TestController::class);
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ], function () {
     Route::resource('customers', CustomerController::class);
     Route::post('customers-import', CustomerImportController::class)->name('customers.import');
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->except('store','update');
     Route::resource('pensions', PensionFundController::class);
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {
@@ -42,6 +43,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
 });
 
 Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
+    Route::resource('users', ApiUserController::class)->only('store','update');
+
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'api.customers.'],function () {
         //Route::get('plan-account-main', PlanAccountController::class);
         Route::resource('plan-account', PlanAccountController::class);

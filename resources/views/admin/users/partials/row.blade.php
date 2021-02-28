@@ -4,7 +4,7 @@
         <small class="text-muted"> {{ $user->present()->lastLogin() }} </small>
     </td>
     <td>{{ $user->present()->roles() }}</td>
-    <td>{{ $user->customers->count() }} clientes</td>
+    <td>{{ $user->present()->amountCustomers() }}</td>
     <td>{{ $user->present()->currentStatus()  }}</td>
     <td class="text-right">
         <div class="dropdown">

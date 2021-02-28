@@ -17,6 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('ruc')->unique()->nullable();
+            $table->text('address')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

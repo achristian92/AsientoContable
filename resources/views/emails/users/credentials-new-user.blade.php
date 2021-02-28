@@ -32,16 +32,13 @@
                                 <meta itemprop="name" content="Confirm Email" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                 <table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <tr>
-                                        <td><a href="#"><img src="{{ $user->company->urlImg() }}" alt="image" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 30px;"></a></td>
+                                        <td><a href="#"><img src="{{ $user->imgCompany() }}" alt="image" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 30px;"></a></td>
                                     </tr>
-                                    <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                        <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; color: #004deb; font-size: 20px; font-weight: 500; text-align: center; vertical-align: top; margin: 0; padding: 0 0 10px;"
-                                            valign="top">Bienvenido a BSW<small>suite</small></td>
-                                    </tr>
+                                    <br>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 10px 10px;" valign="top">
                                             <p >¡Hola <strong style="color: #1ab394">{{ $user->name }}!</strong>,
-                                                El equipo de <b>{{ $user->company->name }}</b> te da la bienvenida.
+                                                El equipo de <b>JGA</b> te da la bienvenida.
                                             </p>
                                             <p><b style="color: #00525d;">Tus credenciales</b></p>
                                             <ul>

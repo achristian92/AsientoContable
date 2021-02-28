@@ -15,9 +15,7 @@ class Customer extends Model
 
     protected $with = ['collaborators'];
 
-    protected $fillable = [
-        'name','ruc', 'is_active'
-    ];
+    protected $guarded = ['id'];
 
     public function collaborators()
     {
