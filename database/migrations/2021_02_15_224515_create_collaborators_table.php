@@ -15,9 +15,10 @@ class CreateCollaboratorsTable extends Migration
     {
         Schema::create('collaborators', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
-            $table->string('nro_document')->unique();
-            $table->string('full_name')->unique();
+            $table->string('code');
+            $table->string('type_document')->nullable();
+            $table->string('nro_document');
+            $table->string('full_name');
             $table->string('date_start_work');
             $table->boolean('is_active')->default(1);
             $table->timestamps();

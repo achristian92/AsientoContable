@@ -11,9 +11,11 @@ use App\Http\Controllers\Admin\CostCenter\CostCenter2Controller;
 use App\Http\Controllers\Admin\CostCenter\CostCenterController;
 use App\Http\Controllers\Admin\Customers\CustomerController;
 use App\Http\Controllers\Admin\Customers\CustomerImportController;
-use App\Http\Controllers\Admin\MonthlyPayroll\MonthlyPayrollController;
+use App\Http\Controllers\Admin\Payrolls\MonthlyPayrollController;
+use App\Http\Controllers\Admin\Payrolls\PayrollController;
 use App\Http\Controllers\Admin\PensionsFund\PensionFundController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Front\Payrolls\PayrollImportController;
 use App\Http\Controllers\Front\Users\UserController as ApiUserController;
 use App\Http\Controllers\Front\PlanAccount\PlanAccountController;
 
@@ -31,7 +33,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {
         Route::resource('collaborators', CollaboratorController::class);
-        Route::resource('monthly-payroll', MonthlyPayrollController::class);
+        Route::resource('payrolls', PayrollController::class);
+        Route::post('payroll-import', PayrollImportController::class)->name('payroll-import');
         Route::resource('accounting-seat', AccountingSeatController::class);
         Route::resource('cost-center', CostCenterController::class);
         Route::resource('cost-center2', CostCenter2Controller::class);

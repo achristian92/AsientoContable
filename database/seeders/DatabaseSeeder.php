@@ -14,9 +14,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            CustomerSeeder::class,
-            CollaboratorSeeder::class,
+            //CustomerSeeder::class,
+            //CollaboratorSeeder::class,
+            PensionSeeder::class,
         ]);
-        // \App\Models\User::factory(10)->create();
     }
 }

@@ -22,6 +22,7 @@ class CreatePayrollsTable extends Migration
             $table->date('date_entry');
             $table->date('date_termination')->nullable();
             $table->string('pension_short');
+            $table->string('pension');
             $table->string('currency')->default('MN');
             $table->integer('nro_days_worked')->default(0);
             $table->integer('nro_hours_worked')->default(0);
@@ -33,6 +34,7 @@ class CreatePayrollsTable extends Migration
             $table->double('total_income')->default(0);
             $table->double('pension_discount')->default(0);
             $table->double('insurance_discount')->default(0);
+            $table->double('commission_discount')->default(0);
             $table->double('fifth_category')->default(0);
             $table->double('with_eps')->default(0);
             $table->double('total_expense')->default(0);
@@ -42,6 +44,7 @@ class CreatePayrollsTable extends Migration
             $table->foreignId('collaborator_id')->constrained()->cascadeOnDelete();
             $table->date('payroll_date')->nullable();
             $table->unsignedBigInteger('file_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->timestamps();
         });
     }

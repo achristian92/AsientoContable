@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePensionFundTable extends Migration
+class CreateFilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePensionFundTable extends Migration
      */
     public function up()
     {
-        Schema::create('pension_fund', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->string('short');
             $table->string('name');
-            $table->boolean('is_active')->default(true);
+            $table->date('month_payroll');
+            $table->text('url_file');
+            $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreatePensionFundTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pension_fund');
+        Schema::dropIfExists('files');
     }
 }

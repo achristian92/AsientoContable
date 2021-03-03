@@ -1,16 +1,14 @@
 <?php
 
 
-namespace App\AsientoContable\Collaborators;
+namespace App\AsientoContable\Files;
+
 
 use App\AsientoContable\Payrolls\Payroll;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Collaborator extends Model
+class File extends Model
 {
-    use HasFactory;
-
     protected $guarded = ['id'];
 
     public function payrolls()

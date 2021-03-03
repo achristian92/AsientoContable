@@ -18,8 +18,8 @@
                 @if ($userCurrent->isAdmin())
                 <li><a href="{{ route('admin.users.index') }}" class="{{ isActiveRoute(2,'users') }}">Usuarios</a></li>
                 @endif
-                <li><a href="">Moneda </a></li>
-                <li><a href="{{ route('admin.pensions.index') }}" class="{{ isActiveRoute(2,'pensions') }}">Fondo pensiones</a></li>
+                {{--<li><a href="">Moneda </a></li>--}}
+                {{--<li><a href="{{ route('admin.pensions.index') }}" class="{{ isActiveRoute(2,'pensions') }}">Fondo pensiones</a></li>--}}
             </ul>
         </div>
     </div>
