@@ -24,6 +24,14 @@
                                 </a>
                             @endforeach
                         </div>
+                        <div class="card-body">
+                            <h6 class="mb-4 text-muted">Aún no tienes planillas cargadas</h6>
+                            <div class="align-items-center">
+                                <div class="card">
+                                    <img src="{{ asset('img/upload_fle.png') }}" style="object-fit: cover" class="card-img-top" alt="...">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
