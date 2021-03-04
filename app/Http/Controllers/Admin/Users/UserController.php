@@ -31,15 +31,20 @@ class UserController extends Controller
     public function create()
     {
         return view('admin.users.create',[
+            'model' => new User(),
             'customers' => $this->customerRepo->listCustomersActivated(),
             'roles'     => Role::all(),
-            'model' => new User()
         ]);
     }
 
-    public function edit(int $id)
+    public function edit(User $user)
     {
-        return view('admin.users.edit',['model' => $this->userRepo->findUserById($id)]);
+        return view('admin.users.edit',[
+            'model' => $this->userRepo->findUserById($user->id),
+            'RolesIDS' => $user->roles()->pluck('id')->toArray(),
+            'customers' => $this->customerRepo->listCustomersActivated(),
+            'roles'     => Role::all()
+        ]);
     }
 
 }

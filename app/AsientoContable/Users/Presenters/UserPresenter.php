@@ -10,6 +10,13 @@ use Illuminate\Support\HtmlString;
 
 class UserPresenter extends Presenter
 {
+    public function amountCustomers()
+    {
+        if ($this->model->all_customers)
+            return 'Todos clientes';
+
+        return count($this->model->customers).' clientes';
+    }
     public function currentStatus()
     {
         if ($this->model->is_active)

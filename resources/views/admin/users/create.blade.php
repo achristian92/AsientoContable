@@ -4,7 +4,10 @@
         'title' => 'Usuarios',
         'tab' => 'Accesos',
     ])
-    <add-user :p_roles="{{ $roles }}"></add-user>
+    <user-form :p_roles="{{ $roles }}"
+               :p_customers="{{ $customers }}"
+    >
+    </user-form>
 @endsection
 @push('js')
 @endpush

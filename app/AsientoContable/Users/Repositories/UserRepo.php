@@ -19,12 +19,12 @@ class UserRepo extends BaseRepository implements IUser
     }
     public function findUserById(int $id): User
     {
-        return $this->model->findOrFail($id);
+        return $this->model::with('customers')->findOrFail($id);
     }
 
     public function listUsers($columns = array('*'), string $orderBy = 'name', string $sortBy = 'asc'): Collection
     {
-        return $this->model->orderBy($orderBy,$sortBy)->get();
+        return $this->model::with('customers','roles')->orderBy($orderBy,$sortBy)->get();
     }
 
     public function createUser(array $data): User
@@ -54,4 +54,23 @@ class UserRepo extends BaseRepository implements IUser
     }
 
 
+    public function updateUser(array $data, int $id): bool
+    {
+        $user = $this->findUserById($id);
+        return $user->update($data);
+    }
+
+    public function assignDefaultRole(User $user): User
+    {
+        return $user->assignRole('Usuario');
+    }
+    public function syncCustomers(User $user, array $params): void
+    {
+        $user->customers()->sync($params);
+    }
+
+    public function detachCustomers(User $user): void
+    {
+        $user->customers()->detach();
+    }
 }

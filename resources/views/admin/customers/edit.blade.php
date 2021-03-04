@@ -9,7 +9,7 @@
         @slot('content')
             @include('components.errors-and-messages')
             <form method="POST" action="{{route('admin.customers.update',$model->id)}}">
-                @method('PATCH')
+                @method('PUT')
                 @include('admin.customers.partials.fields',[
                 'back'=> route('admin.customers.index')
                 ])

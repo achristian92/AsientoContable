@@ -9,6 +9,12 @@
         @include('components.input-sm',['name' => 'ruc'])
     </div>
 </div>
+<div class="form-row mb-1">
+    <div class="form-group col-md-12">
+        <label for="inputEmail4">Dirección</label>
+        @include('components.input-sm',['name' => 'address'])
+    </div>
+</div>
 @if(isset($model->id))
     <div class="form-check mt-0">
         <input

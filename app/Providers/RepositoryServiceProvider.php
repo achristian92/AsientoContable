@@ -4,8 +4,8 @@
 namespace App\Providers;
 
 
-use App\AsientoContable\AccountPlan\CenterCosts\Repositories\CenterCostRepo;
-use App\AsientoContable\AccountPlan\CenterCosts\Repositories\ICenterCost;
+use App\AsientoContable\CenterCosts\Repositories\CenterCostRepo;
+use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\AccountPlan\Repositories\AccountPlanRepo;
 use App\AsientoContable\AccountPlan\Repositories\IAccountPlan;
 use App\AsientoContable\Collaborators\Repositories\CollaboratorRepo;

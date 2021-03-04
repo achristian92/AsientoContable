@@ -33,6 +33,7 @@
     },
     "dependencies": {
         "vue-loading-overlay": "^3.4.2",
+        "vue-multiselect": "^2.1.6",
         "vue-toast-notification": "^0.6.0"
     }
 }

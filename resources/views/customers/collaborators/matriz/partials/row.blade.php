@@ -1,11 +1,7 @@
 <tr>
     <td>
         {{ $collaborator->full_name }}<br>
-        <small class="text-muted"> Cód: {{ $collaborator->code }} - Nro: {{ $collaborator->nro_document }} </small>
-    </td>
-    <td>
-        {{ $collaborator->work_area }}<br>
-        <small class="text-muted"> Cargo: {{ $collaborator->position }} </small>
+        <small class="text-muted"> Código: {{ $collaborator->code }} - Nro identidad: {{ $collaborator->nro_document }} </small>
     </td>
     <td>
         {{ formatDate($collaborator->date_start_work) }}

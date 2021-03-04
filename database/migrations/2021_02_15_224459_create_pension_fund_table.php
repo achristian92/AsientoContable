@@ -15,8 +15,9 @@ class CreatePensionFundTable extends Migration
     {
         Schema::create('pension_fund', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
+            $table->string('short');
             $table->string('name');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
