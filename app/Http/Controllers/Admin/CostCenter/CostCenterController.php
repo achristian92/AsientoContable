@@ -4,7 +4,7 @@
 namespace App\Http\Controllers\Admin\CostCenter;
 
 
-use App\AsientoContable\CenterCosts\CenterCost;
+use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\CenterCosts\Requests\CenterCostRequest;
 use App\Http\Controllers\Controller;
@@ -29,7 +29,7 @@ class CostCenterController extends Controller
     public function create()
     {
         return view('customers.cost-center.create',[
-            'model' => new CenterCost(),
+            'model' => new Cost(),
         ]);
     }
 
@@ -54,7 +54,7 @@ class CostCenterController extends Controller
     public function update(CenterCostRequest $request,$customer_id,$id)
     {
         $this->centerCostRepo->updateCostCenter($request->all(),$id);
-        return redirect()->route('admin.customers.cost-center.index',[$customer_id,'type='.$request->type])->with('message',"Registro actualizado");
+        return redirect()->route('admin.customers.cost-center.index',[$customer_id])->with('message',"Registro actualizado");
     }
 
 }

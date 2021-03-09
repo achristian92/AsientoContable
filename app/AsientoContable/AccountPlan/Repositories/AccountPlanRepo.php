@@ -50,12 +50,13 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
         $data = $this->model::with('childrenRecursive')->whereCustomerId(customerID())->get()
                 ->map(function ($account){
                     return [
-                        'id' => $account['id'],
-                        'code' => $account['code'],
-                        'name' => $account['name'],
-                        'type' => $account['type'],
+                        'id'        => $account['id'],
+                        'code'      => $account['code'],
+                        'name'      => $account['name'],
+                        'import'    => $account['import'],
+                        'type'      => $account['type'],
                         'parent_id' => $account['parent_id'],
-                        'children' => []
+                        'children'  => []
                     ];
                 })->sortBy('code');
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Str;
 
 class AccountPlanImport implements ToCollection,WithHeadingRow
 {
@@ -22,45 +23,47 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
 
     public function headingRow(): int
     {
-        return 1;
+        return 7;
     }
 
     public function collection(Collection $collection)
     {
         $collection->each(function ($row,$key) {
             $this->validationRow($row, $key);
-            if ($row['cuenta_analitica'] !== NULL) {
+            if ($row['analitica'] !== NULL) {
                 AccountPlan::updateOrCreate(
                     [
-                        'code' => trim($row['cuenta_analitica']),
+                        'code' => trim($row['analitica']),
                         'customer_id' => $this->customer_id
                     ],
                     [
-                        'parent_id' => substr($row['cuenta_analitica'],0,3),
+                        'parent_id' => substr($row['analitica'],0,3),
                         'category' => AccountPlan::TYPE_ACCOUNT,
                         'name' => $row['descripcion'],
-                        'type' => $row['bal'],
+                        'type' => $row['tipo'],
                         'is_analyzable' => $row['analisis'] === 'SI',
-                        'has_center_cost' => $row['centro_de_costos'] === 'SI',
-                        'has_center_cost2' => $row['centro_de_costos_2'] === 'SI',
+                        'has_center_cost' => $row['c_costos'] === 'SI',
+                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
+                        'import' => $row['cabecera_importar'],
+                        'import_slug' => Str::slug($row['cabecera_importar'],'_'),
                     ]
                 );
             }
-            elseif ($row['sub_cuenta'] !== NULL) {
+            elseif ($row['subcuenta'] !== NULL) {
                 AccountPlan::updateOrCreate(
                     [
-                        'code' => trim($row['sub_cuenta']),
+                        'code' => trim($row['subcuenta']),
                         'customer_id' => $this->customer_id
 
                     ],
                     [
-                        'parent_id' => substr($row['sub_cuenta'],0,2),
+                        'parent_id' => substr($row['subcuenta'],0,2),
                         'category' => AccountPlan::TYPE_SUBACCOUNT,
                         'name' => $row['descripcion'],
-                        'type' => $row['bal'],
+                        'type' => $row['tipo'],
                         'is_analyzable' => $row['analisis'] === 'SI',
-                        'has_center_cost' => $row['centro_de_costos'] === 'SI',
-                        'has_center_cost2' => $row['centro_de_costos_2'] === 'SI',
+                        'has_center_cost' => $row['c_costos'] === 'SI',
+                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
                     ]
                 );
             }
@@ -74,10 +77,10 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
                         'parent_id' => 0,
                         'category' => AccountPlan::TYPE_ROOT,
                         'name' => $row['descripcion'],
-                        'type' => $row['bal'],
+                        'type' => $row['tipo'],
                         'is_analyzable' => $row['analisis'] === 'SI',
-                        'has_center_cost' => $row['centro_de_costos'] === 'SI',
-                        'has_center_cost2' => $row['centro_de_costos_2'] === 'SI',
+                        'has_center_cost' => $row['c_costos'] === 'SI',
+                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
                     ]
                 );
             }
@@ -87,7 +90,7 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
 
     private function validationRow($row, int $key)
     {
-        $currentRow = $key + 2;
+        $currentRow = $key + 8;
 
         $messages = [
             'required'    => "El campo :attribute es requerido en la fila $currentRow.",
@@ -96,10 +99,10 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
 
         Validator::make($row->toArray(), [
             'descripcion' => 'required',
-            'bal'     => ['required',Rule::in(['GASTO', 'PASIVO'])],
+            'tipo'     => ['required',Rule::in(['GASTO', 'PASIVO'])],
             'analisis' => ['required', Rule::in(['SI', 'NO'])],
-            'centro_de_costos' => ['required', Rule::in(['SI', 'NO'])],
-            'centro_de_costos_2' => ['required', Rule::in(['SI', 'NO'])],
+            'c_costos' => ['required', Rule::in(['SI', 'NO'])],
+            'c_costos_2' => ['required', Rule::in(['SI', 'NO'])],
         ], $messages)->validate();
 
     }

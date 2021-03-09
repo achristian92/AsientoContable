@@ -13,11 +13,10 @@ class CreateCenterCostTable extends Migration
      */
     public function up()
     {
-        Schema::create('center_cost', function (Blueprint $table) {
+        Schema::create('costs', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->string('type');
             $table->timestamps();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
         });
@@ -30,6 +29,6 @@ class CreateCenterCostTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('center_cost');
+        Schema::dropIfExists('costs');
     }
 }

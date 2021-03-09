@@ -13,19 +13,18 @@ class CenterCostRequest extends FormRequest
         $rules = [
             'code' => [
                 'required',
-                Rule::unique('center_cost')->where(function ($query) {
+                Rule::unique('costs')->where(function ($query) {
                     return $query->whereCode(trim($this->code))
                                  ->whereCustomerId(customerID());
                 })
             ],
             'name' => 'required|max:255',
-            'type' => 'required',
         ];
 
         if ($this->isMethod('PUT')) {
             $rules['code'] = [
                 'required',
-                Rule::unique('center_cost')->where(function ($query) {
+                Rule::unique('costs')->where(function ($query) {
                     return $query->whereCode(trim($this->code))
                                  ->whereCustomerId(customerID());
                 })->ignore($this->segment(5))
@@ -40,7 +39,6 @@ class CenterCostRequest extends FormRequest
             'code.required' => "Código  es obligatorio",
             'code.unique' => "El código ya está en uso.",
             'name.required' => "Nombre es obligatorio",
-            'type.required' => "Tipo es obligatorio",
         ];
     }
 

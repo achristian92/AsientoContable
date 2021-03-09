@@ -4,7 +4,7 @@
 namespace App\AsientoContable\CenterCosts\Repositories;
 
 
-use App\AsientoContable\CenterCosts\CenterCost;
+use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -14,18 +14,19 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
 
     public function model()
     {
-        return CenterCost::class;
+        return Cost::class;
     }
 
-    public function finCostCenterById(int $id): CenterCost
+    public function finCostCenterById(int $id): Cost
     {
         return $this->model->findOrFail($id);
     }
 
-    public function createCostCenter(array $data): CenterCost
+    public function createCostCenter(array $data): Cost
     {
         $data['customer_id'] = customerID();
-        return $this->model->create($data);    }
+        return $this->model->create($data);
+    }
 
     public function updateCostCenter(array $data, int $id): bool
     {
@@ -35,17 +36,10 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
 
     public function listCostsCenter($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
-        return $this->model->whereType($this->model::TYPE_CUSTOMER)
-                           ->whereCustomerId(customerID())
-                           ->orderBy($orderBy,$sortBy)
-                           ->get();
+        return $this->model::whereCustomerId(customerID())
+                   ->orderBy($orderBy,$sortBy)
+                   ->get();
     }
 
-    public function listCostsCenter2($columns = array('*'), string $orderBy = 'id', string $sortBy = 'asc'): Collection
-    {
-        return $this->model->whereType($this->model::TYPE_EMPLOYEE)
-                           ->whereCustomerId(customerID())
-                           ->orderBy($orderBy,$sortBy)
-                           ->get();
-    }
+
 }

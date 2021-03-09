@@ -4,8 +4,7 @@
 namespace App\Http\Controllers\Admin\CostCenter;
 
 
-use App\AsientoContable\CenterCosts\CenterCost;
-use App\Imports\CenterCostImport;
+use App\Imports\CostCenter2Import;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,7 +16,7 @@ class CenterCost2ImportController
             'file_upload' => 'required|file|mimes:xls,xlsx'
         ]);
 
-        Excel::import(new CenterCostImport($customer_id,CenterCost::TYPE_EMPLOYEE), $request->file('file_upload'));
+        Excel::import(new CostCenter2Import($customer_id), $request->file('file_upload'));
 
         return redirect()
             ->route('admin.customers.cost-center2.index',$customer_id)

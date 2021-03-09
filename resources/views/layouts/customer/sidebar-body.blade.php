@@ -16,20 +16,19 @@
             {{ isOpenRoute(4,'cost-center') }} || {{ isOpenRoute(4,'cost-center2') }} ||
             {{ isOpenRoute(4,'accounting-plan') }} || {{ isOpenRoute(4,'accounting-seat') }}">
             <ul>
-                <li class="navigation-divider">Cliente</li>
-                <li class="{{ isOpenRoute(4,'collaborators') }} || {{ isOpenRoute(4,'payrolls') }} || {{ isOpenRoute(4,'accounting-seat') }}">
-                    <a href="#">Colaboradores</a>
-                    <ul>
-                        <li><a href="{{ route('admin.customers.collaborators.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'collaborators') }}">Matriz</a></li>
-                        <li><a href="{{ route('admin.customers.payrolls.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'payrolls') }}">Planilla mensual</a></li>
-                        <li><a href="{{ route('admin.customers.accounting-seat.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'accounting-seat') }}">Asiento contable</a></li>
-                        <li><a href="">Asignación de costos</a></li>
-                        <li><a href="">Gestión boleta</a></li>
-                    </ul>
-                </li>
-                <li><a href="{{ route('admin.customers.cost-center.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center') }}">Centro costos</a></li>
-                <li><a href="{{ route('admin.customers.cost-center2.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center2') }}">Centro costos 2</a></li>
-                <li><a href="{{ route('admin.customers.accounting-plan.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'accounting-plan') }}">Plan contable</a></li>
+                <li class="navigation-divider text-center mb-0">{{ \Illuminate\Support\Str::limit($currentCustomer->name,20) }}</li>
+                <hr class="mt-0">
+                <li class="navigation-divider m-0 text-light font-weight-bold">Planilla</li>
+                <li><a href="{{ route('admin.customers.collaborators.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'collaborators') }} ml-3">Colaboradores</a></li>
+                <li><a href="{{ route('admin.customers.payrolls.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'payrolls') }} ml-3">Planilla mensual</a></li>
+                <li><a href="{{ route('admin.customers.accounting-seat.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'accounting-seat') }} ml-3">Asiento contable</a></li>
+                <li><a href="" class="ml-3">Asignación de costos</a></li>
+                <li><a href="" class="ml-3">Gestión boleta</a></li>
+
+                <li class="navigation-divider m-0 text-light font-weight-bold">Configuración</li>
+                <li><a href="{{ route('admin.customers.cost-center.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center') }} ml-3">Centro costos</a></li>
+                <li><a href="{{ route('admin.customers.cost-center2.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center2') }} ml-3">Centro costos 2</a></li>
+                <li><a href="{{ route('admin.customers.accounting-plan.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'accounting-plan') }} ml-3">Plan contable</a></li>
             </ul>
         </div>
     </div>

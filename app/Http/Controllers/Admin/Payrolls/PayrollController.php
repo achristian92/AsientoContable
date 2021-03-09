@@ -6,10 +6,18 @@ namespace App\Http\Controllers\Admin\Payrolls;
 
 use App\AsientoContable\Files\File;
 use App\AsientoContable\Payrolls\Payroll;
+use App\AsientoContable\Payrolls\Repositories\IPayroll;
 use App\Http\Controllers\Controller;
 
 class PayrollController extends Controller
 {
+    private $payrollRepo;
+
+    public function __construct(IPayroll $IPayroll)
+    {
+        $this->payrollRepo = $IPayroll;
+    }
+
     public function index()
     {
         return view('customers.collaborators.monthly-payroll.index',[
@@ -21,7 +29,7 @@ class PayrollController extends Controller
     {
         return view('customers.collaborators.monthly-payroll.show',[
             'file' => File::find($id),
-            'payrolls' => Payroll::with('collaborator')->whereFileId($id)->get(),
+            'payrolls' => $this->payrollRepo->listPayrolls($id),
             'files' => File::with('payrolls')->whereCustomerId(customerID())->orderBy('id','desc')->get()
         ]);
     }
