@@ -23,7 +23,8 @@ class PayrollImportController extends Controller
             'month'       => 'required|date'
         ]);
 
-        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'));
+       /* $headings = (new HeadingRowImport)->toArray($request->file('file_upload'));
+        DD($headings);*/
 
         $date = Carbon::parse($request->month);
 
@@ -41,8 +42,8 @@ class PayrollImportController extends Controller
 
         Excel::import(new PayrollImport($customer_id,$date,$file->id), $request->file('file_upload'));
 
-        return back()->with('message','Información cargada');
-
+        return redirect()->route('admin.customers.payrolls.show',[$customer_id,$file->id])
+                         ->with('message','Información cargada');
     }
 
 }

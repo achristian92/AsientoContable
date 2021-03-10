@@ -1,5 +1,4 @@
 @csrf
-<input type="text" name="type" value="{{ \App\AsientoContable\CenterCosts\CenterCost::TYPE_EMPLOYEE }}" hidden>
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
         <label for="cod">Código</label>

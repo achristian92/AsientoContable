@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\PensionFund\PensionFund;
@@ -47,7 +48,9 @@ class PayrollImport implements ToCollection,WithHeadingRow
                     'date_start_work' => $row['fec_ing'],
                 ]
             );
-            $employee->payrolls()->updateOrCreate(
+
+
+            $payroll = $employee->payrolls()->updateOrCreate(
                 [
                     'payroll_date'    => $this->month,
                     'collaborator_id' => $employee->id,
@@ -83,6 +86,17 @@ class PayrollImport implements ToCollection,WithHeadingRow
                     'file_id'             => $this->file,
                 ]
             );
+
+            $costCode = $this->costSearch($row['centro_costo']);
+            if (!empty($costCode)) {
+                $syncData = array_map(function ($params) {
+                    return [ 'month_payroll' => $this->month ];
+                }, array_flip($costCode));
+
+                $payroll->costs()->sync($syncData);
+            } else
+                $payroll->costs()->detach([]);
+
         });
     }
 
@@ -99,6 +113,10 @@ class PayrollImport implements ToCollection,WithHeadingRow
 
         Validator::make($row->toArray(), [
             'cod_trab'            => 'required',
+            'centro_costo'        => [
+                'nullable',
+                Rule::in(Cost::whereCustomerId($this->customer)->get()->pluck('code')->toArray())
+            ],
             'apellidos_y_nombres' => 'required',
             'doc_identidad'       => 'required',
             'fec_ing'             => 'required|date',
@@ -140,6 +158,14 @@ class PayrollImport implements ToCollection,WithHeadingRow
         } catch (\ErrorException $e) {
             return Carbon::createFromFormat($format, $value);
         }
+    }
+
+    private function costSearch($code = NULL): array
+    {
+        if ($code === '' || $code === NULL)
+            return [];
+
+        return [Cost::whereCustomerId($this->customer)->whereCode($code)->first()->id];
     }
 
 }

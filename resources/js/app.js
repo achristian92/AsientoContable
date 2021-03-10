@@ -11,6 +11,9 @@ import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(VueToast)
 
 
+Vue.component('payrolls-index', require('./components/payrolls/Payrolls').default);
+Vue.component('payrolls-data-table', require('./components/payrolls/PayrollShow').default);
+
 
 Vue.component('add-plan-account', require('./components/plan-account/AddPlanAccount').default);
 
@@ -22,9 +25,6 @@ Vue.component('user-form', require('./components/users/UserForm').default);
 
 Vue.component('add-customer', require('./components/customers/AddCustomer').default);
 Vue.component('edit-customer', require('./components/customers/EditCustomer').default);
-
-Vue.component('add-provider', require('./components/providers/AddProvider').default);
-Vue.component('edit-provider', require('./components/providers/EditProvider').default);
 
 
 Vue.component('validation-errors', require('./components/shared/ValidationErrors').default);

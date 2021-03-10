@@ -4,7 +4,7 @@
 namespace App\Imports;
 
 
-use App\AsientoContable\CenterCosts\CenterCost;
+use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\Customers\Customer;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
@@ -14,12 +14,10 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class CenterCostImport implements ToCollection,WithHeadingRow
 {
     private $customer_id;
-    private $type;
 
-    public function __construct(int $customer_id,string $type = 'customer')
+    public function __construct(int $customer_id)
     {
         $this->customer_id = $customer_id;
-        $this->type = $type;
     }
 
     public function headingRow(): int
@@ -33,14 +31,13 @@ class CenterCostImport implements ToCollection,WithHeadingRow
 
             $this->validationRow($row, $key);
 
-            CenterCost::updateOrCreate(
+            Cost::updateOrCreate(
                 [
                     'code'  => trim($row['cod']),
                     'customer_id' => $this->customer_id
                 ],
                 [
                     'name' => $row['descripcion'],
-                    'type' => $this->type
                 ]
             );
         });
