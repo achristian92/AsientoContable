@@ -4,7 +4,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col">
-                    <a href="{{ url()->previous() }}" class="btn btn-outline-light btn-sm">
+                    <a href="{{ route('admin.customers.payrolls.show',[$payroll->customer,$payroll->file]) }}" class="btn btn-outline-light btn-sm">
                         <i class="ti-back-left mr-2"></i>
                         Regresar
                     </a>
@@ -184,6 +184,86 @@
                     </div>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive mt-5" tabindex="2" style="overflow: hidden; outline: none;">
+                        <table class="table table-borderless table-striped mb-0 table-sm">
+                            <thead>
+                            <tr class="bg-info-bright">
+                                <th class="wd-20 text-center">CONCEPTOS</th>
+                                <th class="wd-10 text-center text-center">CTA</th>
+                                <th class="wd-50 text-center text-center">DETALLE</th>
+                                <th class="wd-10 text-center">DEBE</th>
+                                <th class="wd-10 text-center">HABER</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="font-size-11">
+                                <td class="bg-primary-gradient">Remuneración Básica</td>
+                                <td class="text-center">{{ $payroll->concepts['salary']['code'] }}</td>
+                                <td>{{ $payroll->concepts['salary']['name'] }}</td>
+                                <td class="text-right">{{ $payroll->concepts['salary']['amount'] }}</td>
+                                <td class="text-right"></td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="bg-primary-gradient">Asignación Familiar</td>
+                                <td class="text-center">{{ $payroll->concepts['family']['code'] }}</td>
+                                <td>{{ $payroll->concepts['family']['name'] }}</td>
+                                <td class="text-right">{{ $payroll->concepts['family']['amount'] }}</td>
+                                <td class="text-right"></td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="bg-danger-gradient">Fondo Pensión</td>
+                                <td class="text-center">{{ $payroll->concepts['pension']['code'] }}</td>
+                                <td>{{ $payroll->concepts['pension']['name'] }}</td>
+                                <td class="text-right"></td>
+                                <td class="text-right">{{ $payroll->concepts['pension']['amount'] }}</td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="bg-danger-gradient">Renta de 5ta. Categoría</td>
+                                <td class="text-center">{{ $payroll->concepts['5cat']['code'] }}</td>
+                                <td>{{ $payroll->concepts['5cat']['name'] }}</td>
+                                <td class="text-right"></td>
+                                <td class="text-right">{{ $payroll->concepts['5cat']['amount'] }}</td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="bg-danger-gradient">EPS Empleado</td>
+                                <td class="text-center">{{ $payroll->concepts['eps']['code'] }}</td>
+                                <td>{{ $payroll->concepts['eps']['name'] }}</td>
+                                <td class="text-right"></td>
+                                <td class="text-right">{{ $payroll->concepts['eps']['amount'] }}</td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="bg-success-gradient">EsSalud</td>
+                                <td class="text-center">{{ $payroll->concepts['essalud_g']['code'] }}</td>
+                                <td>{{ $payroll->concepts['essalud_g']['name'] }}</td>
+                                <td class="text-right">{{ $payroll->concepts['essalud_g']['amount'] }}</td>
+                                <td class="text-right"></td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="bg-success-gradient">Total Aporte</td>
+                                <td class="text-center">{{ $payroll->concepts['total_pay']['code'] }}</td>
+                                <td>{{ $payroll->concepts['total_pay']['name'] }}</td>
+                                <td class="text-right"></td>
+                                <td class="text-right">{{ $payroll->concepts['total_pay']['amount'] }}</td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td class="">EsSalud</td>
+                                <td class="text-center">{{ $payroll->concepts['essalud_p']['code'] }}</td>
+                                <td>{{ $payroll->concepts['essalud_p']['name'] }}</td>
+                                <td class="text-right"></td>
+                                <td class="text-right">{{ $payroll->concepts['essalud_p']['amount'] }}</td>
+                            </tr>
+                            <tr class="font-size-11">
+                                <td colspan="3"></td>
+                                <td class="text-right font-weight-800">{{ $payroll->totalExpense }}</td>
+                                <td class="text-right font-weight-800">{{ $payroll->totalPasive }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

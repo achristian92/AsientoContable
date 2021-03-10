@@ -22,7 +22,11 @@ class HeaderSeeder extends Seeder
             'EsSalud(P)',
             'EsSalud(G)',
             'O.N.P(P)',
-            'Sueldo(P)'
+            'Sueldo(P)',
+            'IN - AFP INTEGRA',
+            'HA - AFP HABITAT',
+            'PR - AFP PROFUTURO',
+            'PM - AFP PRIMA',
         ]);
         $headers->each(function ($item) {
            \DB::table('headers')->insert([

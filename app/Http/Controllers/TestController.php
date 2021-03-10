@@ -33,14 +33,16 @@ class TestController extends Controller
 
     public function __invoke()
     {
-
-        $collaborator = Payroll::with('costs')->find(2);
-
-
-
-        DD($collaborator);
+        $account = AccountPlan::whereCustomerId(1)->get()->whereNotIn('import_slug','');
+        $data = Payroll::find(4);
+        $trans = $this->transformPaybleDetail($data,$account);
+        $pluck = $trans->concepts->where('type','GASTO')->pluck('raw_amount')->sum();
+        $pluck2 = $trans->concepts->where('type','PASIVO')->pluck('raw_amount')->sum();
+        dd($trans,$pluck,$pluck2);
 
     }
+
+
 
 
 }

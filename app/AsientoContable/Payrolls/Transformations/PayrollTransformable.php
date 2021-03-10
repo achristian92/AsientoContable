@@ -4,6 +4,7 @@
 namespace App\AsientoContable\Payrolls\Transformations;
 
 
+use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\Payrolls\Payroll;
 use Carbon\Carbon;
 
@@ -27,13 +28,13 @@ trait PayrollTransformable
         return $model;
     }
 
-    public function transformPaybleDetail(Payroll $payroll)
+    public function transformPaybleDetail(Payroll $payroll,$account)
     {
-
-
         $payrollMonth = Carbon::parse($payroll->payroll_date);
         $model = new Payroll();
         $model->id             = $payroll->id;
+        $model->customer       = $payroll->customer_id;
+        $model->file           = $payroll->file_id;
         $model->code           = $payroll->collaborator->code;
         $model->employee       = ucwords(strtolower($payroll->collaborator->full_name));
         $model->payroll_month  = 'Planilla '.ucfirst($payrollMonth->monthName).'-'.$payrollMonth->year;
@@ -47,7 +48,9 @@ trait PayrollTransformable
         $model->worked_days    = $payroll->nro_days_worked;
         $model->worked_hours   = $payroll->nro_hours_worked;
 
-        $model->has_household  = $payroll->family_allowance ? 'Si' : 'No';
+        $model->has_household  = $payroll->family_allowance ? 'Si - S/'. number_format($payroll->family_allowance,2) : 'No';
+        $model->household_amount  = $payroll->family_allowance ? 'S/'.number_format($payroll->family_allowance,2) : '';
+
         $model->pension        = $payroll->pension;
         $model->salary         = 'S/'.number_format($payroll->base_salary,2);
 
@@ -76,8 +79,149 @@ trait PayrollTransformable
             return $total + $item['percentage'];
         }, 0);
 
+        $concepts = collect([
+            'salary'    => $this->calculateSalary($payroll,$account),
+            'family'    => $this->calculateAssignFamily($payroll,$account),
+            'pension'   => $this->calculatePension($payroll,$account),
+            '5cat'      => $this->calculate5Cat($payroll,$account),
+            'eps'       => $this->calculateEPS($payroll,$account),
+            'essalud_g' => $this->calculatehealthExpense($payroll,$account),
+            'total_pay' => $this->calculateNetToPay($payroll,$account),
+            'essalud_p' => $this->calculatehealthPasive($payroll,$account),
+        ]);
+
+        $model->concepts = $concepts;
+        $model->totalExpense = $concepts->where('type','GASTO')->pluck('raw_amount')->sum();
+        $model->totalPasive = $concepts->where('type','PASIVO')->pluck('raw_amount')->sum();
 
         return $model;
+    }
+
+    private function calculateSalary($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','remuneracion_basicag');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->base_salary,2),
+            'raw_amount' => (float)$payroll->base_salary,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculateAssignFamily($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','asignacion_familiarg');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->family_allowance,2),
+            'raw_amount' => (float)$payroll->family_allowance,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculatePension($payroll,$accounts):array
+    {
+        $data = $accounts->firstWhere('import_slug',$this->searchPensionName($payroll->pension_short));
+        if ($payroll->short_pension === 'ON') {
+            return [
+                'code' => $data->code,
+                'name' => $data->name,
+                'amount' => $payroll->pension_discount,
+                'raw_amount' => (float)$payroll->pension_discount,
+                'type' => $data->type
+            ];
+        }
+        $total = $payroll->pension_discount + $payroll->insurance_discount + $payroll->commission_discount;
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($total,2),
+            'raw_amount' => (float)$total,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculate5Cat($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','renta_de_5ta_categoriap');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->fifth_category,2),
+            'raw_amount' => (float)$payroll->fifth_category,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculateEPS($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','eps_empleadog');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->with_eps,2),
+            'raw_amount' => (float)$payroll->with_eps,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculatehealthExpense($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','essaludg');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->esshealth,2),
+            'raw_amount' => (float)$payroll->esshealth,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculateNetToPay($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','sueldop');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->net_pay,2),
+            'raw_amount' => (float)$payroll->net_pay,
+            'type' => $data->type
+        ];
+    }
+
+    private function calculatehealthPasive($payroll, $account): array
+    {
+        $data = $account->firstWhere('import_slug','essaludp');
+        return [
+            'code' => $data->code,
+            'name' => $data->name,
+            'amount' => number_format($payroll->esshealth,2),
+            'raw_amount' => (float)$payroll->esshealth,
+            'type' => $data->type
+        ];
+    }
+
+    private function searchPensionName($short_name): string
+    {
+        switch ($short_name) {
+            case "IN":
+                return "in_afp_integra";
+                break;
+            case "HA":
+                return "ha_afp_habitat";
+                break;
+            case "PR":
+                return "pr_afp_profuturo";
+                break;
+            case "PM":
+                return "pm_afp_prima";
+                break;
+            default :
+                return 'onpp';
+                break;
+        }
     }
 
 }
