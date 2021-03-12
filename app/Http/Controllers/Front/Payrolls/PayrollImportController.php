@@ -23,8 +23,7 @@ class PayrollImportController extends Controller
             'month'       => 'required|date'
         ]);
 
-       /* $headings = (new HeadingRowImport)->toArray($request->file('file_upload'));
-        DD($headings);*/
+        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'));
 
         $date = Carbon::parse($request->month);
 

@@ -76,25 +76,25 @@
                             </label>
                         </td>
                         <td>
-                            {{ payroll.names }} <br>
+                            {{ payroll.employee }} <br>
                             <small>
-                                <a href="#" data-toggle="tooltip" :title="payroll.work_area">
+                                <a href="#" data-toggle="tooltip" :title="payroll.workArea+' | '+payroll.position">
                                     <i class="fa fa-id-card-o"></i>
                                 </a>
-                                <a href="#" data-toggle="tooltip" :title="payroll.pension">
-                                    <span class="ml-2">{{ payroll.pension_short }} </span>
+                                <a href="#" data-toggle="tooltip" :title="'Pension '+payroll.pension">
+                                    <span class="ml-2">{{ payroll.pension }} </span>
                                 </a>
-                                <a href="#" v-if="payroll.has_family_allowance" data-toggle="tooltip" title="" data-original-title="Asignación familiar">
+                                <a href="#" v-if="payroll.withFamily" data-toggle="tooltip" title="" data-original-title="Asignación familiar">
                                     <i class="fa fa-user-o ml-2"></i>
                                 </a>
                             </small>
                         </td>
-                        <td class="text-primary text-center">{{ payroll.total_income }}</td>
-                        <td class="text-danger text-center">{{ payroll.total_expense }}</td>
-                        <td class="text-success text-center">{{ payroll.total_contribution }}</td>
-                        <td class="text-info text-center">{{ payroll.net_pay }}</td>
+                        <td class="text-primary text-center">{{ payroll.totalIncome }}</td>
+                        <td class="text-danger text-center">{{ payroll.totalExpense }}</td>
+                        <td class="text-success text-center">{{ payroll.totalContribution }}</td>
+                        <td class="text-info text-center">{{ payroll.netToPay }}</td>
                         <td class="text-right">
-                            <a :href="`/admin/customer/${currentCustomerID}/payrolls/${payroll.file_id}/detail/${payroll.id}`" data-toggle="tooltip" title="Detalle" data-original-title="Detalle">
+                            <a :href="`${baseUrl}admin/customer/${currentCustomerID}/payrolls/${payroll.file_id}/detail/${payroll.collaborator_id}`" data-toggle="tooltip" title="Detalle" data-original-title="Detalle">
                                 <i class="fa fa-external-link"></i>
                             </a>
                         </td>
@@ -128,6 +128,8 @@ export default {
     created() {
         if (this.p_payrolls)
             this.payrolls = this.p_payrolls
+
+        console.log(this.baseUrl)
     },
     computed: {
         isDisabled: function(){

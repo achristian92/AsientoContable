@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHeadersTable extends Migration
+class CreateBaseAccountingAccountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateHeadersTable extends Migration
      */
     public function up()
     {
-        Schema::create('headers', function (Blueprint $table) {
+        Schema::create('header_accounting_account', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->string('name_slug')->unique();
-            $table->boolean('is_active')->default(true);
+            $table->string('name');
+            $table->string('slug');
+            $table->enum('type',['debits','credits']);
         });
     }
 
@@ -28,6 +28,6 @@ class CreateHeadersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('headers');
+        Schema::dropIfExists('header_accounting_account');
     }
 }

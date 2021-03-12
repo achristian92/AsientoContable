@@ -21,6 +21,9 @@
                                 <small><i class="fa fa-file-excel-o mr-2 text-success"></i> cargar archivo</small>
                             </label>
                         </div>
+                    <div class="form-group">
+                        <a href="{{ route('admin.customers.template-payroll',$currentCustomer->id) }}" class="text-primary font-size-15"><u>Descargar plantilla</u></a>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cerrar</button>

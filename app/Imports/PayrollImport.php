@@ -2,8 +2,11 @@
 
 namespace App\Imports;
 
+use App\AsientoContable\AccountsHeaders\AccountHeader;
+use App\AsientoContable\BaseHeaders\BaseHeader;
 use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\Collaborators\Collaborator;
+use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\PensionFund\PensionFund;
 use Carbon\Carbon;
@@ -13,6 +16,7 @@ use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Psy\Util\Str;
 
 class PayrollImport implements ToCollection,WithHeadingRow
 {
@@ -33,60 +37,43 @@ class PayrollImport implements ToCollection,WithHeadingRow
     public function collection(Collection $collection)
     {
         $collection->each(function ($row,$key) {
-            $row['fec_ing'] = $this->transformDateTime($row['fec_ing'],'d/m/Y');
 
-            $this->validationRow($row, $key);
+            /*$this->validationRow($row, $key);*/
 
             $employee = Collaborator::updateOrCreate(
                 [
-                    'nro_document'  => $row['doc_identidad'],
+                    'nro_document'  => $row['nro_identidad'],
                     'customer_id' => $this->customer
                 ],
                 [
-                    'full_name' => $row['apellidos_y_nombres'],
-                    'code' => $row['cod_trab'],
-                    'date_start_work' => $row['fec_ing'],
+                    'full_name' => $row['trabajador'],
+                    'code' => $row['codigo'],
+                    'date_start_work' => $row['fecha_ingreso'] ?? '',
                 ]
             );
 
+            $row->each(function ($item,$row) use ($employee) {
+                $headerName = AccountHeader::where('name_slug',$row)
+                                ->where('customer_id',$this->customer)
+                                ->first();
+                if ($headerName) {
+                    Concept::updateOrCreate(
+                        [
+                            'payroll_date' => $this->month,
+                            'collaborator_id' => $employee->id,
+                            'header_slug' => $row,
+                            'customer_id' => $this->customer
+                        ],
+                        [
+                            'header' => $headerName->name,
+                            'value' => $item,
+                            'file_id' => $this->file
+                        ]
+                    );
+                }
+            });
 
-            $payroll = $employee->payrolls()->updateOrCreate(
-                [
-                    'payroll_date'    => $this->month,
-                    'collaborator_id' => $employee->id,
-                    'customer_id'     => $this->customer
-                ],
-                [
-                    'work_area_id'        => $row['cod_area'],
-                    'work_area'           => $row['area_trab'],
-                    'position_id'         => $row['cod_cargo'],
-                    'position'            => $row['cargo'],
-                    'date_entry'          => $row['fec_ing'],
-                    'date_termination'    => $row['fecha_cese'],
-                    'pension_short'       => $row['fondo_de_pensiones'],
-                    'pension'             => $this->name_pension($row),
-                    'currency'            => $row['moneda'],
-                    'nro_days_worked'     => $row['dias_trabajados'],
-                    'nro_hours_worked'    => $row['horas_trabajadas'],
-                    'overtime_hours'      => $row['thorasexthors'],
-                    'overtime_minutes'    => $row['thorasextmins'],
-                    'pdt_days'            => $row['dias_pdt'],
-                    'family_allowance'    => $row['asignacion_familiar'],
-                    'base_salary'         => $row['remuneracion_basica'],
-                    'total_income'        => $row['total_ingresos'],
-                    'pension_discount'    => $this->pension_discount($row),
-                    'insurance_discount'  => $row['afp_prima_de_seguro'],
-                    'commission_discount' => $row['afp_comision_sobre_la_ra'],
-                    'fifth_category'      => $row['renta_de_5ta_categoria'],
-                    'with_eps'            => $row['eps_empleado'],
-                    'total_expense'       => $row['total_egresos'],
-                    'esshealth'           => $row['essalud'],
-                    'total_contribution'  => $row['total_aport'],
-                    'net_pay'             => $row['neto'],
-                    'file_id'             => $this->file,
-                ]
-            );
-
+            /*
             $costCode = $this->costSearch($row['centro_costo']);
             if (!empty($costCode)) {
                 $syncData = array_map(function ($params) {
@@ -95,7 +82,7 @@ class PayrollImport implements ToCollection,WithHeadingRow
 
                 $payroll->costs()->sync($syncData);
             } else
-                $payroll->costs()->detach([]);
+                $payroll->costs()->detach([]);*/
 
         });
     }

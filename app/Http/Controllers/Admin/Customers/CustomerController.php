@@ -4,10 +4,13 @@
 namespace App\Http\Controllers\Admin\Customers;
 
 
+use App\AsientoContable\AccountsHeaders\AccountHeader;
+use App\AsientoContable\BaseHeaders\BaseHeader;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Requests\CustomerRequest;
 use App\AsientoContable\Customers\Requests\StoreCustomerRequest;
 use App\AsientoContable\Customers\Requests\UpdateCustomerRequest;
+use App\AsientoContable\HeaderAccountingsAccount\HeaderAccount;
 use App\Http\Controllers\Controller;
 use App\AsientoContable\Customers\Repositories\ICustomer;
 
@@ -34,7 +37,19 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
-        $this->customerRepo->createCustomer($request->all());
+        $customer = $this->customerRepo->createCustomer($request->all());
+        BaseHeader::all()->each(function ($item,$key) use ($customer) {
+           AccountHeader::create([
+               'name'         => $item->header,
+               'name_slug'    => $item->header_slug,
+               'customer_id'  => $customer->id,
+               'order'        => $item->order,
+               'is_required'  => $item->is_required,
+               'show'         => $item->show,
+               'name_account_slug' => HeaderAccount::firstWhere('slug',$item->account_slug)->name ?? '',
+               'account_slug' => $item->account_slug,
+           ]);
+        });
         return redirect()->route('admin.customers.index')->with('message',"Cliente creado");
     }
 

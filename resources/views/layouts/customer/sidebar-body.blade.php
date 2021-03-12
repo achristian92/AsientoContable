@@ -14,7 +14,8 @@
         <div id="customers2" class="
             {{ isOpenRoute(4,'collaborators') }} || {{ isOpenRoute(4,'payrolls') }} ||
             {{ isOpenRoute(4,'cost-center') }} || {{ isOpenRoute(4,'cost-center2') }} ||
-            {{ isOpenRoute(4,'accounting-plan') }} || {{ isOpenRoute(4,'accounting-seat') }}">
+            {{ isOpenRoute(4,'accounting-plan') }} || {{ isOpenRoute(4,'accounting-seat') }} ||
+            {{ isOpenRoute(4,'headers') }}">
             <ul>
                 <li class="navigation-divider text-center mb-0">{{ \Illuminate\Support\Str::limit($currentCustomer->name,20) }}</li>
                 <hr class="mt-0">
@@ -29,6 +30,7 @@
                 <li><a href="{{ route('admin.customers.cost-center.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center') }} ml-3">Centro costos</a></li>
                 <li><a href="{{ route('admin.customers.cost-center2.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center2') }} ml-3">Centro costos 2</a></li>
                 <li><a href="{{ route('admin.customers.accounting-plan.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'accounting-plan') }} ml-3">Plan contable</a></li>
+                <li><a href="{{ route('admin.customers.headers.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'headers') }} ml-3">Cabeceras</a></li>
             </ul>
         </div>
     </div>

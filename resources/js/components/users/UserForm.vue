@@ -114,7 +114,7 @@
                                     <br>
                                     <br>
                                     <button type="submit" class="btn btn-primary"> Guardar </button>
-                                    <a :href="back" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
+                                    <a :href="`${this.baseUrl}admin/users`" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
                                 </form>
                             </div>
                         </div>
@@ -154,7 +154,6 @@ export default {
             customer: [],
             apiPeru : 'https://dniruc.apisperu.com/api/v1/dni/',
             apiToken : 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImNocmlzdGlhbjkyMjAxN0BnbWFpbC5jb20ifQ.yNauheR_85YknM1U2jZFPwt1Q36qaUP6g9_TvaNnSs8',
-            back    : '/admin/users',
             errors  : []
         }
     },
@@ -191,11 +190,11 @@ export default {
             let url = ''
             let data = this.sendParams()
             if (this.isEdit) {
-                url = `/api/users/${this.formData.id}`
+                url = `${this.baseUrl}api/users/${this.formData.id}`
                 data['_method'] = 'PUT'
             }
             else
-                url = `/api/users`
+                url = `${this.baseUrl}api/users`
 
             axios.post(url, data).
             then(res => {

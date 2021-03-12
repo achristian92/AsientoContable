@@ -8,6 +8,5 @@ use Illuminate\Support\Collection;
 
 interface IPayroll
 {
-    public function listPayrolls(int $file): Collection;
 
 }

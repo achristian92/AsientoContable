@@ -18,13 +18,5 @@ class PayrollRepo extends BaseRepository implements IPayroll
         return Payroll::class;
     }
 
-    public function listPayrolls(int $file): Collection
-    {
-        return $this->model::with('collaborator')
-                     ->whereFileId($file)
-                     ->get()
-                     ->map(function ($payroll) {
-                        return $this->transformPaybleShow($payroll);
-                     });
-    }
+
 }

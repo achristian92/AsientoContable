@@ -12,8 +12,10 @@ use App\Http\Controllers\Admin\CostCenter\CostCenter2Controller;
 use App\Http\Controllers\Admin\CostCenter\CostCenterController;
 use App\Http\Controllers\Admin\Customers\CustomerController;
 use App\Http\Controllers\Admin\Customers\CustomerImportController;
+use App\Http\Controllers\Admin\Headers\HeaderController;
 use App\Http\Controllers\Admin\Payrolls\PayrollController;
 use App\Http\Controllers\Admin\Payrolls\PayrollShowController;
+use App\Http\Controllers\Admin\Payrolls\TemplatePayrollController;
 use App\Http\Controllers\Admin\PensionsFund\PensionFundController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Front\Payrolls\PayrollImportController;
@@ -50,6 +52,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
         Route::post('cost-center-import2', CenterCost2ImportController::class)->name('center-cost2.import');
         Route::resource('accounting-plan', AccountingPlanController::class);
         Route::post('account-import', AccountImportController::class)->name('account.import');
+        Route::resource('headers', HeaderController::class);
+        Route::get('template-payroll', TemplatePayrollController::class)->name('template-payroll');
     });
 });
 

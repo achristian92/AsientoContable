@@ -4,8 +4,8 @@
 namespace App\Http\Controllers\Admin\Payrolls;
 
 
-use App\AsientoContable\AccountPlan\AccountPlan;
-use App\AsientoContable\Payrolls\Payroll;
+
+use App\AsientoContable\Concepts\Repositories\IConcept;
 use App\AsientoContable\Payrolls\Transformations\PayrollTransformable;
 use App\Http\Controllers\Controller;
 
@@ -13,14 +13,22 @@ class PayrollShowController extends Controller
 {
     use PayrollTransformable;
 
-    public function __invoke($customer_id,$file_id,$payroll_id)
+    private $conceptRepo;
+
+    public function __construct(IConcept $IConcept)
     {
-        $account = AccountPlan::whereCustomerId($customer_id)->get()->whereNotIn('import_slug','');
+        $this->conceptRepo = $IConcept;
+    }
+
+    public function __invoke($customer_id,$file_id,$collaborator_id)
+    {
 
         return view('customers.collaborators.monthly-payroll.detail',[
-            'payroll' => $this->transformPaybleDetail(Payroll::find($payroll_id),$account)
+            'detail' => $this->conceptRepo->detailConceptCollaborator($file_id,$collaborator_id)
         ]);
-
     }
+
+
+
 
 }
