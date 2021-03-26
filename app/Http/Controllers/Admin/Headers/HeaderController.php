@@ -6,7 +6,10 @@ namespace App\Http\Controllers\Admin\Headers;
 
 use App\AsientoContable\AccountsHeaders\AccountHeader;
 use App\AsientoContable\AccountsHeaders\Requests\AccountHeaderRequest;
+use App\AsientoContable\HeaderAccountingsAccount\HeaderAccount;
+use App\AsientoContable\Headers\Header;
 use App\Http\Controllers\Controller;
+use DB;
 use Str;
 
 class HeaderController extends Controller
@@ -14,7 +17,7 @@ class HeaderController extends Controller
     public function index(int $customer_id)
     {
         return view('customers.headers.index',[
-            'headers' => AccountHeader::where(['customer_id'=>$customer_id,'show'=>true])->orderBy('order')->get()
+            'headers' => Header::where(['customer_id'=>$customer_id,'show'=>true])->orderBy('order')->get()
         ]);
     }
 
@@ -22,14 +25,14 @@ class HeaderController extends Controller
     {
         return view('customers.headers.create',[
             'model' => new AccountHeader(),
-            'headers' => AccountHeader::where('customer_id',customerID())->get()
+            'headers' => HeaderAccount::all()
         ]);
     }
     public function edit($customer_id,$id)
     {
         return view('customers.headers.edit',[
             'model' => AccountHeader::find($id),
-            'headers' => AccountHeader::where('customer_id',customerID())->get()
+            'headers' => HeaderAccount::all()
         ]);
     }
 
@@ -39,6 +42,13 @@ class HeaderController extends Controller
             'customer_id' => customerID(),
             'name_slug' => Str::slug($request->name,'_')
         ]);
+        if ($request->has('heacher_accounting_id')) {
+            $cabeceraCuentas = HeaderAccount::find($request->heacher_accounting_id);
+            $request->merge([
+                'name_account_slug' => $cabeceraCuentas->name,
+                'account_slug' => $cabeceraCuentas->slug
+            ]);
+        }
         AccountHeader::create($request->all());
         return redirect()->route('admin.customers.headers.index',$customer_id)->with('message',"Registro creado");
     }

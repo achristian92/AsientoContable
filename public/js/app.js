@@ -2219,6 +2219,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2236,17 +2248,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: '',
         is_analyzable: false,
         has_center_cost: false,
-        has_center_cost2: false
+        has_center_cost2: false,
+        "import": '',
+        import_slug: ''
       },
       category: 'root',
       accounts: [],
       selectedAccount: '',
       subAccounts: [],
       selectedSubAccount: '',
-      errors: []
+      errors: [],
+      headers: [],
+      header: ''
     };
   },
-  props: ['p_model'],
+  props: ['p_model', 'p_headers'],
   created: function created() {
     if (this.p_model) this.formData.id = this.p_model.id;
     this.loadData();
@@ -2274,6 +2290,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     selectedAccount: function selectedAccount() {
       this.getDataPlanAccount();
+    },
+    header: function header(he) {
+      this.formData["import"] = he.name;
+      this.formData.import_slug = he.slug;
     }
   },
   methods: {
@@ -2282,6 +2302,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'Crear plan de cuentas';
     },
     loadData: function loadData() {
+      if (this.p_headers) this.headers = this.p_headers;
+
       if (this.isEdit) {
         this.formData = this.p_model;
         if (this.p_model.category === 'subAccount') this.selectedAccount = this.p_model.parent_id;else if (this.p_model.category === 'account') {
@@ -22303,6 +22325,80 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("br"),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            directives: [
+                              {
+                                name: "show",
+                                rawName: "v-show",
+                                value: _vm.formData.category === "account",
+                                expression: "formData.category === 'account'"
+                              }
+                            ],
+                            staticClass: "form-row mb-1"
+                          },
+                          [
+                            _c("div", { staticClass: "form-group col-md-4" }, [
+                              _c("label", { attrs: { for: "Rcontable" } }, [
+                                _vm._v("R.Cuenta contable")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.header,
+                                      expression: "header"
+                                    }
+                                  ],
+                                  staticClass: "form-control form-control-sm",
+                                  attrs: { id: "Rcontable" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.header = $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { attrs: { disabled: "", value: "" } },
+                                    [_vm._v("Seleccione un tipo")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.headers, function(header) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: header } },
+                                      [_vm._v(_vm._s(header.name))]
+                                    )
+                                  })
+                                ],
+                                2
+                              )
+                            ])
+                          ]
+                        ),
                         _vm._v(" "),
                         _c("br"),
                         _vm._v(" "),

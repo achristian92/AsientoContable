@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Front\Payrolls;
 
 
+use App\AsientoContable\AccountsHeaders\AccountHeader;
 use App\AsientoContable\Files\File;
 use App\Http\Controllers\Controller;
 use App\Imports\CustomersImport;
@@ -23,7 +24,14 @@ class PayrollImportController extends Controller
             'month'       => 'required|date'
         ]);
 
-        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'));
+        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'))[0][0];
+
+        $headerCustomer = AccountHeader::where(['customer_id'=>$customer_id,'show'=>true])->pluck('name_slug');
+        $diff = ($headerCustomer->diff(collect($headings)));
+
+        if (count($diff->all()) > 0)
+            return back()->with('error','Las cabeceras del excel no coinciden con la del cliente');
+
 
         $date = Carbon::parse($request->month);
 

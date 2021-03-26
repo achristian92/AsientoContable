@@ -38,6 +38,17 @@ class TestController extends Controller
 
     public function __invoke()
     {
+        $headerImport=  collect([
+            "codigo", "trabajador", "centro_costo", "centro_costo2", "cod_area", "area", "cod_cargo",
+            "cargo", "fecha_ingreso", "fecha_cese", "nro_identidad", "pension", "moneda", "basico", "dias_trab", "horas_trab",
+            "horas_extra", "min_extra", "dias_pdt", "base_imponible", "remuneracion_basica", "asignacion_familiar", "total_ingresos", "afp_aportacion",
+            "onp", "afp_seguro", "afp_ra", "5ta_categoria", "eps", "total_egresos", "essalud", "total_aportes", "neto", "condicion_trabajo"
+        ]);
+
+        $headerCustomer = AccountHeader::where(['customer_id'=>1,'show'=>true])->pluck('name_slug');
+        $diff = $headerImport->diff($headerCustomer);
+
+        dd($diff->all(),$headerImport->count(),$headerCustomer->count());
     }
 
 

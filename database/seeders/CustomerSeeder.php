@@ -18,8 +18,19 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        $customer = Customer::factory(1)->create();
-        BaseHeader::all()->each(function ($item,$key) use ($customer) {
+        $customers = collect([
+            [
+                'name' => 'JIMENEZ & ESPINOZA ASOCIADOS SOCIEDAD ANONIMA CERRADA',
+                'ruc' => '20557915541'
+            ],
+        ]);
+        $customers->each(function ($customer) {
+           Customer::create($customer);
+        });
+
+        $firstCustomer = Customer::first();
+
+        BaseHeader::all()->each(function ($item,$key) use ($firstCustomer) {
             AccountHeader::create([
                 'name'         => $item->header,
                 'name_slug'    => $item->header_slug,

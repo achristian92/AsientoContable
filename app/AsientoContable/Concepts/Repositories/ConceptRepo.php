@@ -59,13 +59,13 @@ class ConceptRepo extends BaseRepository implements IConcept
 
         $accounts = $headers->map(function ($item) use ($collection) {
             $data = $collection->firstWhere('header_slug',$item['name_slug']);
-            $account_slug = AccountHeader::firstWhere('name_slug',$item['name_slug'])->account_slug;
-            $accountPlan = AccountPlan::firstWhere('import_slug',$account_slug);
+            $account_slug = AccountHeader::firstWhere('name_slug',$item['name_slug'])->account_slug ?? '';
+            $accountPlan = AccountPlan::firstWhere('import_slug',$account_slug) ?? '';
             return [
                 'concept'     => $data->header,
-                'cta'         => $accountPlan->code,
-                'description' => $accountPlan->name,
-                'type'        => HeaderAccount::firstWhere('slug',$accountPlan->import_slug)->type,
+                'cta'         => $accountPlan->code ?? '',
+                'description' => $accountPlan->name ?? '',
+                'type'        => HeaderAccount::firstWhere('slug',$accountPlan->import_slug)->type ?? '',
                 'value'       => empty($data->value) ? null : $data->value
             ];
         })->values();
@@ -83,8 +83,8 @@ class ConceptRepo extends BaseRepository implements IConcept
         $account = $this->searchAccountPlanPension($concept['value']);
         return [
             'concept'     => 'Pension',
-            'cta'         => $account->code,
-            'description' => $account->name,
+            'cta'         => $account->code ?? '',
+            'description' => $account->name ?? '',
             'type'        => HeaderAccount::firstWhere('slug',$account->import_slug)->type,
             'value'       => strtoupper($concept['value']) !== 'ON' ? $this->totalPensionAFP($collection) : null,
         ];
