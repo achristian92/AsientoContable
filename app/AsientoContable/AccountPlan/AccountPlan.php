@@ -16,6 +16,10 @@ class AccountPlan extends Model
     const TYPE_SUBACCOUNT = 'subAccount';
     const TYPE_ACCOUNT = 'account';
 
+    CONST TYPE_EXPENSE = 'GASTO';
+    CONST TYPE_PASIVE = 'PASIVO';
+    CONST TYPE_ACTIVE = 'ACTIVO';
+
 
     public function parent()
     {

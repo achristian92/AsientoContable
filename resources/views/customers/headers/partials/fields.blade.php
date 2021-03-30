@@ -13,10 +13,14 @@
 </div>
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
-        <label for="name">R.Cuenta Contable</label>
-        <select class="form-control" id="exampleFormControlSelect1" name="heacher_accounting_id">
-            @foreach($headers as $header)
-                <option value="{{$header->id}}">{{ $header->name }}</option>
+        <label for="name">Cuenta contable</label>
+        <select class="form-control js-accounts" name="account_plan_id">
+            <option value="">Seleccionar</option>
+            @foreach($accounts as $account)
+                <option value="{{$account->id}}"
+                {{ ( $model->account_plan_id == $account->id) ? 'selected' : '' }}>
+                    {{$account->code}}-{{ $account->name }}
+                </option>
             @endforeach
         </select>
     </div>

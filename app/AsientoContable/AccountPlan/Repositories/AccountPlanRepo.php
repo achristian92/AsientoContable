@@ -53,7 +53,6 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
                         'id'        => $account['id'],
                         'code'      => $account['code'],
                         'name'      => $account['name'],
-                        'import'    => $account['import'],
                         'type'      => $account['type'],
                         'parent_id' => $account['parent_id'],
                         'children'  => []
@@ -85,4 +84,10 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
         return $parent;
     }
 
+    public function listAccountsAnalitica(array $columns = ['*'], string $order = 'code', string $sort = 'asc')
+    {
+        return $this->model::where(['customer_id' => customerID(),'category' => $this->model::TYPE_ACCOUNT])
+                    ->orderBy($order,$sort)
+                    ->get($columns);
+    }
 }

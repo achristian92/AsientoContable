@@ -4,34 +4,47 @@
 namespace App\Http\Controllers\Front\Payrolls;
 
 
-use App\AsientoContable\AccountsHeaders\AccountHeader;
+use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\Files\File;
+use App\AsientoContable\Headers\Repositories\IHeader;
+use App\AsientoContable\Payrolls\Requests\ImportRequest;
+use App\AsientoContable\PensionFund\Repositories\IPensionFund;
 use App\Http\Controllers\Controller;
-use App\Imports\CustomersImport;
 use App\Imports\PayrollImport;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
+if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+    // Ignores notices and reports all other kinds... and warnings
+    error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+    // error_reporting(E_ALL ^ E_WARNING); // Maybe this is enough
+}
 
 class PayrollImportController extends Controller
 {
-    public function __invoke(Request $request,int $customer_id)
+    private $headerRepo, $pensionRepo, $centerCostRepo;
+
+    public function __construct(ICenterCost $ICenterCost, IHeader $IHeader,IPensionFund $IPensionFund)
     {
-        $request->validate([
-            'file_upload' => 'required|file|mimes:xls,xlsx',
-            'month'       => 'required|date'
-        ]);
+        $this->centerCostRepo = $ICenterCost;
+        $this->headerRepo = $IHeader;
+        $this->pensionRepo = $IPensionFund;
+    }
 
-        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'))[0][0];
+    public function __invoke(ImportRequest $request,int $customer_id)
+    {
+        if ($this->centerCostRepo->listCostsCenter()->count() === 0)
+            return back()->with('error','No tienes ningún centro de costo para este cliente');
 
-        $headerCustomer = AccountHeader::where(['customer_id'=>$customer_id,'show'=>true])->pluck('name_slug');
-        $diff = ($headerCustomer->diff(collect($headings)));
+        if (!$this->headerRepo->isAssignedAccountWithHeaders())
+            return back()->with('error','Falta asignar las cuentas contables a algunas cabeceras del excel');
 
-        if (count($diff->all()) > 0)
+        if (!$this->pensionRepo->isAssignedAccountWithPensions())
+            return back()->with('error','Falta asignar las cuentas contables a las pensiones');
+
+        if (!$this->hasEqualsHeaders($request))
             return back()->with('error','Las cabeceras del excel no coinciden con la del cliente');
-
 
         $date = Carbon::parse($request->month);
 
@@ -51,6 +64,14 @@ class PayrollImportController extends Controller
 
         return redirect()->route('admin.customers.payrolls.show',[$customer_id,$file->id])
                          ->with('message','Información cargada');
+    }
+
+    private function hasEqualsHeaders(Request $request): bool
+    {
+        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'))[0][0];
+        $headerCustomer = $this->headerRepo->listHeaders()->pluck('slug');
+        $diff = collect($headings)->diff($headerCustomer);
+        return count(($diff->all())) === 0;
     }
 
 }

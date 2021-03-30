@@ -4,5 +4,5 @@
         'title' => 'Plan de cuentas',
         'tab' => 'Gestión comercial',
     ])
-   <add-plan-account :p_headers = "{{ json_encode($headers) }}"></add-plan-account>
+   <add-plan-account></add-plan-account>
 @endsection

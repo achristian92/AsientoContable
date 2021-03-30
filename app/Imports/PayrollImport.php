@@ -2,21 +2,21 @@
 
 namespace App\Imports;
 
-use App\AsientoContable\AccountsHeaders\AccountHeader;
-use App\AsientoContable\BaseHeaders\BaseHeader;
 use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\Collaborators\Collaborator;
+use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\Concepts\Concept;
-use App\AsientoContable\Customers\Customer;
+use App\AsientoContable\Headers\Header;
 use App\AsientoContable\PensionFund\PensionFund;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
-use Psy\Util\Str;
 
 class PayrollImport implements ToCollection,WithHeadingRow
 {
@@ -39,38 +39,44 @@ class PayrollImport implements ToCollection,WithHeadingRow
         $collection->each(function ($row,$key) {
 
             /*$this->validationRow($row, $key);*/
-
             $employee = Collaborator::updateOrCreate(
                 [
-                    'nro_document'  => $row['nro_identidad'],
-                    'customer_id' => $this->customer
+                    'nro_document' => $row[slug(Concept::NRO_DOC)],
+                    'customer_id'  => $this->customer
                 ],
                 [
-                    'full_name' => $row['trabajador'],
-                    'code' => $row['codigo'],
-                    'date_start_work' => $row['fecha_ingreso'] ?? '',
+                    'full_name'       => $row[slug(Concept::FULL_NAME)],
+                    'code'            => $row[slug(Concept::CODE)],
+                    'date_start_work' => $this->transformDateTime($row[slug(Concept::DATE_ENTRY)]),
                 ]
             );
 
+            if(!$this->hasPensionOnp($row))
+                $this->ConceptAccount(Concept::AFP_CONTRIBUTION, $this->pensionAccount($row), $this->totalAFP($row), $employee);
+
             $row->each(function ($item,$row) use ($employee) {
-                $headerName = AccountHeader::where('name_slug',$row)
+                $header = Header::where('slug',$row)
                                 ->where('customer_id',$this->customer)
                                 ->first();
-                if ($headerName) {
+                if($header) {
+                    if ($header->account_plan_id) {
+                        $this->ConceptAccount($header->name,$header->account,$item,$employee);
+                    }
+
                     Concept::updateOrCreate(
                         [
-                            'payroll_date' => $this->month,
+                            'header'          => $header->name,
+                            'payroll_date'    => $this->month,
                             'collaborator_id' => $employee->id,
-                            'header_slug' => $row,
-                            'customer_id' => $this->customer
+                            'customer_id'     => $this->customer,
+                            'file_id'         => $this->file
                         ],
                         [
-                            'header' => $headerName->name,
-                            'value' => $item,
-                            'file_id' => $this->file
+                            'value' => trim($item),
                         ]
                     );
                 }
+
             });
 
             /*
@@ -99,14 +105,14 @@ class PayrollImport implements ToCollection,WithHeadingRow
         ];
 
         Validator::make($row->toArray(), [
-            'cod_trab'            => 'required',
+            'cod_trabajador'      => 'required',
             'centro_costo'        => [
                 'nullable',
                 Rule::in(Cost::whereCustomerId($this->customer)->get()->pluck('code')->toArray())
             ],
             'apellidos_y_nombres' => 'required',
             'doc_identidad'       => 'required',
-            'fec_ing'             => 'required|date',
+            'fec_ingreso'         => 'required|date',
             'fondo_de_pensiones'  => [
                 'required',
                 Rule::in(PensionFund::all()->pluck('short')),
@@ -120,33 +126,27 @@ class PayrollImport implements ToCollection,WithHeadingRow
         ], $messages)->validate();
     }
 
-    private function name_pension($row): string
+    private function pensionAccount($row)
     {
-        return PensionFund::where('short',$row['fondo_de_pensiones'])->first()->name;
+        $pension = PensionFund::where('customer_id',$this->customer)
+                            ->where('short',($row[slug(Concept::PENSION_SHORT)]))
+                            ->first();
+        return $pension->account;
+
     }
+
     private function pension_discount($row): float
     {
         if ($this->hasPensionOnp($row))
             return $row['onp'];
         return $row['afp_aportacion_obligat'];
     }
-
     private function hasPensionOnp($row): bool
     {
         if (strtolower($row['fondo_de_pensiones']) === 'on')
             return true;
         return false;
     }
-
-    private function transformDateTime(string $value, string $format = 'Y-m-d')
-    {
-        try {
-            return Carbon::instance(Date::excelToDateTimeObject($value))->format($format);
-        } catch (\ErrorException $e) {
-            return Carbon::createFromFormat($format, $value);
-        }
-    }
-
     private function costSearch($code = NULL): array
     {
         if ($code === '' || $code === NULL)
@@ -155,4 +155,40 @@ class PayrollImport implements ToCollection,WithHeadingRow
         return [Cost::whereCustomerId($this->customer)->whereCode($code)->first()->id];
     }
 
+    private function transformDateTime(string $value, string $format = 'd/m/Y')
+    {
+        if (!$value)
+            return '';
+
+        try {
+            return Carbon::instance(Date::excelToDateTimeObject($value))->format($format);
+        } catch (\ErrorException $e) {
+            return Carbon::createFromFormat($format, $value);
+        }
+    }
+
+    private function totalAFP(Collection $row): float
+    {
+        $contribution = floatval($row[slug(Concept::AFP_CONTRIBUTION)]);
+        $sure = floatval($row[slug(Concept::AFP_SURE_PRIME)]);
+        $commission = floatval($row[slug(Concept::AFP_COMISSION)]);
+        return $contribution + $sure + $commission;
+    }
+
+    private function ConceptAccount(string $header,$account,$value,Collaborator $employee)
+    {
+        ConceptAccount::updateOrCreate(
+            [
+                'header'          => $header,
+                'payroll_date'    => $this->month,
+                'collaborator_id' => $employee->id,
+                'customer_id'     => $this->customer,
+                'file_id'         => $this->file
+            ],
+            [
+                'account' => json_encode($account),
+                'value'   => trim($value)
+            ]
+        );
+    }
 }

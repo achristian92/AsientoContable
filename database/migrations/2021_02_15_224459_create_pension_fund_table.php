@@ -18,6 +18,8 @@ class CreatePensionFundTable extends Migration
             $table->string('short');
             $table->string('name');
             $table->boolean('is_active')->default(true);
+            $table->foreignId('account_plan_id')->nullable();
+            $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

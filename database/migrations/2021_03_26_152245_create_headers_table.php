@@ -14,7 +14,11 @@ class CreateHeadersTable extends Migration
     public function up()
     {
         Schema::create('headers', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
+            $table->string('slug');
+            $table->boolean('has_account')->default(false);
+            $table->boolean('is_required')->default(false);
             $table->integer('order')->nullable();
             $table->foreignId('account_plan_id')->nullable();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();

@@ -89,6 +89,7 @@
                                                 <option disabled value="">Seleccione un tipo</option>
                                                 <option value="GASTO">GASTO</option>
                                                 <option value="PASIVO">PASIVO</option>
+                                                <option value="ACTIVO">ACTIVO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -120,19 +121,6 @@
                                         </label>
                                     </div>
                                     <br>
-                                    <br>
-                                    <div class="form-row mb-1" v-show="formData.category === 'account'">
-                                        <div class="form-group col-md-4">
-                                            <label for="Rcontable">R.Cuenta contable</label>
-                                            <select
-                                                class="form-control form-control-sm"
-                                                v-model="header"
-                                                id="Rcontable">
-                                                <option disabled value="">Seleccione un tipo</option>
-                                                <option v-for="header in headers" :value="header">{{ header.name }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <br>
                                     <div class="row col-md-12">
                                         <div class="col-md-6">
@@ -176,8 +164,6 @@ export default {
                 is_analyzable: false,
                 has_center_cost: false,
                 has_center_cost2: false,
-                import: '',
-                import_slug: ''
             },
             category : 'root',
             accounts    : [],
@@ -185,11 +171,9 @@ export default {
             subAccounts : [],
             selectedSubAccount : '',
             errors      : [],
-            headers : [],
-            header : ''
         }
     },
-    props: ['p_model','p_headers'],
+    props: ['p_model'],
     created() {
         if (this.p_model)
             this.formData.id = this.p_model.id
@@ -220,10 +204,6 @@ export default {
         selectedAccount: function () {
             this.getDataPlanAccount()
         },
-        header: function (he) {
-            this.formData.import = he.name
-            this.formData.import_slug = he.slug
-        }
     },
 
     methods: {
@@ -233,8 +213,6 @@ export default {
             return 'Crear plan de cuentas'
         },
         loadData() {
-            if (this.p_headers)
-                this.headers = this.p_headers
 
             if (this.isEdit) {
                 this.formData = this.p_model

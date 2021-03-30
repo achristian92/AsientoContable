@@ -31,60 +31,34 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
         $collection->each(function ($row,$key) {
             $this->validationRow($row, $key);
             if ($row['analitica'] !== NULL) {
-                AccountPlan::updateOrCreate(
-                    [
-                        'code' => trim($row['analitica']),
-                        'customer_id' => $this->customer_id
-                    ],
-                    [
-                        'parent_id' => substr($row['analitica'],0,3),
-                        'category' => AccountPlan::TYPE_ACCOUNT,
-                        'name' => $row['descripcion'],
-                        'type' => strtoupper($row['tipo']),
-                        'is_analyzable' => $row['analisis'] === 'SI',
-                        'has_center_cost' => $row['c_costos'] === 'SI',
-                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
-                        'import' => $row['cabecera_importar'],
-                        'import_slug' => Str::slug($row['cabecera_importar'],'_'),
-                    ]
-                );
-            }
-            elseif ($row['subcuenta'] !== NULL) {
-                AccountPlan::updateOrCreate(
-                    [
-                        'code' => trim($row['subcuenta']),
-                        'customer_id' => $this->customer_id
-
-                    ],
-                    [
-                        'parent_id' => substr($row['subcuenta'],0,2),
-                        'category' => AccountPlan::TYPE_SUBACCOUNT,
-                        'name' => $row['descripcion'],
-                        'type' => strtoupper($row['tipo']),
-                        'is_analyzable' => $row['analisis'] === 'SI',
-                        'has_center_cost' => $row['c_costos'] === 'SI',
-                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
-                    ]
-                );
-            }
-            elseif ($row['cuenta'] !== NULL) {
-                AccountPlan::updateOrCreate(
-                    [
-                        'code' => trim($row['cuenta']),
-                        'customer_id' => $this->customer_id
-                    ],
-                    [
-                        'parent_id' => 0,
-                        'category' => AccountPlan::TYPE_ROOT,
-                        'name' => $row['descripcion'],
-                        'type' => strtoupper($row['tipo']),
-                        'is_analyzable' => $row['analisis'] === 'SI',
-                        'has_center_cost' => $row['c_costos'] === 'SI',
-                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
-                    ]
-                );
+                $code = trim($row['analitica']);
+                $parent = substr($row['analitica'],0,3);
+                $type = AccountPlan::TYPE_ACCOUNT;
+            } elseif ($row['subcuenta'] !== NULL) {
+                $code = trim($row['subcuenta']);
+                $parent = substr($row['subcuenta'],0,2);
+                $type = AccountPlan::TYPE_SUBACCOUNT;
+            } elseif ($row['cuenta'] !== NULL) {
+                $code = trim($row['cuenta']);
+                $parent = 0;
+                $type = AccountPlan::TYPE_ROOT;
             }
 
+                AccountPlan::updateOrCreate(
+                    [
+                        'code' => $code,
+                        'customer_id' => $this->customer_id
+                    ],
+                    [
+                        'parent_id' => $parent,
+                        'category' => $type,
+                        'name' => $row['descripcion'],
+                        'type' => strtoupper($row['tipo']),
+                        'is_analyzable' => $row['analisis'] === 'SI',
+                        'has_center_cost' => $row['c_costos'] === 'SI',
+                        'has_center_cost2' => $row['c_costos_2'] === 'SI',
+                    ]
+                );
         });
     }
 
@@ -99,7 +73,7 @@ class AccountPlanImport implements ToCollection,WithHeadingRow
 
         Validator::make($row->toArray(), [
             'descripcion' => 'required',
-            'tipo'     => ['required',Rule::in(['GASTO', 'PASIVO'])],
+            'tipo'     => ['required',Rule::in([AccountPlan::TYPE_EXPENSE, AccountPlan::TYPE_PASIVE,AccountPlan::TYPE_ACTIVE])],
             'analisis' => ['required', Rule::in(['SI', 'NO'])],
             'c_costos' => ['required', Rule::in(['SI', 'NO'])],
             'c_costos_2' => ['required', Rule::in(['SI', 'NO'])],

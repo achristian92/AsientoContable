@@ -1,7 +1,16 @@
 <?php
 
+use App\AsientoContable\Concepts\Concept;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
+function slug(string $text,$format = '_'): string
+{
+    if (!$text)
+        return '';
+
+    return Str::slug($text,$format);
+}
 function isOpenRoute($segmento, $route = '')
 {
     request()->segment($segmento) === $route ? $route = 'open' : $route;

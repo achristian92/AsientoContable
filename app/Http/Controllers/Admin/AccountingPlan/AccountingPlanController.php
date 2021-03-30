@@ -29,16 +29,13 @@ class AccountingPlanController extends Controller
 
     public function create()
     {
-        return view('customers.accounting-plan.create',[
-            'headers' => HeaderAccount::all()
-        ]);
+        return view('customers.accounting-plan.create');
     }
 
     public function edit($customer_id, $account_id)
     {
         return view('customers.accounting-plan.edit', [
             'model' => $this->accountRepo->findPlanAccountById($account_id)->load('parents'),
-            'headers' => HeaderAccount::all()
         ]);
     }
 

@@ -16,8 +16,14 @@ use App\AsientoContable\CostsCenter2\Repositories\CenterCost2Repo;
 use App\AsientoContable\CostsCenter2\Repositories\ICenterCost2;
 use App\AsientoContable\Customers\Repositories\CustomerRepo;
 use App\AsientoContable\Customers\Repositories\ICustomer;
+use App\AsientoContable\Employees\CostEmployees\Repositories\CostEmployeeRepo;
+use App\AsientoContable\Employees\CostEmployees\Repositories\ICostEmployee;
+use App\AsientoContable\Employees\MonthCosts\Repositories\IMonthCost;
+use App\AsientoContable\Employees\MonthCosts\Repositories\MonthCostRepo;
 use App\AsientoContable\Files\Repositories\FileRepo;
 use App\AsientoContable\Files\Repositories\IFile;
+use App\AsientoContable\Headers\Repositories\HeaderRepo;
+use App\AsientoContable\Headers\Repositories\IHeader;
 use App\AsientoContable\Payrolls\Repositories\IPayroll;
 use App\AsientoContable\Payrolls\Repositories\PayrollRepo;
 use App\AsientoContable\PensionFund\Repositories\IPensionFund;
@@ -30,7 +36,10 @@ class RepositoryServiceProvider extends ServiceProvider
 {
     public function register()
     {
-
+        $this->app->bind(
+            IHeader::class,
+            HeaderRepo::class
+        );
         $this->app->bind(
             IPayroll::class,
             PayrollRepo::class
@@ -79,6 +88,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             IConcept::class,
             ConceptRepo::class
+        );
+
+        $this->app->bind(
+            IMonthCost::class,
+            MonthCostRepo::class
+        );
+
+        $this->app->bind(
+            ICostEmployee::class,
+            CostEmployeeRepo::class
         );
     }
 

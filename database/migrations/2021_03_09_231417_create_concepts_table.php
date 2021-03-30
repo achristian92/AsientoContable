@@ -16,7 +16,6 @@ class CreateConceptsTable extends Migration
         Schema::create('concepts', function (Blueprint $table) {
             $table->id();
             $table->string('header');
-            $table->string('header_slug');
             $table->string('value')->nullable();
             $table->date('payroll_date');
             $table->foreignId('collaborator_id')->constrained()->cascadeOnDelete();

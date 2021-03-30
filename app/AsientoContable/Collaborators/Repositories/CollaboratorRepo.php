@@ -16,8 +16,10 @@ class CollaboratorRepo extends BaseRepository implements ICollaborator
         return Collaborator::class;
     }
 
-    public function listCollaborators(string $order = 'full_name', string $sort = 'asc'): Collection
+    public function listCollaborators(array $columns = ['*'], string $order = 'full_name', string $sort = 'asc'): Collection
     {
-        return $this->model->whereCustomerId(customerID())->orderBy($order, $sort)->get();
+        return $this->model->whereCustomerId(customerID())
+                    ->orderBy($order, $sort)
+                    ->get($columns);
     }
 }

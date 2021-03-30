@@ -5,14 +5,13 @@ namespace App\AsientoContable\CenterCosts\Repositories;
 
 
 use App\AsientoContable\CenterCosts\Cost;
-use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class CenterCostRepo extends BaseRepository implements ICenterCost
 {
 
-    public function model()
+    public function model(): string
     {
         return Cost::class;
     }
@@ -38,7 +37,7 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
     {
         return $this->model::whereCustomerId(customerID())
                    ->orderBy($orderBy,$sortBy)
-                   ->get();
+                   ->get($columns);
     }
 
 

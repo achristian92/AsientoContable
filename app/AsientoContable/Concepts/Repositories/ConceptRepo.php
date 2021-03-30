@@ -6,6 +6,7 @@ namespace App\AsientoContable\Concepts\Repositories;
 
 use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\AccountsHeaders\AccountHeader;
+use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Transformations\ConceptTrait;
 use App\AsientoContable\HeaderAccountingsAccount\HeaderAccount;
@@ -25,14 +26,11 @@ class ConceptRepo extends BaseRepository implements IConcept
 
     public function showConceptCollaboratorList(int $file_id): array
     {
-        $collaboratorIDS = $this->model::where('file_id',$file_id)->get()->pluck('collaborator_id')->unique();
+        $collaboratorIDS = $this->employeeIDS($file_id);
         $pensionsFund = PensionFund::all();
-        $conceptsConcepts = $this->model::whereIn('collaborator_id',$collaboratorIDS)
-                                    ->where('file_id',$file_id)
-                                    ->get()
-                                    ->groupBy('collaborator_id');
+        $concepts = $this->employeeConcepts($collaboratorIDS,$file_id);
 
-        return $conceptsConcepts->map(function ($collaboratorConcept) use ($pensionsFund) {
+        return $concepts->map(function ($collaboratorConcept) use ($pensionsFund) {
             return $lists[] = $this->generalConceptCollaborator($collaboratorConcept,$pensionsFund);
         })->toArray();
     }
@@ -40,83 +38,49 @@ class ConceptRepo extends BaseRepository implements IConcept
     public function detailConceptCollaborator(int $file_id, int $collaborator_id)
     {
         $collection = $this->model::where(['file_id'=> $file_id,'collaborator_id'=> $collaborator_id])->get();
-
-        $accounts = $this->buildAccountingAccount($collection);
-
+        $accounts = $this->accounts($file_id,$collaborator_id);
         return [
-            'info'      => $this->basicInfo($collection),
-            'costs'     => $this->basicCosts($collection),
-            'concepts'  => $collection,
-            'accounts'  => $accounts,
-            'totalMust' => number_format($accounts->where('type','debits')->sum('value'),2),
-            'totalHas'  => number_format($accounts->where('type','credits')->sum('value'),2)
+            'info'     => $this->basicInfo($collection),
+            'costs'    => $this->basicCosts($collection),
+            'concepts' => $collection,
+            'accounts' => $accounts,
+            'totalMust' => number_format($accounts->where('type',AccountPlan::TYPE_EXPENSE)->sum('value'),2),
+            'totalHas'  => number_format($accounts->where('type',AccountPlan::TYPE_PASIVE)->sum('value'),2)
         ];
     }
-
-    private function buildAccountingAccount($collection)
+    private function accounts(int $file_id, int $collaborator_id)
     {
-        $headers = AccountHeader::where(['customer_id' => customerID(),'show' => true])->get()->whereNotIn('account_slug','');
-
-        $accounts = $headers->map(function ($item) use ($collection) {
-            $data = $collection->firstWhere('header_slug',$item['name_slug']);
-            $account_slug = AccountHeader::firstWhere('name_slug',$item['name_slug'])->account_slug ?? '';
-            $accountPlan = AccountPlan::firstWhere('import_slug',$account_slug) ?? '';
-            return [
-                'concept'     => $data->header,
-                'cta'         => $accountPlan->code ?? '',
-                'description' => $accountPlan->name ?? '',
-                'type'        => HeaderAccount::firstWhere('slug',$accountPlan->import_slug)->type ?? '',
-                'value'       => empty($data->value) ? null : $data->value
-            ];
-        })->values();
-
-        $accountpension = $this->buildAccountPension($collection);
-        $pensionHealth = $this->buildAccountHealthPasive($collection);
-        $accounts = $accounts->push($accountpension);
-        $accounts = $accounts->push($pensionHealth);
-
-        return $accounts->whereNotNull('value');
-    }
-    private function buildAccountPension(Collection $collection)
-    {
-        $concept = $collection->firstWhere('header_slug','pension');
-        $account = $this->searchAccountPlanPension($concept['value']);
-        return [
-            'concept'     => 'Pension',
-            'cta'         => $account->code ?? '',
-            'description' => $account->name ?? '',
-            'type'        => HeaderAccount::firstWhere('slug',$account->import_slug)->type,
-            'value'       => strtoupper($concept['value']) !== 'ON' ? $this->totalPensionAFP($collection) : null,
+        $filters = [
+            'collaborator_id' => $collaborator_id,
+            'file_id' => $file_id,
         ];
-    }
-    private function buildAccountHealthPasive(Collection $collection): array
-    {
-        $account = AccountPlan::firstWhere('import_slug','essalud40');
-        return [
-            'concept'     => 'EsSalud',
-            'cta'         => $account->code,
-            'description' => $account->name,
-            'type'        => HeaderAccount::firstWhere('slug',$account->import_slug)->type,
-            'value'       => $collection->firstWhere('header_slug','essalud')->value,
-        ];
-    }
 
-    private function searchAccountPlanPension($nameSlug): AccountPlan
-    {
-        $pensionSlug = $this->searchPensionSlug($nameSlug);
-        return AccountPlan::firstWhere('import_slug',$pensionSlug);
+        return ConceptAccount::where($filters)
+            ->get()
+            ->transform(function ($item) {
+                $account = json_decode($item->account);
+                return [
+                    'concept'    => $item->header,
+                    'nroAccount' => $account->code,
+                    'account'    => $account->name,
+                    'type'       => $account->type,
+                    'value'      => $item->value,
+                ];
+            });
     }
 
-    public function totalPensionAFP(Collection $collection)
+    public function employeeConcepts($employeeIDS,$file_id)
     {
-        $hasOnp = $this->hasPensionONP($collection);
-        if ($hasOnp)
-            return $collection->firstWhere('header_slug','onp')->value;
-
-        $afp = $collection->firstWhere('header_slug','afp_aportacion')->value;
-        $insurance = $collection->firstWhere('header_slug','afp_seguro')->value;
-        $ra = $collection->firstWhere('header_slug','afp_ra')->value;
-        return $afp + $insurance + $ra;
+        return $this->model::whereIn('collaborator_id',$employeeIDS)
+            ->where('file_id',$file_id)
+            ->get()
+            ->groupBy('collaborator_id');
+    }
+    public function employeeIDS($file_id)
+    {
+        return $this->model::where('file_id',$file_id)
+            ->get()
+            ->pluck('collaborator_id')->unique();
     }
 
 

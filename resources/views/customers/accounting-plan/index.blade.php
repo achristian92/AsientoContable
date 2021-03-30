@@ -26,7 +26,6 @@
                                 <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Tipo</th>
-                                <th>Cabecera (importar)</th>
                                 <th class="text-right" scope="col">Acciones</th>
                             </tr>
                             </thead>
@@ -36,7 +35,6 @@
                                         <td class="text-left"><strong class="font-size-12">{{ $account['code']  }}</strong></td>
                                         <td><strong class="font-size-12">{{ $account['name']  }}</strong></td>
                                         <td>{{ $account['type'] }}</td>
-                                        <td>{{ $account['import'] }}</td>
                                         <td class="text-right">
                                             <a href="{{ route('admin.customers.accounting-plan.edit',[$currentCustomer->id,$account['id']]) }}" data-toggle="tooltip" title="" data-original-title="Editar">
                                                 <i class="fa fa-pencil ml-1"></i>
@@ -48,7 +46,6 @@
                                                 <td class="text-center"><strong class="font-size-11">{{ $subaccount['code']  }}</strong></td>
                                                 <td><strong class="font-size-11">{{ $subaccount['name']  }}</strong></td>
                                                 <td>{{ $subaccount['type'] }}</td>
-                                                <td>{{ $subaccount['import'] }}</td>
                                                 <td class="text-right">
                                                     <a href="{{ route('admin.customers.accounting-plan.edit',[$currentCustomer->id,$subaccount['id']]) }}" data-toggle="tooltip" title="" data-original-title="Editar">
                                                         <i class="fa fa-pencil ml-1"></i>
@@ -60,7 +57,6 @@
                                                     <td class="text-right font-size-11">{{ $analitica['code']  }}</td>
                                                     <td class="font-size-11">{{ $analitica['name']  }}</td>
                                                     <td>{{ $analitica['type'] }}</td>
-                                                    <td>{{ $analitica['import'] }}</td>
                                                     <td class="text-right">
                                                         <a href="{{ route('admin.customers.accounting-plan.edit',[$currentCustomer->id,$analitica['id']]) }}" data-toggle="tooltip" title="" data-original-title="Editar">
                                                             <i class="fa fa-pencil ml-1"></i>

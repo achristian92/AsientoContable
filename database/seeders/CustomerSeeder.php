@@ -4,10 +4,12 @@ namespace Database\Seeders;
 
 use App\AsientoContable\AccountsHeaders\AccountHeader;
 use App\AsientoContable\BaseHeaders\BaseHeader;
+use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\HeaderAccountingsAccount\HeaderAccount;
 use App\AsientoContable\Headers\Header;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CustomerSeeder extends Seeder
 {
@@ -30,17 +32,16 @@ class CustomerSeeder extends Seeder
 
         $firstCustomer = Customer::first();
 
-        BaseHeader::all()->each(function ($item,$key) use ($firstCustomer) {
-            AccountHeader::create([
-                'name'         => $item->header,
-                'name_slug'    => $item->header_slug,
-                'customer_id'  => 1,
+        BaseHeader::all()->each(function ($item) use ($firstCustomer) {
+            Header::create([
+                'name' => $item->header,
+                'slug' => $item->header_slug,
                 'order'        => $item->order,
                 'is_required'  => $item->is_required,
-                'show'         => $item->show,
-                'name_account_slug' => HeaderAccount::firstWhere('slug',$item->account_slug)->name ?? '',
-                'account_slug' => $item->account_slug,
+                'has_account'  => $item['has_account'] ?? false,
+                'customer_id' => $firstCustomer->id,
             ]);
         });
+
     }
 }

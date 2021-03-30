@@ -15,4 +15,7 @@ interface IPensionFund
     public function createPensionFund(array $params);
 
     public function updatePensionFund(array $params, int $id): bool;
+
+    public function isAssignedAccountWithPensions(): bool;
+
 }

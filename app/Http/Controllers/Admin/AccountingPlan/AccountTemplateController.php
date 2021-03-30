@@ -13,8 +13,7 @@ class AccountTemplateController extends Controller
 {
     public function __invoke()
     {
-        $headers = HeaderAccount::all()->pluck('name');
-        return Excel::download(new TemplateAccountPlanExport($headers), 'CuentasContables.xlsx');
+        return Excel::download(new TemplateAccountPlanExport(), 'CuentasContables.xlsx');
     }
 
 }

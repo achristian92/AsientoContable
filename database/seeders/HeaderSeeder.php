@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\AsientoContable\Concepts\Concept;
 use Illuminate\Database\Seeder;
 use Str;
 
@@ -16,11 +17,11 @@ class HeaderSeeder extends Seeder
     {
         $headers = collect([
             [
-                'header' => 'Código',
+                'header' => Concept::CODE,
                 'is_required' => true
             ],
             [
-                'header' => 'Trabajador',
+                'header' => Concept::FULL_NAME,
                 'is_required' => true
             ],
             [
@@ -36,7 +37,7 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'header' => 'Area',
+                'header' => Concept::AREA,
                 'is_required' => false
             ],
             [
@@ -44,11 +45,11 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'header' => 'Cargo',
+                'header' => Concept::POSITION,
                 'is_required' => false
             ],
             [
-                'header' => 'Fecha ingreso',
+                'header' => Concept::DATE_ENTRY,
                 'is_required' => true
             ],
             [
@@ -56,11 +57,11 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'header' => 'Nro identidad',
+                'header' => Concept::NRO_DOC,
                 'is_required' => true
             ],
             [
-                'header' => 'Pension',
+                'header' => Concept::PENSION_SHORT,
                 'is_required' => true
             ],
             [
@@ -96,79 +97,77 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'header' => 'Remuneración basica',
+                'header' => Concept::BASIC_SALARY,
                 'is_required' => true,
-                'account_slug' => 'remuneracion_basica'
+                'has_account' => true
             ],
             [
-                'header' => 'Asignación Familiar',
+                'header' => Concept::WITH_FAMILY,
                 'is_required' => 'true',
-                'account_slug' => 'asignacion_familiar'
+                'has_account' => true
             ],
             [
-                'header' => 'Total ingresos',
+                'header' => Concept::TOTAL_INCOME,
                 'is_required' => true
             ],
             [
-                'header' => 'AFP Aportación',
+                'header' => Concept::AFP_CONTRIBUTION,
                 'is_required' => true,
             ],
             [
-                'header' => 'ONP',
+                'header' => Concept::ONP,
                 'is_required' => true,
-                'account_slug' => 'onp',
+                'has_account' => true
             ],
             [
-                'header' => 'AFP Seguro',
+                'header' => Concept::AFP_SURE_PRIME,
                 'is_required' => true
             ],
             [
-                'header' => 'AFP RA',
+                'header' => Concept::AFP_COMISSION,
                 'is_required' => true
             ],
             [
-                'header' => '5ta. Categoria',
+                'header' => Concept::FIFTH_CATEGORY,
                 'is_required' => true,
-                'account_slug' => 'renta_de_5ta_categoria',
+                'has_account' => true
             ],
             [
                 'header' => 'EPS',
                 'is_required' => true,
-                'account_slug' => 'eps_empleado',
+                'has_account' => true
             ],
             [
-                'header' => 'Total Egresos',
+                'header' => Concept::TOTAL_DISCOUNT,
                 'is_required' => true
             ],
             [
-                'header' => 'EsSalud',
+                'header' => Concept::HEALTH,
                 'is_required' => true,
-                'account_slug' => 'essalud62',
+                'has_account' => true
             ],
             [
                 'header' => 'EsSalud(P)',
                 'is_required' => true,
-                'show' => false,
-                'account_slug' => 'essalud40',
+                'has_account' => true
             ],
             [
-                'header' => 'Total Aportes',
+                'header' => Concept::TOTAL_CONTRIBUTION,
                 'is_required' => true
             ],
             [
-                'header' => 'Neto',
+                'header' => Concept::NET,
                 'is_required' => true,
-                'account_slug' => 'sueldo',
+                'has_account' => true
             ],
         ]);
         $headers->each(function ($item,$key) {
             \DB::table('base_header')->insert([
                 'header'       => $item['header'],
-                'header_slug'  => Str::slug($item['header'],'_'),
+                'header_slug'  => slug($item['header']),
                 'order'        => $key * 10,
                 'is_required'  => $item['is_required'],
-                'account_slug' => $item['account_slug'] ?? '',
-                'show'         => $item['show'] ?? true
+                'has_account'  => $item['has_account'] ?? false,
             ]);
         });
 

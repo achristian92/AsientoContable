@@ -17,10 +17,9 @@ class CreateBaseHeaderTable extends Migration
             $table->id();
             $table->string('header');
             $table->string('header_slug');
+            $table->boolean('has_account')->default(false);
             $table->boolean('is_required')->default(false);
             $table->integer('order')->default(1);
-            $table->string('account_slug')->nullable();
-            $table->boolean('show')->default(true);
         });
     }
 

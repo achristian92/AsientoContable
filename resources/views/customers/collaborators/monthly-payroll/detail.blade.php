@@ -34,8 +34,8 @@
                 @foreach ($detail['concepts']->chunk(11) as $chunk)
                     <div class="row col-md-4">
                         @foreach ($chunk as $product)
-                            <div class="col-4 text-muted text-right font-size-11">{{ $product->header }}</div>
-                            <div class="col-8 font-size-11">{{ $product->value }}</div>
+                            <div class="col-5 text-muted text-right font-size-11">{{ $product->header }}</div>
+                            <div class="col-7 font-size-11">{{ $product->value }}</div>
                         @endforeach
                     </div>
                 @endforeach
@@ -82,10 +82,10 @@
                             @foreach($detail['accounts'] as $account)
                                 <tr class="font-size-11">
                                     <td class="text-muted text-center">{{ $account['concept'] }}</td>
-                                    <td class="text-center">{{ $account['cta'] }}</td>
-                                    <td>{{ $account['description'] }}</td>
-                                    <td class="text-right">@if ($account['type'] === 'debits') {{ number_format($account['value'],2) }}  @endif</td>
-                                    <td class="text-right">@if ($account['type'] === 'credits') {{ number_format($account['value'],2) }}  @endif</td>
+                                    <td class="text-center">{{ $account['nroAccount'] }}</td>
+                                    <td>{{ $account['account'] }}</td>
+                                    <td class="text-right">@if ($account['type'] === \App\AsientoContable\AccountPlan\AccountPlan::TYPE_EXPENSE) {{ number_format($account['value'],2) }}  @endif</td>
+                                    <td class="text-right">@if ($account['type'] === \App\AsientoContable\AccountPlan\AccountPlan::TYPE_PASIVE) {{ number_format($account['value'],2) }}  @endif</td>
                                 </tr>
                             @endforeach
                             <tr>

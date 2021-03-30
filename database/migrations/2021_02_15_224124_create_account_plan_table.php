@@ -19,9 +19,7 @@ class CreateAccountPlanTable extends Migration
             $table->string('code')->nullable();
             $table->string('parent_id')->nullable();
             $table->string('name');
-            $table->string('import')->nullable();
-            $table->string('import_slug')->nullable();
-            $table->string('type')->default('GASTO');
+            $table->string('type');
             $table->boolean('is_analyzable')->default(true);
             $table->boolean('has_center_cost')->default(true);
             $table->boolean('has_center_cost2')->default(true);

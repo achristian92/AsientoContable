@@ -24,7 +24,7 @@
                                 </a>
                             @endforeach
                         </div>
-                        @if (count($files) === 0)
+                        @if (count((array)$files) === 0)
                             <div class="card-body">
                                 <h6 class="mb-4 text-muted">Aún no tienes planillas cargadas</h6>
                                 <div class="align-items-center">

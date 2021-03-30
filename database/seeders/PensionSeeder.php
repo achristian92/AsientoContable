@@ -37,6 +37,7 @@ class PensionSeeder extends Seeder
             ],
         ]);
         $pensions->each(function ($pension) {
+            $pension['customer_id'] = 1;
             PensionFund::create($pension);
         });
     }
