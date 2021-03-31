@@ -18,6 +18,8 @@ class Concept extends Model
     CONST AREA = 'Area';
     CONST POSITION = 'Cargo';
 
+    CONST COSTCENTER = 'Centro Costo';
+
 
     CONST DATE_ENTRY = 'Fecha Ingreso';
     CONST WITH_FAMILY = 'Asignación Familiar';

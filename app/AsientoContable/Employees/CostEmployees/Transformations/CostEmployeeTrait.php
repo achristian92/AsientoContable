@@ -15,8 +15,9 @@ trait CostEmployeeTrait
         $model->id         = $costEmployee->id;
         $model->employeeID = $costEmployee->collaborator_id;
         $model->worked     = $costEmployee->employee->full_name;
+        $model->code       = $costEmployee->cost->code;
         $model->cost       = $costEmployee->cost->name;
-        $model->percentage = $costEmployee->percentage;
+        $model->percentage = round($costEmployee->percentage,2);
         return $model;
     }
 

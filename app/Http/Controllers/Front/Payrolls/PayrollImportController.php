@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Front\Payrolls;
 
 use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\Files\File;
+use App\AsientoContable\Files\Requests\FileImportRequest;
 use App\AsientoContable\Headers\Repositories\IHeader;
-use App\AsientoContable\Payrolls\Requests\ImportRequest;
 use App\AsientoContable\PensionFund\Repositories\IPensionFund;
 use App\Http\Controllers\Controller;
 use App\Imports\PayrollImport;
@@ -32,7 +32,7 @@ class PayrollImportController extends Controller
         $this->pensionRepo = $IPensionFund;
     }
 
-    public function __invoke(ImportRequest $request,int $customer_id)
+    public function __invoke(FileImportRequest $request,int $customer_id)
     {
         if ($this->centerCostRepo->listCostsCenter()->count() === 0)
             return back()->with('error','No tienes ningún centro de costo para este cliente');

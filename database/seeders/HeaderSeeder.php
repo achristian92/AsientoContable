@@ -25,7 +25,7 @@ class HeaderSeeder extends Seeder
                 'is_required' => true
             ],
             [
-                'header' => 'Centro costo',
+                'header' => Concept::COSTCENTER,
                 'is_required' => true
             ],
             [

@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\AsientoContable\Payrolls\Requests;
+namespace App\AsientoContable\Files\Requests;
 
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ImportRequest extends FormRequest
+class FileImportRequest extends FormRequest
 {
     public function rules() {
         return [

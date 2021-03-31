@@ -23,14 +23,14 @@
                                     <thead>
                                     <tr>
                                         <th>Centro de costo</th>
-                                        <th class="text-right">Porcentage</th>
-                                        <th class="text-right"></th>
+                                        <th>Porcentage</th>
+                                        <th class="text-right">Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr v-for="assign in assigns">
                                         <td>{{  assign.cost }}</td>
-                                        <td class="text-right">{{ assign.percentage }}</td>
+                                        <td>{{ assign.percentage }}%</td>
                                         <td class="text-right">
                                             <a href=""
                                                class="btn btn-outline-light btn-sm mr-1"
@@ -42,6 +42,13 @@
                                         </td>
                                     </tr>
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td class="text-right"><strong>Total</strong></td>
+                                        <td> {{ total }}%</td>
+                                        <td class="text-right"></td>
+                                    </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -64,6 +71,7 @@ export default {
     data() {
         return {
             assigns: '',
+            total: '',
         }
     },
     created() {
@@ -72,12 +80,20 @@ export default {
     methods: {
         open(data) {
             this.assigns = data
-            if (data.length > 0)
+            if (data.length > 0) {
+                let total = data.reduce(function (total, currentValue) {
+                    return total + currentValue.percentage;
+                }, 0);
+                this.total = total.toFixed(2)
                 $('#showCostAssign').modal('show')
+            }
             else
                 alert('No tiene centro de costos asignados')
         },
         destroy(id) {
+            let isConfirmed = confirm("Estas seguro de eliminar este vínculo?")
+            if(!isConfirmed) {return false;}
+
             axios.delete(`${this.baseUrl}api/customer/${this.currentCustomerID}/assign-cost/${id}`)
                 .then(res => {
                     location.reload();

@@ -2212,11 +2212,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      assigns: ''
+      assigns: '',
+      total: ''
     };
   },
   created: function created() {
@@ -2229,9 +2237,22 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     open: function open(data) {
       this.assigns = data;
-      if (data.length > 0) $('#showCostAssign').modal('show');else alert('No tiene centro de costos asignados');
+
+      if (data.length > 0) {
+        var total = data.reduce(function (total, currentValue) {
+          return total + currentValue.percentage;
+        }, 0);
+        this.total = total.toFixed(2);
+        $('#showCostAssign').modal('show');
+      } else alert('No tiene centro de costos asignados');
     },
     destroy: function destroy(id) {
+      var isConfirmed = confirm("Estas seguro de eliminar este vínculo?");
+
+      if (!isConfirmed) {
+        return false;
+      }
+
       axios["delete"]("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/assign-cost/").concat(id)).then(function (res) {
         location.reload();
       });
@@ -22241,9 +22262,7 @@ var render = function() {
                           return _c("tr", [
                             _c("td", [_vm._v(_vm._s(assign.cost))]),
                             _vm._v(" "),
-                            _c("td", { staticClass: "text-right" }, [
-                              _vm._v(_vm._s(assign.percentage))
-                            ]),
+                            _c("td", [_vm._v(_vm._s(assign.percentage) + "%")]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-right" }, [
                               _c(
@@ -22265,7 +22284,17 @@ var render = function() {
                           ])
                         }),
                         0
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("tfoot", [
+                        _c("tr", [
+                          _vm._m(3),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(" " + _vm._s(_vm.total) + "%")]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" })
+                        ])
+                      ])
                     ])
                   ]
                 )
@@ -22273,7 +22302,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(3)
+          _vm._m(4)
         ])
       ])
     ]
@@ -22311,9 +22340,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Centro de costo")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right" }, [_vm._v("Porcentage")]),
+        _c("th", [_vm._v("Porcentage")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right" })
+        _c("th", { staticClass: "text-right" }, [_vm._v("Acción")])
       ])
     ])
   },
@@ -22322,6 +22351,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("small", [_c("i", { staticClass: "ti-close" })])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "text-right" }, [
+      _c("strong", [_vm._v("Total")])
+    ])
   },
   function() {
     var _vm = this

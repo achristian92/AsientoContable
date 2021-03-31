@@ -6,12 +6,10 @@ namespace App\Http\Controllers\Admin\Payrolls;
 
 
 use App\AsientoContable\Concepts\Repositories\IConcept;
-use App\AsientoContable\Payrolls\Transformations\PayrollTransformable;
 use App\Http\Controllers\Controller;
 
 class PayrollShowController extends Controller
 {
-    use PayrollTransformable;
 
     private $conceptRepo;
 

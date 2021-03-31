@@ -40,38 +40,37 @@
                     </div>
                 @endforeach
             </div>
-           {{-- @if (count($payroll->costs_center) > 1)
-                <div class="row col-md-6 mt-1">
-                    <div class="card">
-                        <div class="card-body">
-                            <h6 class="card-title">Costos distribuidos</h6>
-                            <h1>
-                                {{ $payroll->total_percentage }} %
-                                <small>Total</small>
-                            </h1>
-                            <div class="list-group list-group-flush m-t-10">
-                                @foreach($payroll->costs_center as $cost_center)
-                                    <div class="list-group-item p-t-b-10 p-l-r-0 d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <span>{{ $cost_center['name'] }}</span>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="ml-3">{{ $cost_center['percentage'] }}%</div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="table-responsive mt-5" tabindex="2" style="overflow: hidden; outline: none;">
+                        <table class="table table-borderless table-striped mb-0 table-sm">
+                            <thead>
+                            <tr class="bg-info-bright">
+                                <th>Centro de costo</th>
+                                <th>Porcentaje</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($detail['costCenters'] as $cost)
+                                <tr class="font-size-11">
+                                    <td>{{ $cost['cost'] }}</td>
+                                    <td>{{ $cost['percentage'] }}%</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endif--}}
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive mt-5" tabindex="2" style="overflow: hidden; outline: none;">
                         <table class="table table-borderless table-striped mb-0 table-sm">
                             <thead>
                             <tr class="bg-info-bright">
-                                <th class="wd-20 text-center">CONCEPTOS</th>
+                                <th class=" text-center">CONCEPTOS</th>
                                 <th class="wd-10 text-center text-center">CTA</th>
                                 <th class="wd-50 text-center text-center">DETALLE</th>
                                 <th class="wd-10 text-center">DEBE</th>
