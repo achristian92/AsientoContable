@@ -7,7 +7,7 @@
             <div class="col-md-9 app-content">
                 <month-assign-show
                     :p_assigns="{{ json_encode($assigns) }}"
-                    :p_month="{{ json_encode($month) }}">
+                    :p_file="{{ json_encode($file) }}">
                 </month-assign-show>
             </div>
         </div>

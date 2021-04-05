@@ -24,6 +24,7 @@ trait ConceptTrait
             'totalExpense'      => $this->totalExpense($collection),
             'totalContribution' => $this->totalContribution($collection),
             'netToPay'          => $this->netToPay($collection),
+            'checked'           => false
         ];
     }
 

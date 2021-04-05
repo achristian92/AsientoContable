@@ -25,6 +25,7 @@ class CostEmployeeRepo extends BaseRepository implements ICostEmployee
 
     public function createCostEmployee(array $data): CostEmployee
     {
+        $data['customer_id'] = customerID();
         return $this->model::create($data);
     }
 
@@ -34,10 +35,10 @@ class CostEmployeeRepo extends BaseRepository implements ICostEmployee
     }
 
 
-    public function listCostEmployees(int $employee_id, int $month): Collection
+    public function listCostEmployees(int $employee_id, int $file_id): Collection
     {
         return $this->model::with('employee','cost')
-                    ->where(['collaborator_id' => $employee_id,'month_cost_id' => $month])
+                    ->where(['collaborator_id' => $employee_id,'file_id' => $file_id])
                     ->get()
                     ->transform(function ($item) {
                 return $this->transformCostEmployee($item);

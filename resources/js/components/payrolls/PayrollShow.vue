@@ -1,5 +1,6 @@
 <template>
     <div class="card app-content-body">
+        <loading :active.sync="isLoading" :is-full-page="false"></loading>
         <div class="card-body">
             <div class="app-action mb-0">
                 <div class="action-left">
@@ -77,14 +78,14 @@
                         </td>
                         <td>
                             {{ payroll.employee }} <br>
-                            <small>
-                                <a href="#" data-toggle="tooltip" :title="payroll.workArea+' | '+payroll.position">
+                            <small class="text-muted">
+                                <a href="#" class="text-muted" data-toggle="tooltip" :title="payroll.workArea+' | '+payroll.position">
                                     <i class="fa fa-id-card-o"></i>
                                 </a>
-                                <a href="#" data-toggle="tooltip" :title="'Pension '+payroll.pension">
+                                <a href="#" class="text-muted" data-toggle="tooltip" :title="'Pension '+payroll.pension">
                                     <span class="ml-2">{{ payroll.pension }} </span>
                                 </a>
-                                <a href="#" v-if="payroll.withFamily" data-toggle="tooltip" title="" data-original-title="Asignación familiar">
+                                <a href="#" class="text-muted" v-if="payroll.withFamily" data-toggle="tooltip" title="" data-original-title="Asignación familiar">
                                     <i class="fa fa-user-o ml-2"></i>
                                 </a>
                             </small>
@@ -109,7 +110,7 @@
 
 <script>
 import Loading from 'vue-loading-overlay'
-
+import 'vue-loading-overlay/dist/vue-loading.css'
 export default {
     components: {
         Loading,
@@ -118,18 +119,16 @@ export default {
         return {
             isLoading : false,
             payrolls: [],
-            errors  : [],
             checkedPayrolls: [],
             allSelected: false,
-            showButtonBuild: false
+            showButtonBuild: false,
+            errors  : [],
         }
     },
     props : ['p_payrolls'],
     created() {
         if (this.p_payrolls)
             this.payrolls = this.p_payrolls
-
-        console.log(this.baseUrl)
     },
     computed: {
         isDisabled: function(){
@@ -139,29 +138,48 @@ export default {
     methods: {
         handleAllChecked() {
             if (!this.allSelected) {
-                this.payrolls.forEach(function(item) {
-                    item.checked = true;
-                });
+                this.payrolls.map(item => item.checked = true);
                 this.showButtonBuild = true
             }else{
-                this.payrolls.forEach(function(item){
-                    item.checked = false;
-                });
+                this.payrolls.map(item => item.checked = false);
                 this.showButtonBuild = false
             }
         },
         checkedPayroll() {
             this.showButtonBuild = false;
-            this.payrolls.forEach(item => {
-                if(item.checked){
+            this.payrolls.map(item => {
+                if (item.checked)
                     this.showButtonBuild = true
-                }
             });
             this.allSelected = false;
         },
         submitSeats() {
-            let checkedIDS = this.payrolls.filter(item => item.checked)
-                                          .map(item => item.id)
+            this.isLoading = true
+
+            let checkedIDS = []
+            if (!this.allSelected)
+                checkedIDS = this.payrolls.filter(item => item.checked).map(item => item.collaborator_id)
+
+            axios.post(`${this.baseUrl}api/customer/${this.currentCustomerID}/generate-seating`, {
+                'all' : this.allSelected,
+                'employeeIDS' : checkedIDS,
+                'file_id' : this.payrolls[0].file_id
+            })
+                .then(res => {
+                    this.isLoading = false
+                    Vue.$toast.success(res.data.msg)
+                }).
+            catch(error => {
+                this.isLoading = false
+                if (error.response.status === 422){
+                    this.errors = error.response.data.errors;
+                    Vue.$toast.error("Información inválida");
+                }
+                if (error.response.status === 401) {
+                    Vue.$toast.error(error.response.data.msg);
+                }
+            });
+
 
         }
     }

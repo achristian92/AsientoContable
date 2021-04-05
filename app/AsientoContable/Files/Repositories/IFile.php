@@ -12,4 +12,7 @@ interface IFile
 
     public function listFiles(string $orderBy = 'id', string $sortBy = 'desc');
 
+    public function listAssignments(int $id);
+
+
 }

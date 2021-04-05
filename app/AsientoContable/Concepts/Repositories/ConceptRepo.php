@@ -10,7 +10,6 @@ use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Transformations\ConceptTrait;
 use App\AsientoContable\Employees\CostEmployees\Repositories\CostEmployeeRepo;
-use App\AsientoContable\Employees\MonthCosts\MonthCost;
 use App\AsientoContable\Files\File;
 use App\AsientoContable\PensionFund\PensionFund;
 use App\AsientoContable\PensionFund\PensionTrait;
@@ -33,8 +32,8 @@ class ConceptRepo extends BaseRepository implements IConcept
         $concepts = $this->employeeConcepts($collaboratorIDS,$file_id);
 
         return $concepts->map(function ($collaboratorConcept) use ($pensionsFund) {
-            return $lists[] = $this->generalConceptCollaborator($collaboratorConcept,$pensionsFund);
-        })->toArray();
+            return $this->generalConceptCollaborator($collaboratorConcept,$pensionsFund);
+        })->values()->toArray();
     }
 
     public function detailConceptCollaborator(int $file_id, int $collaborator_id): array
@@ -108,13 +107,8 @@ class ConceptRepo extends BaseRepository implements IConcept
     }
     public function manyCenterCost(array $filters): array
     {
-        $fileMonth = File::find($filters['file_id'])->name;
-        $monthCost = MonthCost::firstWhere('name',$fileMonth);
-        if (!$monthCost)
-            return [];
-
         $costEmployee = resolve(CostEmployeeRepo::class);
-        return $costEmployee->listCostEmployees($filters['collaborator_id'],$monthCost['id'])->toArray();
+        return $costEmployee->listCostEmployees($filters['collaborator_id'],$filters['file_id'])->toArray();
     }
 
 

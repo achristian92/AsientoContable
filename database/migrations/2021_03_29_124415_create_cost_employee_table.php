@@ -18,8 +18,7 @@ class CreateCostEmployeeTable extends Migration
             $table->foreignId('collaborator_id')->constrained()->cascadeOnDelete();
             $table->foreignId('cost_id')->constrained()->cascadeOnDelete();
             $table->float('percentage');
-            $table->foreignId('month_cost_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('file_id')->nullable();
+            $table->foreignId('file_id')->constrained()->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

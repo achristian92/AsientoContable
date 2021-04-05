@@ -13,12 +13,11 @@
                         <img src="{{ asset('img/upload-files.png')  }}" class="text-center" style="width: 300px">
 
                         <h5 class="card-title">Recuerda!</h5>
-                        <p class="card-text">1. Agregar el mes a asignar.</p>
-                        <p class="card-text">2. Seleccionar el colaborador y distribuir sus costos.</p>
+                        <p class="card-text">1. Selecciona el mes.</p>
+                        <p class="card-text">2. Selecciona el colaborador y distribuya los costos.</p>
                     </div>
                 </div>
             </div>
         </div>
-        @include('customers.collaborators.month-costs.partials.month')
     </div>
 @endsection

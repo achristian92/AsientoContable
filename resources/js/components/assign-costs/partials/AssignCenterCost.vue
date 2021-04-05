@@ -66,7 +66,7 @@ export default {
                 collaborator_id : '',
                 cost_id    : '',
                 percentage : '',
-                month_cost_id: ''
+                file_id: ''
             },
             errors        : []
         }
@@ -112,8 +112,9 @@ export default {
                 });
         },
         open(data) {
+            console.log(data)
             this.resetModal()
-            this.formData.month_cost_id = data.monthCost.id
+            this.formData.file_id = data.fileCost.id
             $('#AssignCostModal').modal('show')
         },
         edit(data) {

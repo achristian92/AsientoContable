@@ -22,7 +22,7 @@ class AssignCostController extends Controller
     public function store(CostEmployeeRequest $request): \Illuminate\Http\JsonResponse
     {
         $this->costEmployeeRepo->createCostEmployee($request->all());
-        $assign = $this->costEmployeeRepo->listCostEmployees($request->collaborator_id,$request->month_cost_id);
+        $assign = $this->costEmployeeRepo->listCostEmployees($request->collaborator_id,$request->file_id);
 
         return response()->json([
             'assign' => $this->transformAgroupCostEmployee($assign),
@@ -30,10 +30,10 @@ class AssignCostController extends Controller
         ]);
     }
 
-    public function show(int $customer, int $employee)
+    public function show(int $customer, int $employee): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            'assigns' => $this->costEmployeeRepo->listCostEmployees($employee,request()->input('month_id'))                                    ,
+            'assigns' => $this->costEmployeeRepo->listCostEmployees($employee,request()->input('file_id'))                                    ,
         ]);
     }
 

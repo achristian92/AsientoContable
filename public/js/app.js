@@ -1944,16 +1944,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       isLoading: false,
       assigns: [],
-      month: '',
+      file: '',
       errors: []
     };
   },
-  props: ['p_assigns', 'p_month'],
+  props: ['p_assigns', 'p_file'],
   created: function created() {
     var _this = this;
 
     if (this.p_assigns) this.assigns = this.p_assigns;
-    if (this.p_month) this.month = this.p_month;
+    if (this.p_file) this.file = this.p_file;
     _event_bus__WEBPACK_IMPORTED_MODULE_1__.default.$on('updateAssign', function (data) {
       return _this.updateAssign(data);
     });
@@ -1962,7 +1962,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     show: function show(employee) {
       axios.get("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/assign-cost/").concat(employee), {
         params: {
-          month_id: this.month.id
+          file_id: this.file.id
         }
       }).then(function (res) {
         _event_bus__WEBPACK_IMPORTED_MODULE_1__.default.$emit('showAssign', res.data.assigns);
@@ -1970,7 +1970,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     openAssign: function openAssign() {
       _event_bus__WEBPACK_IMPORTED_MODULE_1__.default.$emit('openAssign', {
-        monthCost: this.month
+        fileCost: this.file
       });
     },
     updateAssign: function updateAssign(data) {
@@ -2063,7 +2063,7 @@ __webpack_require__.r(__webpack_exports__);
         collaborator_id: '',
         cost_id: '',
         percentage: '',
-        month_cost_id: ''
+        file_id: ''
       },
       errors: []
     };
@@ -2122,8 +2122,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     open: function open(data) {
+      console.log(data);
       this.resetModal();
-      this.formData.month_cost_id = data.monthCost.id;
+      this.formData.file_id = data.fileCost.id;
       $('#AssignCostModal').modal('show');
     },
     edit: function edit(data) {},
@@ -2275,6 +2276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
 /* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_loading_overlay_dist_vue_loading_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-loading-overlay/dist/vue-loading.css */ "./node_modules/vue-loading-overlay/dist/vue-loading.css");
 //
 //
 //
@@ -2384,6 +2386,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -2393,16 +2397,15 @@ __webpack_require__.r(__webpack_exports__);
     return {
       isLoading: false,
       payrolls: [],
-      errors: [],
       checkedPayrolls: [],
       allSelected: false,
-      showButtonBuild: false
+      showButtonBuild: false,
+      errors: []
     };
   },
   props: ['p_payrolls'],
   created: function created() {
     if (this.p_payrolls) this.payrolls = this.p_payrolls;
-    console.log(this.baseUrl);
   },
   computed: {
     isDisabled: function isDisabled() {
@@ -2412,13 +2415,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleAllChecked: function handleAllChecked() {
       if (!this.allSelected) {
-        this.payrolls.forEach(function (item) {
-          item.checked = true;
+        this.payrolls.map(function (item) {
+          return item.checked = true;
         });
         this.showButtonBuild = true;
       } else {
-        this.payrolls.forEach(function (item) {
-          item.checked = false;
+        this.payrolls.map(function (item) {
+          return item.checked = false;
         });
         this.showButtonBuild = false;
       }
@@ -2427,18 +2430,39 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.showButtonBuild = false;
-      this.payrolls.forEach(function (item) {
-        if (item.checked) {
-          _this.showButtonBuild = true;
-        }
+      this.payrolls.map(function (item) {
+        if (item.checked) _this.showButtonBuild = true;
       });
       this.allSelected = false;
     },
     submitSeats: function submitSeats() {
-      var checkedIDS = this.payrolls.filter(function (item) {
+      var _this2 = this;
+
+      this.isLoading = true;
+      var checkedIDS = [];
+      if (!this.allSelected) checkedIDS = this.payrolls.filter(function (item) {
         return item.checked;
       }).map(function (item) {
-        return item.id;
+        return item.collaborator_id;
+      });
+      axios.post("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/generate-seating"), {
+        'all': this.allSelected,
+        'employeeIDS': checkedIDS,
+        'file_id': this.payrolls[0].file_id
+      }).then(function (res) {
+        _this2.isLoading = false;
+        Vue.$toast.success(res.data.msg);
+      })["catch"](function (error) {
+        _this2.isLoading = false;
+
+        if (error.response.status === 422) {
+          _this2.errors = error.response.data.errors;
+          Vue.$toast.error("Información inválida");
+        }
+
+        if (error.response.status === 401) {
+          Vue.$toast.error(error.response.data.msg);
+        }
       });
     }
   }
@@ -22398,256 +22422,191 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card app-content-body" }, [
-    _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "app-action mb-0" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "action-right" }, [
-          _c("form", { staticClass: "d-flex mr-3" }, [
-            _c(
-              "a",
-              {
-                staticClass: "app-sidebar-menu-button btn btn-outline-light",
-                attrs: { href: "#" }
-              },
-              [
-                _c(
-                  "svg",
-                  {
-                    staticClass: "feather feather-menu",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      width: "24",
-                      height: "24",
-                      viewBox: "0 0 24 24",
-                      fill: "none",
-                      stroke: "currentColor",
-                      "stroke-width": "1",
-                      "stroke-linecap": "round",
-                      "stroke-linejoin": "round"
-                    }
-                  },
-                  [
-                    _c("line", {
-                      attrs: { x1: "3", y1: "12", x2: "21", y2: "12" }
-                    }),
-                    _c("line", {
-                      attrs: { x1: "3", y1: "6", x2: "21", y2: "6" }
-                    }),
-                    _c("line", {
-                      attrs: { x1: "3", y1: "18", x2: "21", y2: "18" }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group" }, [
-              _c("input", {
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  placeholder: "Search file",
-                  "aria-describedby": "button-addon1"
-                }
-              }),
+  return _c(
+    "div",
+    { staticClass: "card app-content-body" },
+    [
+      _c("loading", {
+        attrs: { active: _vm.isLoading, "is-full-page": false },
+        on: {
+          "update:active": function($event) {
+            _vm.isLoading = $event
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "app-action mb-0" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "action-right" }, [
+            _c("form", { staticClass: "d-flex mr-3" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "app-sidebar-menu-button btn btn-outline-light",
+                  attrs: { href: "#" }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "feather feather-menu",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "24",
+                        height: "24",
+                        viewBox: "0 0 24 24",
+                        fill: "none",
+                        stroke: "currentColor",
+                        "stroke-width": "1",
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round"
+                      }
+                    },
+                    [
+                      _c("line", {
+                        attrs: { x1: "3", y1: "12", x2: "21", y2: "12" }
+                      }),
+                      _c("line", {
+                        attrs: { x1: "3", y1: "6", x2: "21", y2: "6" }
+                      }),
+                      _c("line", {
+                        attrs: { x1: "3", y1: "18", x2: "21", y2: "18" }
+                      })
+                    ]
+                  )
+                ]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "input-group-append" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-light",
-                    attrs: { type: "button", id: "button-addon1" }
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "feather feather-search",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          width: "24",
-                          height: "24",
-                          viewBox: "0 0 24 24",
-                          fill: "none",
-                          stroke: "currentColor",
-                          "stroke-width": "1",
-                          "stroke-linecap": "round",
-                          "stroke-linejoin": "round"
-                        }
-                      },
-                      [
-                        _c("circle", { attrs: { cx: "11", cy: "11", r: "8" } }),
-                        _c("line", {
+              _c("div", { staticClass: "input-group" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    placeholder: "Search file",
+                    "aria-describedby": "button-addon1"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "input-group-append" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-light",
+                      attrs: { type: "button", id: "button-addon1" }
+                    },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "feather feather-search",
                           attrs: {
-                            x1: "21",
-                            y1: "21",
-                            x2: "16.65",
-                            y2: "16.65"
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "24",
+                            height: "24",
+                            viewBox: "0 0 24 24",
+                            fill: "none",
+                            stroke: "currentColor",
+                            "stroke-width": "1",
+                            "stroke-linecap": "round",
+                            "stroke-linejoin": "round"
                           }
-                        })
-                      ]
-                    )
-                  ]
-                )
+                        },
+                        [
+                          _c("circle", {
+                            attrs: { cx: "11", cy: "11", r: "8" }
+                          }),
+                          _c("line", {
+                            attrs: {
+                              x1: "21",
+                              y1: "21",
+                              x2: "16.65",
+                              y2: "16.65"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                ])
               ])
             ])
           ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row mb-2" }, [
-        _c("div", { staticClass: "col-md-12 text-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-sm btn-primary",
-              attrs: { type: "button", disabled: _vm.isDisabled },
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.submitSeats($event)
-                }
-              }
-            },
-            [
-              _c("i", { staticClass: "ti-settings mr-1 ml-1" }),
-              _vm._v(" G.Asiento\n                ")
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "table-responsive",
-          staticStyle: { overflow: "hidden", outline: "none" },
-          attrs: { tabindex: "1" }
-        },
-        [
-          _c("table", { staticClass: "table table-striped mb-0" }, [
-            _c("thead", [
-              _c("tr", [
-                _c("th", { staticClass: "text-center" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.allSelected,
-                        expression: "allSelected"
-                      }
-                    ],
-                    staticClass: "form-check-input",
-                    staticStyle: { "margin-left": "2px" },
-                    attrs: { type: "checkbox" },
-                    domProps: {
-                      checked: Array.isArray(_vm.allSelected)
-                        ? _vm._i(_vm.allSelected, null) > -1
-                        : _vm.allSelected
-                    },
-                    on: {
-                      click: _vm.handleAllChecked,
-                      change: function($event) {
-                        var $$a = _vm.allSelected,
-                          $$el = $event.target,
-                          $$c = $$el.checked ? true : false
-                        if (Array.isArray($$a)) {
-                          var $$v = null,
-                            $$i = _vm._i($$a, $$v)
-                          if ($$el.checked) {
-                            $$i < 0 && (_vm.allSelected = $$a.concat([$$v]))
-                          } else {
-                            $$i > -1 &&
-                              (_vm.allSelected = $$a
-                                .slice(0, $$i)
-                                .concat($$a.slice($$i + 1)))
-                          }
-                        } else {
-                          _vm.allSelected = $$c
-                        }
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v(
-                      "\n                              \n                        "
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("th", [_vm._v("Nombres")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Ingresos")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Egresos")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Aportes")]),
-                _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Neto")]),
-                _vm._v(" "),
-                _c("th")
-              ])
-            ]),
-            _vm._v(" "),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-md-12 text-right" }, [
             _c(
-              "tbody",
-              _vm._l(_vm.payrolls, function(payroll) {
-                return _c("tr", [
-                  _c("td", { staticClass: "text-center" }, [
+              "button",
+              {
+                staticClass: "btn btn-sm btn-primary",
+                attrs: { type: "button", disabled: _vm.isDisabled },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.submitSeats($event)
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "ti-settings mr-1 ml-1" }),
+                _vm._v(" G.Asiento\n                ")
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "table-responsive",
+            staticStyle: { overflow: "hidden", outline: "none" },
+            attrs: { tabindex: "1" }
+          },
+          [
+            _c("table", { staticClass: "table table-striped mb-0" }, [
+              _c("thead", [
+                _c("tr", [
+                  _c("th", { staticClass: "text-center" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: payroll.checked,
-                          expression: "payroll.checked"
+                          value: _vm.allSelected,
+                          expression: "allSelected"
                         }
                       ],
                       staticClass: "form-check-input",
                       staticStyle: { "margin-left": "2px" },
                       attrs: { type: "checkbox" },
                       domProps: {
-                        value: payroll.id,
-                        checked: Array.isArray(payroll.checked)
-                          ? _vm._i(payroll.checked, payroll.id) > -1
-                          : payroll.checked
+                        checked: Array.isArray(_vm.allSelected)
+                          ? _vm._i(_vm.allSelected, null) > -1
+                          : _vm.allSelected
                       },
                       on: {
-                        change: [
-                          function($event) {
-                            var $$a = payroll.checked,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = payroll.id,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    payroll,
-                                    "checked",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    payroll,
-                                    "checked",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
+                        click: _vm.handleAllChecked,
+                        change: function($event) {
+                          var $$a = _vm.allSelected,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 && (_vm.allSelected = $$a.concat([$$v]))
                             } else {
-                              _vm.$set(payroll, "checked", $$c)
+                              $$i > -1 &&
+                                (_vm.allSelected = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
                             }
-                          },
-                          function($event) {
-                            return _vm.checkedPayroll($event)
+                          } else {
+                            _vm.allSelected = $$c
                           }
-                        ]
+                        }
                       }
                     }),
                     _vm._v(" "),
@@ -22658,106 +22617,194 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("td", [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(payroll.employee) +
-                        " "
-                    ),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("small", [
-                      _c(
-                        "a",
-                        {
-                          attrs: {
-                            href: "#",
-                            "data-toggle": "tooltip",
-                            title: payroll.workArea + " | " + payroll.position
+                  _c("th", [_vm._v("Nombres")]),
+                  _vm._v(" "),
+                  _c("th", { staticClass: "text-center" }, [
+                    _vm._v("Ingresos")
+                  ]),
+                  _vm._v(" "),
+                  _c("th", { staticClass: "text-center" }, [_vm._v("Egresos")]),
+                  _vm._v(" "),
+                  _c("th", { staticClass: "text-center" }, [_vm._v("Aportes")]),
+                  _vm._v(" "),
+                  _c("th", { staticClass: "text-center" }, [_vm._v("Neto")]),
+                  _vm._v(" "),
+                  _c("th")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.payrolls, function(payroll) {
+                  return _c("tr", [
+                    _c("td", { staticClass: "text-center" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: payroll.checked,
+                            expression: "payroll.checked"
                           }
+                        ],
+                        staticClass: "form-check-input",
+                        staticStyle: { "margin-left": "2px" },
+                        attrs: { type: "checkbox" },
+                        domProps: {
+                          value: payroll.id,
+                          checked: Array.isArray(payroll.checked)
+                            ? _vm._i(payroll.checked, payroll.id) > -1
+                            : payroll.checked
                         },
-                        [_c("i", { staticClass: "fa fa-id-card-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          attrs: {
-                            href: "#",
-                            "data-toggle": "tooltip",
-                            title: "Pension " + payroll.pension
-                          }
-                        },
-                        [
-                          _c("span", { staticClass: "ml-2" }, [
-                            _vm._v(_vm._s(payroll.pension) + " ")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      payroll.withFamily
-                        ? _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: "#",
-                                "data-toggle": "tooltip",
-                                title: "",
-                                "data-original-title": "Asignación familiar"
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$a = payroll.checked,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = payroll.id,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 &&
+                                    _vm.$set(
+                                      payroll,
+                                      "checked",
+                                      $$a.concat([$$v])
+                                    )
+                                } else {
+                                  $$i > -1 &&
+                                    _vm.$set(
+                                      payroll,
+                                      "checked",
+                                      $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1))
+                                    )
+                                }
+                              } else {
+                                _vm.$set(payroll, "checked", $$c)
                               }
                             },
-                            [_c("i", { staticClass: "fa fa-user-o ml-2" })]
-                          )
-                        : _vm._e()
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-primary text-center" }, [
-                    _vm._v(_vm._s(payroll.totalIncome))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-danger text-center" }, [
-                    _vm._v(_vm._s(payroll.totalExpense))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-success text-center" }, [
-                    _vm._v(_vm._s(payroll.totalContribution))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-info text-center" }, [
-                    _vm._v(_vm._s(payroll.netToPay))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-right" }, [
-                    _c(
-                      "a",
-                      {
-                        attrs: {
-                          href:
-                            _vm.baseUrl +
-                            "admin/customer/" +
-                            _vm.currentCustomerID +
-                            "/payrolls/" +
-                            payroll.file_id +
-                            "/detail/" +
-                            payroll.collaborator_id,
-                          "data-toggle": "tooltip",
-                          title: "Detalle",
-                          "data-original-title": "Detalle"
+                            function($event) {
+                              return _vm.checkedPayroll($event)
+                            }
+                          ]
                         }
-                      },
-                      [_c("i", { staticClass: "fa fa-external-link" })]
-                    )
+                      }),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "form-check-label" }, [
+                        _vm._v(
+                          "\n                              \n                        "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(payroll.employee) +
+                          " "
+                      ),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("small", { staticClass: "text-muted" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "text-muted",
+                            attrs: {
+                              href: "#",
+                              "data-toggle": "tooltip",
+                              title: payroll.workArea + " | " + payroll.position
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-id-card-o" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "text-muted",
+                            attrs: {
+                              href: "#",
+                              "data-toggle": "tooltip",
+                              title: "Pension " + payroll.pension
+                            }
+                          },
+                          [
+                            _c("span", { staticClass: "ml-2" }, [
+                              _vm._v(_vm._s(payroll.pension) + " ")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        payroll.withFamily
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "text-muted",
+                                attrs: {
+                                  href: "#",
+                                  "data-toggle": "tooltip",
+                                  title: "",
+                                  "data-original-title": "Asignación familiar"
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-user-o ml-2" })]
+                            )
+                          : _vm._e()
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-primary text-center" }, [
+                      _vm._v(_vm._s(payroll.totalIncome))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-danger text-center" }, [
+                      _vm._v(_vm._s(payroll.totalExpense))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-success text-center" }, [
+                      _vm._v(_vm._s(payroll.totalContribution))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-info text-center" }, [
+                      _vm._v(_vm._s(payroll.netToPay))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "text-right" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href:
+                              _vm.baseUrl +
+                              "admin/customer/" +
+                              _vm.currentCustomerID +
+                              "/payrolls/" +
+                              payroll.file_id +
+                              "/detail/" +
+                              payroll.collaborator_id,
+                            "data-toggle": "tooltip",
+                            title: "Detalle",
+                            "data-original-title": "Detalle"
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-external-link" })]
+                      )
+                    ])
                   ])
-                ])
-              }),
-              0
-            )
-          ])
-        ]
-      )
-    ])
-  ])
+                }),
+                0
+              )
+            ])
+          ]
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {

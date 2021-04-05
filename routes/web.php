@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Front\Costs\CostController;
 use App\Http\Controllers\Front\Employees\EmployeeController;
 use App\Http\Controllers\Front\Payrolls\PayrollImportController;
+use App\Http\Controllers\Front\Seating\GenerateSeatingController;
 use App\Http\Controllers\Front\Users\UserController as ApiUserController;
 use App\Http\Controllers\Front\PlanAccount\PlanAccountController;
 use App\Http\Controllers\Front\AssignCosts\AssignCostController as ApiAssignCostController;
@@ -36,8 +37,6 @@ Route::get('/dashboard', function () {
 });
 
 
-Route::get('test',\App\Http\Controllers\TestController::class);
-
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ], function () {
     Route::resource('customers', CustomerController::class);
     Route::post('customers-import', CustomerImportController::class)->name('customers.import');
@@ -45,6 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
     Route::get('template-account',AccountTemplateController::class)->name('template.account');
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {
+        Route::get('test',\App\Http\Controllers\TestController::class);
         Route::resource('collaborators', CollaboratorController::class);
         Route::resource('payrolls', PayrollController::class);
         Route::get('payrolls/{file}/detail/{payroll}', PayrollShowController::class)->name('payroll.detail');
@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
         Route::resource('month-costs', MonthCostController::class);
         Route::resource('assign-costs', AssignCostController::class);
         Route::resource('accounting-seat', AccountingSeatController::class);
+        Route::get('accounting-seat/{file}/export', [AccountingSeatController::class,'export'])->name('seating.export');
         Route::resource('cost-center', CostCenterController::class);
         Route::resource('cost-center2', CostCenter2Controller::class);
         Route::post('cost-center-import', CenterCostImportController::class)->name('center-cost.import');
@@ -72,6 +73,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
         Route::get('costs', CostController::class);
         Route::resource('assign-cost', ApiAssignCostController::class)->only('store','show','destroy');
         Route::resource('plan-account', PlanAccountController::class);
+        Route::post('generate-seating', GenerateSeatingController::class);
     });
 });
 

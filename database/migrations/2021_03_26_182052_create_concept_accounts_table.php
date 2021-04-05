@@ -20,7 +20,7 @@ class CreateConceptAccountsTable extends Migration
             $table->json('account')->nullable();
             $table->date('payroll_date');
             $table->foreignId('collaborator_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('file_id')->nullable();
+            $table->foreignId('file_id')->constrained()->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

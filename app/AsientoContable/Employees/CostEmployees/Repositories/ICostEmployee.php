@@ -15,7 +15,7 @@ interface ICostEmployee
 
     public function updateCostEmployee(array $data, int $id): bool;
 
-    public function listCostEmployees(int $employee_id, int $month) : Collection;
+    public function listCostEmployees(int $employee_id, int $file_id) : Collection;
 
 
 }

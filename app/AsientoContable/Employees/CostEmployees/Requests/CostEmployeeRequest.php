@@ -14,7 +14,7 @@ class CostEmployeeRequest  extends FormRequest
             'collaborator_id' => 'required',
             'cost_id'         => 'required',
             'percentage'      => 'required|numeric|min:1|max:100',
-            'month_cost_id'   => 'required',
+            'file_id'         => 'required',
         ];
     }
     public function messages(): array
@@ -26,7 +26,7 @@ class CostEmployeeRequest  extends FormRequest
             'percentage.numeric'        => "Porcentage debe ser un número",
             'percentage.min'            => "Porcentage debe ser minímo 1",
             'percentage.max'            => "Porcentage debe ser máximo 100",
-            'month_cost_id.required'    => "Mes es requerido",
+            'file_id.required'          => "ID del file es requerido",
         ];
     }
 }

@@ -122,6 +122,11 @@ function EventExportStyles()
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                 ),
             ),
+        ],
+        'NUMBER' => [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+            ],
         ]
     ];
 }

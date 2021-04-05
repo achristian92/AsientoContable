@@ -3,40 +3,31 @@
 
 namespace App\Http\Controllers\Admin\MonthCosts;
 
-
-use App\AsientoContable\Employees\CostEmployees\CostEmployee;
-use App\AsientoContable\Employees\MonthCosts\MonthCost;
-use App\AsientoContable\Employees\MonthCosts\Repositories\IMonthCost;
-use App\AsientoContable\Employees\MonthCosts\Requests\MonthCostRequest;
+use App\AsientoContable\Files\Repositories\IFile;
 use App\Http\Controllers\Controller;
 
 class MonthCostController extends Controller
 {
-    private $monthRepo;
+    private $fileRepo;
 
-    public function __construct(IMonthCost $IMonthCost)
+    public function __construct(IFile $IFile)
     {
-        $this->monthRepo = $IMonthCost;
+        $this->fileRepo = $IFile;
     }
 
     public function index()
     {
-        $months = MonthCost::with('assigns')->orderBy('id','desc')->get();
-        return view('customers.collaborators.month-costs.index',compact('months'));
+        return view('customers.collaborators.month-costs.index',[
+            'files' => $this->fileRepo->listFiles()
+        ]);
     }
 
-    public function store(MonthCostRequest $request,int $customer): \Illuminate\Http\RedirectResponse
-    {
-        $month = $this->monthRepo->createMonthCost($request->only('month'));
-        return redirect()->route('admin.customers.month-costs.show',[$customer,$month->id]);
-    }
-
-    public function show(int $customer, int $month)
+    public function show(int $customer, int $file)
     {
         return view('customers.collaborators.assign-costs.index',[
-            'months' => MonthCost::with('assigns')->orderBy('id','desc')->get(),
-            'month' => $this->monthRepo->findMonthCostById($month),
-            'assigns' => $this->monthRepo->listAssigns($month)
+            'file' => $this->fileRepo->findFileById($file),
+            'files' => $this->fileRepo->listFiles(),
+            'assigns' => $this->fileRepo->listAssignments($file)
         ]);
     }
 

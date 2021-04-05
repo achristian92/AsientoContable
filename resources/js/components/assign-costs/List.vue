@@ -55,30 +55,30 @@ export default {
         return {
             isLoading : false,
             assigns: [],
-            month: '',
+            file: '',
             errors  : [],
         }
     },
-    props : ['p_assigns','p_month'],
+    props : ['p_assigns','p_file'],
     created() {
         if (this.p_assigns)
             this.assigns = this.p_assigns
 
-        if (this.p_month)
-            this.month = this.p_month
+        if (this.p_file)
+            this.file = this.p_file
         EventBus.$on('updateAssign',data => this.updateAssign(data))
     },
     methods: {
         show(employee) {
             axios.get(`${this.baseUrl}api/customer/${this.currentCustomerID}/assign-cost/${employee}`,{
-                params: { month_id : this.month.id}
+                params: { file_id : this.file.id}
             })
             .then(res => {
                 EventBus.$emit('showAssign', res.data.assigns);
             })
         },
         openAssign() {
-            EventBus.$emit('openAssign', {monthCost: this.month});
+            EventBus.$emit('openAssign', {fileCost: this.file});
         },
         updateAssign(data) {
             let search = this.assigns.find(value => value.employeeID === data.assign.employeeID)
