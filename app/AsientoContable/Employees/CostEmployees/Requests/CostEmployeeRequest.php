@@ -10,23 +10,33 @@ class CostEmployeeRequest  extends FormRequest
 {
     public function rules(): array
     {
-        return [
+        $rules =  [
             'collaborator_id' => 'required',
-            'cost_id'         => 'required',
-            'percentage'      => 'required|numeric|min:1|max:100',
             'file_id'         => 'required',
         ];
+
+        foreach($this->request->get('costs') as $key => $val) {
+            if (!empty($val)) {
+                $rules["costs.$key.cost_id"]    = 'required';
+                $rules["costs.$key.percentage"] = 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/';
+            }
+        }
+        return $rules;
     }
     public function messages(): array
     {
-        return [
+        $messages = [
             'collaborator_id.required'  => "Colaborador es requerido",
-            'cost_id.required'          => "Centro de costo es requerido",
-            'percentage.required'       => "Porcentage es requerido",
-            'percentage.numeric'        => "Porcentage debe ser un número",
-            'percentage.min'            => "Porcentage debe ser minímo 1",
-            'percentage.max'            => "Porcentage debe ser máximo 100",
             'file_id.required'          => "ID del file es requerido",
         ];
+
+        foreach($this->request->get('costs') as $key => $val)
+        {
+            $messages["costs.$key.cost_id.required"]    = 'Centro de costo es requerido (Fila-'.($key+1).')';
+            $messages["costs.$key.percentage.required"] = 'Porcentage es requerido (Fila-'.($key+1).')';
+            $messages["costs.$key.percentage.regex"]    = 'Porcentage tiene formato incorrecto (Fila-'.($key+1).')';
+        }
+
+        return $messages;
     }
 }

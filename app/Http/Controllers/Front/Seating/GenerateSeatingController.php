@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Front\Seating;
 use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Concepts\Repositories\IConcept;
+use App\AsientoContable\Employees\AccountingSeating\Repositories\ISeating;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
 use App\AsientoContable\Files\File;
 use App\AsientoContable\Files\Repositories\IFile;
@@ -17,15 +18,16 @@ use Illuminate\Support\Collection;
 
 class GenerateSeatingController extends Controller
 {
-    private $conceptRepo,$fileRepo;
+    private $conceptRepo,$fileRepo,$seatRepo;
 
-    public function __construct(IConcept $IConcept,IFile $IFile)
+    public function __construct(IConcept $IConcept,IFile $IFile,ISeating $ISeating)
     {
         $this->conceptRepo = $IConcept;
         $this->fileRepo = $IFile;
+        $this->seatRepo = $ISeating;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): \Illuminate\Http\JsonResponse
     {
         $IDS = $this->employeeIDS($request);
 
@@ -33,46 +35,25 @@ class GenerateSeatingController extends Controller
 
         $exchangeRate = 3.76;
 
-        $data->map(function ($employee,$key) use ($exchangeRate) {
+        $data->map(function ($employee) use ($exchangeRate) {
             $nro_seat  = Seating::getNextSeatNumber($employee['fileID']);
 
             if (count($employee['costCenters']) === 1) {
-                return collect($employee['accounts'])->transform(function ($account) use ($employee,$key,$exchangeRate,$nro_seat) {
-                    $isExpense = $account['type'] === AccountPlan::TYPE_EXPENSE;
-                    $penValue  = $account['value'];
-                    $USDValue  = $penValue/$exchangeRate;
-                    Seating::firstOrCreate(
-                        [
-                            'collaborator_id' => $employee['workedID'],
-                            'file_id'         => $employee['fileID'],
-                            'customer_id'     => $employee['customerID']
-                        ],
-                        [
-                            'sub_diario'      => 7,
-                            'nro_asiento'     => $nro_seat,
-                            'l_registro'      => 31,
-                            'fecha_registro'  => $employee['createdAt'],
-                            'mes'             => $employee['month'],
-                            'cuenta_contable' => $account['nroAccount'],
-                            'debe'            => $isExpense ? $penValue : 0,
-                            'haber'           => !$isExpense ? $penValue : 0,
-                            'moneda'          => 'S',
-                            'tipo_cambio'     => $exchangeRate,
-                            'debe_usd'        => $isExpense ? number_format($USDValue,2) : 0,
-                            'haber_usd'       => !$isExpense ? number_format($USDValue,2) : 0,
-                            'glosa_asiento'   => 'PL/'.$employee['worked'].'/'.$account['concept'],
-                            'nro_documento'   => $employee['nroDoc'],
-                            'doc'             => 'PL',
-                            'nro_doc'         => 'PL'.(int)$employee['month'].'000'.($nro_seat),
-                            'fecha_doc'       => $employee['createdAt'],
-                            'fecha_vencimiento' => '',
-                            'cost'            => $employee['costCenters'][0]['code'],
-                            'cost2'           => '',
-                        ]
-                    );
+                collect($employee['accounts'])->each(function ($account) use ($employee,$exchangeRate,$nro_seat) {
+                    $this->seatRepo->buildSeating($employee,$account,$employee['costCenters'][0],$nro_seat,$exchangeRate,false);
                 });
             }
-            return '';
+            else {
+                collect($employee['accounts'])->each(function ($account) use ($employee,$exchangeRate,$nro_seat) {
+                    if (substr($account['nroAccount'],0,2) === "62") {
+                        collect($employee['costCenters'])->each(function ($center) use ($account,$employee,$exchangeRate,$nro_seat) {
+                            $this->seatRepo->buildSeating($employee,$account,$center,$nro_seat,$exchangeRate,true);
+                        });
+                    } else {
+                        $this->seatRepo->buildSeating($employee,$account,$employee['costCenters'][0],$nro_seat,$exchangeRate,false);
+                    }
+                });
+            }
         });
 
         return response()->json([

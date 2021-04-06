@@ -28,8 +28,20 @@ class PayrollController extends Controller
 
     public function show(int $customer_id, int $id)
     {
+        $data = $this->conceptRepo->showConceptCollaboratorList($id);
+
+        $withoutCosts = collect($data)->filter(function ($value) {
+            return (collect($value['centerCost'])->count() === 0);
+        })->count();
+
+        $moreOneCosts = collect($data)->filter(function ($value) {
+            return (collect($value['centerCost'])->count() > 1);
+        })->count();
+
         return view('customers.collaborators.monthly-payroll.show',[
-            'payrolls' => $this->conceptRepo->showConceptCollaboratorList($id),
+            'payrolls' => $data,
+            'moreCosts' => $moreOneCosts,
+            'withoutCosts' => $withoutCosts,
             'files'    => $this->fileRepo->listFiles()
         ]);
     }

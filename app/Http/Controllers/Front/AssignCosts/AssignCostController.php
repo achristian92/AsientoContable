@@ -37,6 +37,15 @@ class AssignCostController extends Controller
         ]);
     }
 
+    public function edit(int $customer, int $employee)
+    {
+        return response()->json([
+            'collaborator_id' => $employee,
+            'file_id' => request()->input('file_id'),
+            'assigns' => CostEmployee::where('collaborator_id',$employee)->where('file_id',request()->input('file_id'))->get()
+        ]);
+    }
+
     public function destroy(int $customer, int $id)
     {
         $cost = CostEmployee::find($id);

@@ -21,6 +21,13 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
         return $this->model->findOrFail($id);
     }
 
+    public function finCostCenterByCode(int $code,int $customer): Cost
+    {
+        return $this->model::where('customer_id',$customer)
+                    ->where('code',$code)
+                    ->first();
+    }
+
     public function createCostCenter(array $data): Cost
     {
         $data['customer_id'] = customerID();
@@ -39,6 +46,7 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
                    ->orderBy($orderBy,$sortBy)
                    ->get($columns);
     }
+
 
 
 }

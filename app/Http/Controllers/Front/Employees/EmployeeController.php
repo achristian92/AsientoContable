@@ -16,10 +16,10 @@ class EmployeeController extends Controller
         $this->employeeRepo = $ICollaborator;
     }
 
-    public function __invoke(int $customer)
+    public function __invoke(int $customer, int $file)
     {
         return response()->json([
-            'employees' => $this->employeeRepo->listCollaborators(['id','full_name']),
+            'employees' => $this->employeeRepo->listEmployeeWithOutCostCenter($file,['id','full_name']),
         ]);
     }
 }

@@ -11,7 +11,7 @@ interface ICostEmployee
 {
     public function findCostEmployeeById(int $customer_id): CostEmployee;
 
-    public function createCostEmployee(array $data): CostEmployee;
+    public function createCostEmployee(array $data): void;
 
     public function updateCostEmployee(array $data, int $id): bool;
 

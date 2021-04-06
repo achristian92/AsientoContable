@@ -9,6 +9,8 @@ use App\AsientoContable\AccountPlan\Repositories\AccountPlanRepo;
 use App\AsientoContable\AccountPlan\Repositories\IAccountPlan;
 use App\AsientoContable\Collaborators\Repositories\CollaboratorRepo;
 use App\AsientoContable\Collaborators\Repositories\ICollaborator;
+use App\AsientoContable\ConceptAccounts\Repositories\ConceptAccountRepo;
+use App\AsientoContable\ConceptAccounts\Repositories\IConceptAccount;
 use App\AsientoContable\Concepts\Repositories\ConceptRepo;
 use App\AsientoContable\Concepts\Repositories\IConcept;
 use App\AsientoContable\CostsCenter2\Repositories\CenterCost2Repo;
@@ -91,6 +93,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             ISeating::class,
             SeatingRepo::class
+        );
+
+        $this->app->bind(
+            IConceptAccount::class,
+            ConceptAccountRepo::class
         );
     }
 

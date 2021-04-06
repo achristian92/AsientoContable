@@ -5,7 +5,12 @@
         <div class="row app-block">
             @include('customers.collaborators.monthly-payroll.partials.sidebar')
             <div class="col-md-9 app-content">
-                <payrolls-data-table :p_payrolls="{{ json_encode($payrolls) }}"></payrolls-data-table>
+                <payrolls-data-table
+                    :p_payrolls="{{ json_encode($payrolls) }}"
+                    :p_more_one_costs="{{$moreCosts}}"
+                    :p_without_costs="{{$withoutCosts}}"
+                >
+                </payrolls-data-table>
             </div>
         </div>
         @include('customers.collaborators.monthly-payroll.partials.import')

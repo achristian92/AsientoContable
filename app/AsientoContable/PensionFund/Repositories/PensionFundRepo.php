@@ -4,25 +4,36 @@
 namespace App\AsientoContable\PensionFund\Repositories;
 
 
+use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\PensionFund\PensionFund;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class PensionFundRepo extends BaseRepository implements IPensionFund
 {
 
-    public function model()
+    public function model(): string
     {
         return PensionFund::class;
     }
 
     public function listPensionsFund()
     {
-        return $this->model::with('account')->orderBy('short')->get();
+        return $this->model::with('account')
+                        ->where('customer_id',customerID())
+                        ->orderBy('short')
+                        ->get();
     }
 
     public function findPensionById(int $id): PensionFund
     {
         return $this->model->findOrFail($id);
+    }
+
+    public function findPensionByShort(string $short,int $customer): PensionFund
+    {
+        return $this->model::where('customer_id',$customer)
+                    ->where('short',$short)
+                    ->first();
     }
 
     public function createPensionFund(array $params)
@@ -46,4 +57,6 @@ class PensionFundRepo extends BaseRepository implements IPensionFund
         $filtered = $collection->whereNull('account_plan_id')->count();
         return $filtered === 0;
     }
+
+
 }

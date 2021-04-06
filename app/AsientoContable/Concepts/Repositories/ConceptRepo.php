@@ -10,17 +10,16 @@ use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Transformations\ConceptTrait;
 use App\AsientoContable\Employees\CostEmployees\Repositories\CostEmployeeRepo;
-use App\AsientoContable\Files\File;
 use App\AsientoContable\PensionFund\PensionFund;
 use App\AsientoContable\PensionFund\PensionTrait;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Arr;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class ConceptRepo extends BaseRepository implements IConcept
 {
     use ConceptTrait, PensionTrait;
 
-    public function model()
+    public function model(): string
     {
         return Concept::class;
     }
@@ -32,7 +31,14 @@ class ConceptRepo extends BaseRepository implements IConcept
         $concepts = $this->employeeConcepts($collaboratorIDS,$file_id);
 
         return $concepts->map(function ($collaboratorConcept) use ($pensionsFund) {
-            return $this->generalConceptCollaborator($collaboratorConcept,$pensionsFund);
+            $filters = [
+                'file_id'=> $collaboratorConcept->first()->file_id,
+                'collaborator_id'=> $collaboratorConcept->first()->collaborator_id
+            ];
+            $data = $this->generalConceptCollaborator($collaboratorConcept,$pensionsFund);
+            $data['centerCost'] = $this->costCenterEmployee($filters);
+
+            return $data;
         })->values()->toArray();
     }
 

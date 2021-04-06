@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Payrolls\PayrollShowController;
 use App\Http\Controllers\Admin\Payrolls\TemplatePayrollController;
 use App\Http\Controllers\Admin\PensionsFund\PensionFundController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Front\AssignCosts\ImportAssignCostController;
 use App\Http\Controllers\Front\Costs\CostController;
 use App\Http\Controllers\Front\Employees\EmployeeController;
 use App\Http\Controllers\Front\Payrolls\PayrollImportController;
@@ -69,9 +70,11 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
     Route::resource('users', ApiUserController::class)->only('store','update');
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'api.customers.'],function () {
-        Route::get('employees', EmployeeController::class);
+        Route::get('file/{file_id}/employees-without-costs', EmployeeController::class);
         Route::get('costs', CostController::class);
-        Route::resource('assign-cost', ApiAssignCostController::class)->only('store','show','destroy');
+        Route::resource('assign-cost', ApiAssignCostController::class)->except('index');
+        Route::get('/template/assign-cost', [ImportAssignCostController::class,'template']);
+        Route::post('/import/assign-cost', [ImportAssignCostController::class,'import']);
         Route::resource('plan-account', PlanAccountController::class);
         Route::post('generate-seating', GenerateSeatingController::class);
     });

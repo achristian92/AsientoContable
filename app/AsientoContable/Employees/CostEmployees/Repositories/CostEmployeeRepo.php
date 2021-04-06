@@ -23,10 +23,18 @@ class CostEmployeeRepo extends BaseRepository implements ICostEmployee
         // TODO: Implement findCostEmployeeById() method.
     }
 
-    public function createCostEmployee(array $data): CostEmployee
+    public function createCostEmployee(array $data): void
     {
-        $data['customer_id'] = customerID();
-        return $this->model::create($data);
+        $this->model::where('file_id',$data['file_id'])
+                    ->where('collaborator_id',$data['collaborator_id'])
+                    ->delete();
+
+        foreach ($data['costs'] as $cost) {
+            $cost['customer_id']     = customerID();
+            $cost['collaborator_id'] = $data['collaborator_id'];
+            $cost['file_id']         = $data['file_id'];
+            $this->model::create($cost);
+        }
     }
 
     public function updateCostEmployee(array $data, int $id): bool

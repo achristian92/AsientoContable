@@ -21,7 +21,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                         </a>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search file" aria-describedby="button-addon1">
+                            <input type="text" class="form-control" placeholder="Buscar persona" aria-describedby="button-addon1">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-light" type="button" id="button-addon1">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -31,12 +31,60 @@
                     </form>
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <div class="card mb-0">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-block icon-block-floating mr-3 icon-block-lg icon-block-outline-primary  text-primary">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                                <div>
+                                    <h6 class="text-uppercase font-size-11">COLABORADORES</h6>
+                                    <h4 class="mb-0 font-weight-bold">{{ payrolls.length }} </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-0">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-block icon-block-floating mr-3 icon-block-lg icon-block-outline-info  text-info">
+                                    <i class="fa fa-list-ul"></i>
+                                </div>
+                                <div>
+                                    <h6 class="text-uppercase font-size-11">+ CENTRO DE COSTO</h6>
+                                    <h4 class="mb-0 font-weight-bold">{{ moreOneCosts }} Col.</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-0">
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-block icon-block-floating mr-3 icon-block-lg icon-block-outline-danger  text-danger">
+                                    !
+                                </div>
+                                <div>
+                                    <h6 class="text-uppercase font-size-11">SIN CENTRO DE COSTO</h6>
+                                    <h4 class="mb-0 font-weight-bold">{{ withoutCosts }} Col.</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="row mb-2">
                 <div class="col-md-12 text-right">
                     <button type="button"
                             @click.prevent="submitSeats"
                             class="btn btn-sm btn-primary"
-                            :disabled='isDisabled'>
+                            :disabled='!building'>
                         <i class="ti-settings mr-1 ml-1"></i> G.Asiento
                     </button>
                 </div>
@@ -119,20 +167,26 @@ export default {
         return {
             isLoading : false,
             payrolls: [],
+            moreOneCosts: 0,
+            withoutCosts: 0,
             checkedPayrolls: [],
             allSelected: false,
             showButtonBuild: false,
             errors  : [],
         }
     },
-    props : ['p_payrolls'],
+    props : ['p_payrolls','p_more_one_costs','p_without_costs'],
     created() {
         if (this.p_payrolls)
             this.payrolls = this.p_payrolls
+        if (this.p_more_one_costs)
+            this.moreOneCosts = this.p_more_one_costs
+        if (this.p_without_costs)
+            this.withoutCosts = this.p_without_costs
     },
     computed: {
-        isDisabled: function(){
-            return !this.showButtonBuild;
+        building: function(){
+            return (this.showButtonBuild && this.withoutCosts === 0);
         }
     },
     methods: {

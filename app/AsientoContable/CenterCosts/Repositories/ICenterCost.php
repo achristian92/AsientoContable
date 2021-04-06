@@ -11,6 +11,8 @@ interface ICenterCost
 {
     public function finCostCenterById(int $id): Cost;
 
+    public function finCostCenterByCode(int $code,int $customer): Cost;
+
     public function createCostCenter(array $data): Cost;
 
     public function updateCostCenter(array $data, int $id): bool;

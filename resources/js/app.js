@@ -16,6 +16,8 @@ Vue.component('payrolls-data-table', require('./components/payrolls/PayrollShow'
 
 Vue.component('add-plan-account', require('./components/plan-account/AddPlanAccount').default);
 
+//Centro de costos
+Vue.component('import-cost-center', require('./components/assign-costs/partials/Import').default);
 
 
 //Vue.component('add-user', require('./components/users/AddUser').default);
@@ -27,7 +29,6 @@ Vue.component('show-cost-from-employee', require('./components/assign-costs/part
 
 
 Vue.component('validation-errors', require('./components/shared/ValidationErrors').default);
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 import customer from './mixins/customer'
 Vue.mixin(customer);
