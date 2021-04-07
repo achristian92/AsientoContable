@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Cotizador</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Voucher</title>
 </head>
 <style type="text/css">
     html {
         font-size: 10px;
+        font-family: sans-serif;
     }
     .customer-container {
         padding: 3mm 0mm;
@@ -14,25 +15,31 @@
     .style_hr {
         border: 1px solid red;
     }
+    .table-section2 {
+        border-collapse: collapse;
+    }
+    .td_data {
+        border: 2px solid #000000;
+    }
 </style>
 <body>
 <div class="customer-container" style="border-style: solid">
     <table width="100%">
         <tr>
-            <td width="80%">{{ $customer->name }}</td>
-            <td align="right" width="20%"><small>D.S. Nº 020 - 2008</small></td>
-        </tr>
-        <tr>
             <td width="80%">
+                {{ $customer->name }} <br>
                 <small>{{ $customer->address }}</small> <br>
                 <small>Ruc: {{ $customer->ruc }}</small>
             </td>
-            <td align="right" width="20%"><strong><h4>Planilla {{ $payroll->name }}</h4></strong></td>
+            <td align="right" width="20%">
+                <small>D.S. Nº 020 - 2008</small> <br>
+                <strong style="font-size: 12px">Planilla {{ $payroll->name }}</strong>
+            </td>
         </tr>
     </table>
     <table width="100%">
         <tr>
-            <td colspan="3" align="center"><strong><h4>BOLETA DE REMUNERACIONES</h4></strong></td>
+            <td colspan="3" align="center" style="font-size: 12px; padding-bottom: 10px;"><strong>BOLETA DE REMUNERACIONES</strong></td>
         </tr>
         <tr>
             <td width="45%">
@@ -82,12 +89,12 @@
             <td width="35%">
                 <table width="100%">
                     <tr>
-                        <td width="39%"><strong>F. Ingreso</strong></td>
+                        <td width="39%"><strong>Fecha Ingreso</strong></td>
                         <td width="1%">: </td>
                         <td width="60%">{{ $data->admission }}</td>
                     </tr>
                     <tr>
-                        <td width="39%"><strong>F. Cese</strong></td>
+                        <td width="39%"><strong>Fecha Cese</strong></td>
                         <td width="1%">: </td>
                         <td width="60%">{{ $data->termination }}</td>
                     </tr>
@@ -174,14 +181,14 @@
             </td>
         </tr>
     </table>
-    <table width="100%">
+    <table width="100%" class="table-section2">
         <tr>
-            <td width="33%" align="center" style="border-style: solid"><strong>INGRESOS</strong></td>
-            <td width="33%" align="center" style="border-style: solid"><strong>DESCUENTOS</strong></td>
-            <td width="33%" align="center" style="border-style: solid"><strong>APORTACIONES EMPLEADOR</strong></td>
+            <td width="33%" align="center" class="td_data"><strong>INGRESOS</strong></td>
+            <td width="33%" align="center" class="td_data"><strong>DESCUENTOS</strong></td>
+            <td width="33%" align="center" class="td_data"><strong>APORTACIONES EMPLEADOR</strong></td>
         </tr>
         <tr>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     @foreach($data->income as $income)
                         <tr>
@@ -191,7 +198,7 @@
                     @endforeach
                 </table>
             </td>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     @foreach($data->expense as $expense)
                         <tr>
@@ -201,7 +208,7 @@
                     @endforeach
                 </table>
             </td>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     @foreach($data->contribution as $contribution)
                         <tr>
@@ -213,7 +220,7 @@
             </td>
         </tr>
         <tr>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     <tr>
                         <td width="25%"></td>
@@ -221,8 +228,8 @@
                         <td width="25%" align="right">{{ number_format($data->income->sum('value'),2) }}</td>
                     </tr>
                 </table>
-            </td>
-            <td width="33%" style="border-style: solid">
+            </td >
+            <td width="33%" class="td_data">
                 <table width="100%">
                     <tr>
                         <td width="25%"></td>
@@ -231,7 +238,7 @@
                     </tr>
                 </table>
             </td>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     <tr>
                         <td width="25%"></td>
@@ -246,9 +253,18 @@
                         padding-top: 25px;">
             </td>
             <td width="33%" align="center">
-                <strong>NETO A PAGAR S/{{ number_format($data->net,2) }}</strong>
+                <table width="100%">
+                    <tr>
+                        <td width="50%" align="right">
+                            <strong>NETO A PAGAR S/</strong>
+                        </td>
+                        <td width="50%" align="right" class="td_data">
+                            <strong>{{ number_format($data->net,2) }}</strong>
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td width="33%"><strong></td>
+            <td width="33%"></td>
         </tr>
         <tr>
             <td width="33%" align="center">
@@ -272,20 +288,20 @@
 <div class="customer-container" style="border-style: solid">
     <table width="100%">
         <tr>
-            <td width="80%">{{ $customer->name }}</td>
-            <td align="right" width="20%"><small>D.S. Nº 020 - 2008</small></td>
-        </tr>
-        <tr>
             <td width="80%">
+                {{ $customer->name }} <br>
                 <small>{{ $customer->address }}</small> <br>
                 <small>Ruc: {{ $customer->ruc }}</small>
             </td>
-            <td align="right" width="20%"><strong><h4>Planilla {{ $payroll->name }}</h4></strong></td>
+            <td align="right" width="20%">
+                <small>D.S. Nº 020 - 2008</small> <br>
+                <strong style="font-size: 12px">Planilla {{ $payroll->name }}</strong>
+            </td>
         </tr>
     </table>
     <table width="100%">
         <tr>
-            <td colspan="3" align="center"><strong><h4>BOLETA DE REMUNERACIONES</h4></strong></td>
+            <td colspan="3" align="center" style="font-size: 12px; padding-bottom: 10px;"><strong>BOLETA DE REMUNERACIONES</strong></td>
         </tr>
         <tr>
             <td width="45%">
@@ -335,12 +351,12 @@
             <td width="35%">
                 <table width="100%">
                     <tr>
-                        <td width="39%"><strong>F. Ingreso</strong></td>
+                        <td width="39%"><strong>Fecha Ingreso</strong></td>
                         <td width="1%">: </td>
                         <td width="60%">{{ $data->admission }}</td>
                     </tr>
                     <tr>
-                        <td width="39%"><strong>F. Cese</strong></td>
+                        <td width="39%"><strong>Fecha Cese</strong></td>
                         <td width="1%">: </td>
                         <td width="60%">{{ $data->termination }}</td>
                     </tr>
@@ -427,14 +443,14 @@
             </td>
         </tr>
     </table>
-    <table width="100%">
+    <table width="100%" class="table-section2">
         <tr>
-            <td width="33%" align="center" style="border-style: solid"><strong>INGRESOS</strong></td>
-            <td width="33%" align="center" style="border-style: solid"><strong>DESCUENTOS</strong></td>
-            <td width="33%" align="center" style="border-style: solid"><strong>APORTACIONES EMPLEADOR</strong></td>
+            <td width="33%" align="center" class="td_data"><strong>INGRESOS</strong></td>
+            <td width="33%" align="center" class="td_data"><strong>DESCUENTOS</strong></td>
+            <td width="33%" align="center" class="td_data"><strong>APORTACIONES EMPLEADOR</strong></td>
         </tr>
         <tr>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     @foreach($data->income as $income)
                         <tr>
@@ -444,7 +460,7 @@
                     @endforeach
                 </table>
             </td>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     @foreach($data->expense as $expense)
                         <tr>
@@ -454,7 +470,7 @@
                     @endforeach
                 </table>
             </td>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     @foreach($data->contribution as $contribution)
                         <tr>
@@ -466,7 +482,7 @@
             </td>
         </tr>
         <tr>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     <tr>
                         <td width="25%"></td>
@@ -474,8 +490,8 @@
                         <td width="25%" align="right">{{ number_format($data->income->sum('value'),2) }}</td>
                     </tr>
                 </table>
-            </td>
-            <td width="33%" style="border-style: solid">
+            </td >
+            <td width="33%" class="td_data">
                 <table width="100%">
                     <tr>
                         <td width="25%"></td>
@@ -484,7 +500,7 @@
                     </tr>
                 </table>
             </td>
-            <td width="33%" style="border-style: solid">
+            <td width="33%" class="td_data">
                 <table width="100%">
                     <tr>
                         <td width="25%"></td>
@@ -499,9 +515,18 @@
                         padding-top: 25px;">
             </td>
             <td width="33%" align="center">
-                <strong>NETO A PAGAR S/{{ number_format($data->net,2) }}</strong>
+                <table width="100%">
+                    <tr>
+                        <td width="50%" align="right">
+                            <strong>NETO A PAGAR S/</strong>
+                        </td>
+                        <td width="50%" align="right" class="td_data">
+                            <strong>{{ number_format($data->net,2) }}</strong>
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td width="33%"><strong></td>
+            <td width="33%"></td>
         </tr>
         <tr>
             <td width="33%" align="center">
@@ -519,6 +544,7 @@
     </table>
     <br>
 </div>
+
 </body>
 </html>
 

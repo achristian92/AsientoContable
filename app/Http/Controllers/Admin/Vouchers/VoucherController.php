@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Admin\Vouchers;
 
 
 use App\AsientoContable\Concepts\Repositories\IConcept;
+use App\AsientoContable\Employees\AccountingSeating\Repositories\ISeating;
 use App\AsientoContable\Files\Repositories\IFile;
 use App\Http\Controllers\Controller;
 
 class VoucherController extends Controller
 {
-    private $fileRepo;
-    private $conceptRepo;
+    private $fileRepo,$seatingRepo;
 
-    public function __construct(IFile $IFile,IConcept $IConcept)
+    public function __construct(ISeating $ISeating,IFile $IFile)
     {
         $this->fileRepo = $IFile;
-        $this->conceptRepo = $IConcept;
+        $this->seatingRepo = $ISeating;
     }
 
     public function index()
@@ -29,7 +29,7 @@ class VoucherController extends Controller
     public function show(int $customer, int $file)
     {
         return view('customers.collaborators.vouchers.show',[
-            'employees' => $this->conceptRepo->showConceptCollaboratorList($file),
+            'employees' => $this->seatingRepo->listEmployeesGenerated($file),
             'file' => $this->fileRepo->findFileById($file),
             'files'    => $this->fileRepo->listFiles()
         ]);

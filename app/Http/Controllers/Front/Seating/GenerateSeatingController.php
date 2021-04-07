@@ -3,13 +3,11 @@
 
 namespace App\Http\Controllers\Front\Seating;
 
-
-use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Concepts\Repositories\IConcept;
+use App\AsientoContable\Currencies\Currency;
 use App\AsientoContable\Employees\AccountingSeating\Repositories\ISeating;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
-use App\AsientoContable\Files\File;
 use App\AsientoContable\Files\Repositories\IFile;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -33,10 +31,10 @@ class GenerateSeatingController extends Controller
 
         $data = $this->transformData($IDS,$request->input('file_id'));
 
-        $exchangeRate = 3.76;
+        $exchangeRate = floatval(Currency::first()->rate);
 
         $data->map(function ($employee) use ($exchangeRate) {
-            $nro_seat  = Seating::getNextSeatNumber($employee['fileID']);
+            $nro_seat  = Seating::getNextSeatNumber($employee['fileID'],$employee['workedID']);
 
             if (count($employee['costCenters']) === 1) {
                 collect($employee['accounts'])->each(function ($account) use ($employee,$exchangeRate,$nro_seat) {

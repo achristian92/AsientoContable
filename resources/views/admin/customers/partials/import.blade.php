@@ -17,7 +17,7 @@
                                required>
                     </div>
                     <div class="row col-md-12 mt-5">
-                        <a href="{{ asset('files/Plantilla-Empresa.xlsx') }}" class="text-primary font-size-15"><u>Descargar plantilla</u></a>
+                        <a href="{{ route('admin.customer.template') }}" class="text-primary font-size-15"><u>Descargar plantilla</u></a>
                     </div>
                 </div>
                 <div class="modal-footer">

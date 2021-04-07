@@ -40,9 +40,12 @@ Route::get('/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ], function () {
     Route::resource('customers', CustomerController::class);
+    Route::get('template-customer', \App\Http\Controllers\Admin\Customers\TemplateCustomerController::class)->name('customer.template');
     Route::post('customers-import', CustomerImportController::class)->name('customers.import');
     Route::resource('users', UserController::class)->except('store','update');
     Route::get('template-account',AccountTemplateController::class)->name('template.account');
+    Route::resource('currencies', \App\Http\Controllers\Admin\Currencies\CurrencyController::class);
+
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {
         Route::get('test',\App\Http\Controllers\TestController::class);

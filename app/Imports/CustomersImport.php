@@ -2,16 +2,14 @@
 
 namespace App\Imports;
 
+use App\AsientoContable\Base\BaseHeader;
+use App\AsientoContable\Base\BasePension;
 use App\AsientoContable\Customers\Customer;
-use App\Repositories\Activities\Activity;
-use App\Repositories\Tags\Tag;
-use Carbon\Carbon;
+use App\AsientoContable\Headers\Header;
+use App\AsientoContable\PensionFund\PensionFund;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class CustomersImport implements ToCollection,WithHeadingRow
@@ -27,7 +25,7 @@ class CustomersImport implements ToCollection,WithHeadingRow
 
                 $this->validationRow($row, $key);
 
-                 Customer::updateOrCreate(
+                 $customer = Customer::updateOrCreate(
                     [
                         'ruc'  => $row['ruc'],
                     ],
@@ -36,6 +34,23 @@ class CustomersImport implements ToCollection,WithHeadingRow
                         'address' => $row['direccion'],
                     ]
                 );
+
+            BaseHeader::all()->each(function ($base) use ($customer) {
+                Header::create([
+                    'name'        => $base->header,
+                    'slug'        => $base->header_slug,
+                    'type'        => $base->type,
+                    'order'       => $base->order,
+                    'is_required' => $base->is_required,
+                    'has_account' => $base['has_account'] ?? false,
+                    'customer_id' => $customer->id,
+                ]);
+            });
+
+            BasePension::all()->each(function ($pension) use ($customer) {
+                $pension['customer_id'] = $customer->id;
+                PensionFund::create($pension->toArray());
+            });
         });
     }
 

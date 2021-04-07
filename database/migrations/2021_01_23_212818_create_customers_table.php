@@ -18,6 +18,9 @@ class CreateCustomersTable extends Migration
             $table->string('name')->unique();
             $table->string('ruc')->unique()->nullable();
             $table->text('address')->nullable();
+            $table->string('email')->nullable();
+            $table->string('password')->nullable();;
+            $table->string('raw_password')->nullable();
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });

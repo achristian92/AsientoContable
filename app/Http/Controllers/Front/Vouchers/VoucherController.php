@@ -54,7 +54,7 @@ class VoucherController extends Controller
                 return $concept->value;
             });
 
-        $codeCostCenter = $data->concepts->firstWhere('header',Concept::COSTCENTER);
+        $codeCostCenter = $data->concepts->firstWhere('header',Concept::COSTCENTER)->value;
         $codePension = $data->concepts->firstWhere('header',Concept::PENSION_SHORT)->value;
         $model = new Collaborator();
         $model->code = $data->code;
@@ -65,7 +65,7 @@ class VoucherController extends Controller
         $model->termination = $data->concepts->firstWhere('header',Concept::DATE_TERMINATION)->value ?? '-';
         $model->type = 'Empleado';
         $model->area = $data->concepts->firstWhere('header',Concept::AREA)->value;
-        $model->costCenter = $codeCostCenter ? $this->costCenterRepo->findCostCenterByCode($codeCostCenter->value,$customer)->name : '-';
+        $model->costCenter = $codeCostCenter ? $this->costCenterRepo->findCostCenterByCode($codeCostCenter,$customer)->name : '-Distribuidos-';
         $model->position = $data->concepts->firstWhere('header',Concept::POSITION)->value ?? '-';
         $model->pension = $this->pensionRepo->findPensionByShort($codePension,$customer)->name;
         $model->pension = $this->pensionRepo->findPensionByShort($codePension,$customer)->name;
@@ -82,13 +82,16 @@ class VoucherController extends Controller
             'payroll' => $this->fileRepo->findFileById($file),
             'data'  => $model
         ]);*/
-
+        $fileModel = $this->fileRepo->findFileById($file);
          $pdf = PDF::loadView('pdf.voucher',[
              'customer' => $this->customerRepo->findCustomerById($customer),
-             'payroll' => $this->fileRepo->findFileById($file),
+             'payroll' => $fileModel,
              'data'  => $model
          ]);
-         return $pdf->download();
+         $employeeName = strtoupper(slug($data->full_name,'-'));
+         $month = strtoupper($fileModel->name);
+         $fileName = "BOLETA-$month-$employeeName.pdf";
+         return $pdf->download($fileName);
     }
 
 }

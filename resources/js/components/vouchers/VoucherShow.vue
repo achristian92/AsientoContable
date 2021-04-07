@@ -2,6 +2,7 @@
     <div class="card app-content-body">
         <loading :active.sync="isLoading" :is-full-page="false"></loading>
         <div class="card-body">
+            <H4>Boletas  {{ file.name }}</H4>
             <div class="row mt-3">
                 <div class="col-md-4">
                     <div class="card mb-0">
@@ -24,35 +25,16 @@
                     <thead>
                     <tr>
                         <th>Nombres</th>
-                        <th class="text-center">Ingresos</th>
-                        <th class="text-center">Egresos</th>
-                        <th class="text-center">Aportes</th>
-                        <th class="text-center">Neto</th>
+                        <th>Nro Documento</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="employee in employees">
-                        <td>
-                            {{ employee.employee }} <br>
-                            <small class="text-muted">
-                                <a href="#" class="text-muted" data-toggle="tooltip" :title="employee.workArea+' | '+employee.position">
-                                    <i class="fa fa-id-card-o"></i>
-                                </a>
-                                <a href="#" class="text-muted" data-toggle="tooltip" :title="'Pension '+employee.pension">
-                                    <span class="ml-2">{{ employee.pension }} </span>
-                                </a>
-                                <a href="#" class="text-muted" v-if="employee.withFamily" data-toggle="tooltip" title="" data-original-title="Asignación familiar">
-                                    <i class="fa fa-user-o ml-2"></i>
-                                </a>
-                            </small>
-                        </td>
-                        <td class="text-primary text-center">{{ employee.totalIncome }}</td>
-                        <td class="text-danger text-center">{{ employee.totalExpense }}</td>
-                        <td class="text-success text-center">{{ employee.totalContribution }}</td>
-                        <td class="text-info text-center">{{ employee.netToPay }}</td>
+                        <td>{{ employee.worked }}</td>
+                        <td>{{ employee.nroDoc }}</td>
                         <td class="text-right">
-                            <a :href="`${baseUrl}api/customer/${currentCustomerID}/vouchers/${employee.file_id}/download/${employee.collaborator_id}`" data-toggle="tooltip" title="Descargar boleta" data-original-title="Descargar boleta">
+                            <a :href="`${baseUrl}api/customer/${currentCustomerID}/vouchers/${employee.file}/download/${employee.id}`" data-toggle="tooltip" title="Descargar boleta" data-original-title="Descargar boleta">
                                 <i class="fa fa-download"></i>
                             </a>
                         </td>

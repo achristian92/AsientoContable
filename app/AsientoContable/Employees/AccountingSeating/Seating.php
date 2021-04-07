@@ -17,8 +17,17 @@ class Seating extends Model
         return $this->belongsTo(Collaborator::class,'collaborator_id');
     }
 
-    public static function getNextSeatNumber(int $payroll) : int
+    public static function getNextSeatNumber(int $payroll, int $employee) : int
     {
+        $hasNumber = Seating::where('customer_id',customerID())
+            ->where('file_id',$payroll)
+            ->where('collaborator_id',$employee)
+            ->orderBy('nro_asiento', 'desc')
+            ->first();
+
+        if ($hasNumber)
+            return $hasNumber->nro_asiento;
+
         $lastVoucher = Seating::where('customer_id',customerID())
             ->where('file_id',$payroll)
             ->orderBy('nro_asiento', 'desc')

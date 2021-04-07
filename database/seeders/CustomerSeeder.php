@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\AsientoContable\BaseHeaders\BaseHeader;
+use App\AsientoContable\Base\BaseHeader;
+use App\AsientoContable\Base\BasePension;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Headers\Header;
+use App\AsientoContable\PensionFund\PensionFund;
 use Illuminate\Database\Seeder;
 
 class CustomerSeeder extends Seeder
@@ -39,6 +41,10 @@ class CustomerSeeder extends Seeder
                 'has_account' => $item['has_account'] ?? false,
                 'customer_id' => $firstCustomer->id,
             ]);
+        });
+        BasePension::all()->each(function ($value) use($firstCustomer){
+            $value['customer_id'] = $firstCustomer->id;
+            PensionFund::create($value->toArray());
         });
 
     }

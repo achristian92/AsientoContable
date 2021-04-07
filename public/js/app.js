@@ -3393,24 +3393,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -25083,147 +25065,84 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "row mt-3" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "card mb-0" }, [
-              _c("div", { staticClass: "card-body p-3" }, [
-                _c("div", { staticClass: "d-flex align-items-center" }, [
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("h6", { staticClass: "text-uppercase font-size-11" }, [
-                      _vm._v("COLABORADORES")
-                    ]),
+      _c(
+        "div",
+        { staticClass: "card-body" },
+        [
+          _c("H4", [_vm._v("Boletas  " + _vm._s(_vm.file.name))]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-3" }, [
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("div", { staticClass: "card mb-0" }, [
+                _c("div", { staticClass: "card-body p-3" }, [
+                  _c("div", { staticClass: "d-flex align-items-center" }, [
+                    _vm._m(0),
                     _vm._v(" "),
-                    _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.employees.length) + " ")
+                    _c("div", [
+                      _c("h6", { staticClass: "text-uppercase font-size-11" }, [
+                        _vm._v("COLABORADORES")
+                      ]),
+                      _vm._v(" "),
+                      _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
+                        _vm._v(_vm._s(_vm.employees.length) + " ")
+                      ])
                     ])
                   ])
                 ])
               ])
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "table-responsive",
-            staticStyle: { overflow: "hidden", outline: "none" },
-            attrs: { tabindex: "1" }
-          },
-          [
-            _c("table", { staticClass: "table table-striped mb-0" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.employees, function(employee) {
-                  return _c("tr", [
-                    _c("td", [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(employee.employee) +
-                          " "
-                      ),
-                      _c("br"),
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "table-responsive",
+              staticStyle: { overflow: "hidden", outline: "none" },
+              attrs: { tabindex: "1" }
+            },
+            [
+              _c("table", { staticClass: "table table-striped mb-0" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.employees, function(employee) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(employee.worked))]),
                       _vm._v(" "),
-                      _c("small", { staticClass: "text-muted" }, [
+                      _c("td", [_vm._v(_vm._s(employee.nroDoc))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
                         _c(
                           "a",
                           {
-                            staticClass: "text-muted",
                             attrs: {
-                              href: "#",
+                              href:
+                                _vm.baseUrl +
+                                "api/customer/" +
+                                _vm.currentCustomerID +
+                                "/vouchers/" +
+                                employee.file +
+                                "/download/" +
+                                employee.id,
                               "data-toggle": "tooltip",
-                              title:
-                                employee.workArea + " | " + employee.position
+                              title: "Descargar boleta",
+                              "data-original-title": "Descargar boleta"
                             }
                           },
-                          [_c("i", { staticClass: "fa fa-id-card-o" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-muted",
-                            attrs: {
-                              href: "#",
-                              "data-toggle": "tooltip",
-                              title: "Pension " + employee.pension
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "ml-2" }, [
-                              _vm._v(_vm._s(employee.pension) + " ")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        employee.withFamily
-                          ? _c(
-                              "a",
-                              {
-                                staticClass: "text-muted",
-                                attrs: {
-                                  href: "#",
-                                  "data-toggle": "tooltip",
-                                  title: "",
-                                  "data-original-title": "Asignación familiar"
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-user-o ml-2" })]
-                            )
-                          : _vm._e()
+                          [_c("i", { staticClass: "fa fa-download" })]
+                        )
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-primary text-center" }, [
-                      _vm._v(_vm._s(employee.totalIncome))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-danger text-center" }, [
-                      _vm._v(_vm._s(employee.totalExpense))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-success text-center" }, [
-                      _vm._v(_vm._s(employee.totalContribution))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-info text-center" }, [
-                      _vm._v(_vm._s(employee.netToPay))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-right" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: {
-                            href:
-                              _vm.baseUrl +
-                              "api/customer/" +
-                              _vm.currentCustomerID +
-                              "/vouchers/" +
-                              employee.file_id +
-                              "/download/" +
-                              employee.collaborator_id,
-                            "data-toggle": "tooltip",
-                            title: "Descargar boleta",
-                            "data-original-title": "Descargar boleta"
-                          }
-                        },
-                        [_c("i", { staticClass: "fa fa-download" })]
-                      )
                     ])
-                  ])
-                }),
-                0
-              )
-            ])
-          ]
-        )
-      ])
+                  }),
+                  0
+                )
+              ])
+            ]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -25250,13 +25169,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Nombres")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Ingresos")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Egresos")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Aportes")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Neto")]),
+        _c("th", [_vm._v("Nro Documento")]),
         _vm._v(" "),
         _c("th")
       ])

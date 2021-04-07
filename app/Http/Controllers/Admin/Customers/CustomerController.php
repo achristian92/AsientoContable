@@ -4,13 +4,12 @@
 namespace App\Http\Controllers\Admin\Customers;
 
 
-use App\AsientoContable\AccountsHeaders\AccountHeader;
-use App\AsientoContable\BaseHeaders\BaseHeader;
+use App\AsientoContable\Base\BaseHeader;
+use App\AsientoContable\Base\BasePension;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Requests\CustomerRequest;
-use App\AsientoContable\Customers\Requests\StoreCustomerRequest;
-use App\AsientoContable\Customers\Requests\UpdateCustomerRequest;
-use App\AsientoContable\HeaderAccountingsAccount\HeaderAccount;
+use App\AsientoContable\Headers\Header;
+use App\AsientoContable\PensionFund\PensionFund;
 use App\Http\Controllers\Controller;
 use App\AsientoContable\Customers\Repositories\ICustomer;
 
@@ -38,17 +37,21 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $customer = $this->customerRepo->createCustomer($request->all());
-        BaseHeader::all()->each(function ($item,$key) use ($customer) {
-           AccountHeader::create([
-               'name'         => $item->header,
-               'name_slug'    => $item->header_slug,
-               'customer_id'  => $customer->id,
-               'order'        => $item->order,
-               'is_required'  => $item->is_required,
-               'show'         => $item->show,
-               'name_account_slug' => HeaderAccount::firstWhere('slug',$item->account_slug)->name ?? '',
-               'account_slug' => $item->account_slug,
-           ]);
+        BaseHeader::all()->each(function ($base) use ($customer) {
+            Header::create([
+                'name'        => $base->header,
+                'slug'        => $base->header_slug,
+                'type'        => $base->type,
+                'order'       => $base->order,
+                'is_required' => $base->is_required,
+                'has_account' => $base['has_account'] ?? false,
+                'customer_id' => $customer->id,
+            ]);
+        });
+
+        BasePension::all()->each(function ($value) use($customer){
+            $value['customer_id'] = $customer->id;
+            PensionFund::create($value->toArray());
         });
         return redirect()->route('admin.customers.index')->with('message',"Cliente creado");
     }
