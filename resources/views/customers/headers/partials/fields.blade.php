@@ -13,6 +13,20 @@
 </div>
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
+        <label for="name">Tipo(Opcional)</label>
+        <select class="form-control" name="type">
+            <option value="">Seleccionar</option>
+            @foreach($types as $type)
+                <option value="{{$type}}"
+                    {{ ( $model->type == $type) ? 'selected' : '' }}>
+                    {{ $type }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+</div>
+<div class="form-row mb-1">
+    <div class="form-group col-md-6">
         <label for="name">Cuenta contable</label>
         <select class="form-control js-accounts" name="account_plan_id">
             <option value="">Seleccionar</option>

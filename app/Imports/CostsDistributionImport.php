@@ -69,7 +69,7 @@ class CostsDistributionImport implements ToCollection,WithHeadingRow,WithValidat
     private function searchCostCenterByCode(string $code): int
     {
         $employee = resolve(CenterCostRepo::class);
-        return $employee->finCostCenterByCode($code,$this->customer)->id;
+        return $employee->findCostCenterByCode($code,$this->customer)->id;
 
     }
 }

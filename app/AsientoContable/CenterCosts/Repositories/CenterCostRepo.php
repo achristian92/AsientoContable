@@ -16,12 +16,12 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
         return Cost::class;
     }
 
-    public function finCostCenterById(int $id): Cost
+    public function findCostCenterById(int $id): Cost
     {
         return $this->model->findOrFail($id);
     }
 
-    public function finCostCenterByCode(int $code,int $customer): Cost
+    public function findCostCenterByCode(string $code,int $customer): Cost
     {
         return $this->model::where('customer_id',$customer)
                     ->where('code',$code)

@@ -9,9 +9,9 @@ use Illuminate\Support\Collection;
 
 interface ICenterCost
 {
-    public function finCostCenterById(int $id): Cost;
+    public function findCostCenterById(int $id): Cost;
 
-    public function finCostCenterByCode(int $code,int $customer): Cost;
+    public function findCostCenterByCode(string $code,int $customer): Cost;
 
     public function createCostCenter(array $data): Cost;
 

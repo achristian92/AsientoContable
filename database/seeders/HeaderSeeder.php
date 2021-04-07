@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\AsientoContable\Concepts\Concept;
+use App\AsientoContable\Headers\Header;
 use Illuminate\Database\Seeder;
 use Str;
 
@@ -53,7 +54,7 @@ class HeaderSeeder extends Seeder
                 'is_required' => true
             ],
             [
-                'header' => 'Fecha cese',
+                'header' => Concept::DATE_TERMINATION,
                 'is_required' => false
             ],
             [
@@ -73,11 +74,11 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'header' => 'Días trab',
+                'header' => Concept::WORKED_DAYS,
                 'is_required' => false
             ],
             [
-                'header' => 'Horas trab',
+                'header' => Concept::WORKED_HOURS,
                 'is_required' => false
             ],
             [
@@ -97,14 +98,16 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'header' => Concept::BASIC_SALARY,
+                'header'      => Concept::BASIC_SALARY,
                 'is_required' => true,
-                'has_account' => true
+                'has_account' => true,
+                'type'        => Header::TYPE_INCOME
             ],
             [
-                'header' => Concept::WITH_FAMILY,
+                'header'      => Concept::WITH_FAMILY,
                 'is_required' => 'true',
-                'has_account' => true
+                'has_account' => true,
+                'type'        => Header::TYPE_INCOME
             ],
             [
                 'header' => Concept::TOTAL_INCOME,
@@ -113,29 +116,35 @@ class HeaderSeeder extends Seeder
             [
                 'header' => Concept::AFP_CONTRIBUTION,
                 'is_required' => true,
+                'type'        => Header::TYPE_EXPENSE
             ],
             [
                 'header' => Concept::ONP,
                 'is_required' => true,
-                'has_account' => true
+                'has_account' => true,
+                'type'        => Header::TYPE_EXPENSE
             ],
             [
                 'header' => Concept::AFP_SURE_PRIME,
-                'is_required' => true
+                'is_required' => true,
+                'type'        => Header::TYPE_EXPENSE
             ],
             [
                 'header' => Concept::AFP_COMISSION,
-                'is_required' => true
+                'is_required' => true,
+                'type'        => Header::TYPE_EXPENSE
             ],
             [
                 'header' => Concept::FIFTH_CATEGORY,
                 'is_required' => true,
-                'has_account' => true
+                'has_account' => true,
+                'type'        => Header::TYPE_EXPENSE
             ],
             [
                 'header' => 'EPS',
                 'is_required' => true,
-                'has_account' => true
+                'has_account' => true,
+                'type'        => Header::TYPE_EXPENSE
             ],
             [
                 'header' => Concept::TOTAL_DISCOUNT,
@@ -144,7 +153,8 @@ class HeaderSeeder extends Seeder
             [
                 'header' => Concept::HEALTH,
                 'is_required' => true,
-                'has_account' => true
+                'has_account' => true,
+                'type'        => Header::TYPE_CONTRIBUTION
             ],
             [
                 'header' => 'EsSalud(P)',
@@ -165,6 +175,7 @@ class HeaderSeeder extends Seeder
             \DB::table('base_header')->insert([
                 'header'       => $item['header'],
                 'header_slug'  => slug($item['header']),
+                'type'         => $item['type'],
                 'order'        => $key * 10,
                 'is_required'  => $item['is_required'],
                 'has_account'  => $item['has_account'] ?? false,

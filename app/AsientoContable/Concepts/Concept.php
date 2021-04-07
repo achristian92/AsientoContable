@@ -5,7 +5,6 @@ namespace App\AsientoContable\Concepts;
 
 
 use App\AsientoContable\Files\File;
-use App\AsientoContable\Payrolls\Payroll;
 use Illuminate\Database\Eloquent\Model;
 
 class Concept extends Model
@@ -20,8 +19,11 @@ class Concept extends Model
 
     CONST COSTCENTER = 'Centro Costo';
 
+    CONST WORKED_DAYS = 'Días trab';
+    CONST WORKED_HOURS = 'Horas trab';
 
     CONST DATE_ENTRY = 'Fecha Ingreso';
+    CONST DATE_TERMINATION = 'Fecha cese';
     CONST WITH_FAMILY = 'Asignación Familiar';
     CONST BASIC_SALARY = 'Remuneración basica';
 

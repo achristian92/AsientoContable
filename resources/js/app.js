@@ -19,6 +19,8 @@ Vue.component('add-plan-account', require('./components/plan-account/AddPlanAcco
 //Centro de costos
 Vue.component('import-cost-center', require('./components/assign-costs/partials/Import').default);
 
+//Vouchers
+Vue.component('voucher-show', require('./components/vouchers/VoucherShow').default);
 
 //Vue.component('add-user', require('./components/users/AddUser').default);
 Vue.component('user-form', require('./components/users/UserForm').default);

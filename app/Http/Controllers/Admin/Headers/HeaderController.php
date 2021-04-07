@@ -36,14 +36,16 @@ class HeaderController extends Controller
     {
         return view('customers.headers.create',[
             'model' => new Header(),
-            'accounts' => $this->accountsRepo->listAccountsAnalitica()
+            'accounts' => $this->accountsRepo->listAccountsAnalitica(),
+            'types' => Header::HEADER_TYPES
         ]);
     }
     public function edit($customer_id,$id)
     {
         return view('customers.headers.edit',[
             'model' => $this->headerRepo->findHeaderById($id),
-            'accounts' => $this->accountsRepo->listAccountsAnalitica()
+            'accounts' => $this->accountsRepo->listAccountsAnalitica(),
+            'types' => Header::HEADER_TYPES
         ]);
     }
 

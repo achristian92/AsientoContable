@@ -4,9 +4,7 @@ namespace App\Imports;
 
 use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\CenterCosts\Repositories\CenterCostRepo;
-use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Collaborators\Repositories\CollaboratorRepo;
-use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\ConceptAccounts\Repositories\ConceptAccountRepo;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Headers\Header;

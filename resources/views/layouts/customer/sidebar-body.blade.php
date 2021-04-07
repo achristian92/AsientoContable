@@ -13,7 +13,7 @@
 
         <div id="customers2" class="
             {{ isOpenRoute(4,'collaborators') }} || {{ isOpenRoute(4,'payrolls') }} ||
-            {{ isOpenRoute(4,'month-costs') }} ||
+            {{ isOpenRoute(4,'month-costs') }} || {{ isOpenRoute(4,'vouchers') }}
             {{ isOpenRoute(4,'cost-center') }} || {{ isOpenRoute(4,'cost-center2') }} ||
             {{ isOpenRoute(4,'accounting-plan') }} || {{ isOpenRoute(4,'accounting-seat') }} ||
             {{ isOpenRoute(4,'headers') }} || {{ isOpenRoute(4,'pensions') }}">
@@ -25,7 +25,7 @@
                 <li><a href="{{ route('admin.customers.payrolls.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'payrolls') }} ml-3">Planilla mensual</a></li>
                 <li><a href="{{ route('admin.customers.accounting-seat.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'accounting-seat') }} ml-3">Asiento contable</a></li>
                 <li><a href="{{ route('admin.customers.month-costs.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'month-costs') }} ml-3">Asignación de costos</a></li>
-                <li><a href="" class="ml-3">Gestión boleta</a></li>
+                <li><a href="{{ route('admin.customers.vouchers.index',$currentCustomer->id) }}" class="{{ isActiveRoute(4,'vouchers') }} ml-3">Gestión boleta</a></li>
 
                 <li class="navigation-divider m-0 text-light font-weight-bold">Configuración</li>
                 <li><a href="{{ route('admin.customers.cost-center.index',[$currentCustomer->id]) }}" class="{{ isActiveRoute(4,'cost-center') }} ml-3">Centro costos</a></li>

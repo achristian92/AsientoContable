@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
         Route::post('payroll-import', PayrollImportController::class)->name('payroll-import');
         Route::resource('month-costs', MonthCostController::class);
         Route::resource('assign-costs', AssignCostController::class);
+        Route::resource('vouchers', \App\Http\Controllers\Admin\Vouchers\VoucherController::class);
         Route::resource('accounting-seat', AccountingSeatController::class);
         Route::get('accounting-seat/{file}/export', [AccountingSeatController::class,'export'])->name('seating.export');
         Route::resource('cost-center', CostCenterController::class);
@@ -76,6 +77,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
         Route::get('/template/assign-cost', [ImportAssignCostController::class,'template']);
         Route::post('/import/assign-cost', [ImportAssignCostController::class,'import']);
         Route::resource('plan-account', PlanAccountController::class);
+        Route::get('vouchers/{file}/download/{employee}',\App\Http\Controllers\Front\Vouchers\VoucherController::class);
         Route::post('generate-seating', GenerateSeatingController::class);
     });
 });

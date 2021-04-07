@@ -19,4 +19,6 @@ interface IHeader
 
     public function isAssignedAccountWithHeaders(): bool;
 
+    public function listHeadersByType(string $type): Collection;
+
 }

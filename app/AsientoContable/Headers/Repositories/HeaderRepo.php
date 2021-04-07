@@ -58,4 +58,11 @@ class HeaderRepo extends BaseRepository implements IHeader
         return $filtered === 0;
 
     }
+
+    public function listHeadersByType(string $type): Collection
+    {
+        return $this->model::where('customer_id',customerID())
+                    ->where('type',$type)
+                    ->get();
+    }
 }

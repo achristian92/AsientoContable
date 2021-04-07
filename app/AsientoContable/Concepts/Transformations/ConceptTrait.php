@@ -87,4 +87,36 @@ trait ConceptTrait
         return 0;
     }
 
+    public function listIncome(Collection $concepts): Collection
+    {
+        $basic = $concepts->firstWhere('header',Concept::BASIC_SALARY);
+        $family = $concepts->firstWhere('header',Concept::WITH_FAMILY);
+        $collection = collect();
+        $collection->push($basic);
+        $collection->push($family);
+        return $collection;
+    }
+
+    public function listExpenses(Collection $concepts): Collection
+    {
+        $contribution = $concepts->firstWhere('header',Concept::AFP_CONTRIBUTION);
+        $sure = $concepts->firstWhere('header',Concept::AFP_SURE_PRIME);
+        $commission = $concepts->firstWhere('header',Concept::AFP_COMISSION);
+        $fifthCat= $concepts->firstWhere('header',Concept::FIFTH_CATEGORY);
+        $collection = collect();
+        $collection->push($contribution);
+        $collection->push($sure);
+        $collection->push($commission);
+        $collection->push($fifthCat);
+        return $collection;
+    }
+
+    public function listContribution(Collection $concepts): Collection
+    {
+        $contribution = $concepts->firstWhere('header',Concept::HEALTH);
+        $collection = collect();
+        $collection->push($contribution);
+        return $collection;
+    }
+
 }
