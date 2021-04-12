@@ -4,7 +4,11 @@
         <small class="text-muted"> Código: {{ $collaborator->code }} - Nro identidad: {{ $collaborator->nro_document }} </small>
     </td>
     <td>
-        {{ formatDate($collaborator->date_start_work) }}
+        {{ $collaborator->date_start_work }}
+    </td>
+    <td>
+        {{ $collaborator->cuspp }} <br>
+        <small class="text-muted">{{ $collaborator->code_cuspp }}</small>
     </td>
     <td><span class='badge badge-success'>Activo</span></td>
     <td class="text-right">

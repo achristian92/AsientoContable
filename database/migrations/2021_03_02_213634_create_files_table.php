@@ -18,6 +18,8 @@ class CreateFilesTable extends Migration
             $table->string('name');
             $table->date('month_payroll');
             $table->text('url_file');
+            $table->json('headers')->nullable();
+            $table->string('status')->default('Abierto');
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

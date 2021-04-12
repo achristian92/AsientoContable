@@ -12,10 +12,6 @@ class SendEmailNewUser extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-
-    /**
-     * @var User
-     */
     private $user;
 
     public function __construct(User $user)
@@ -23,11 +19,6 @@ class SendEmailNewUser extends Mailable implements ShouldQueue
         $this->user = $user;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         return $this->view('emails.users.credentials-new-user')

@@ -12,7 +12,12 @@ interface IPensionFund
 
     public function findPensionById(int $id): PensionFund;
 
+    public function findPensionByShort(string $short, int $customer): PensionFund;
+
     public function createPensionFund(array $params);
 
     public function updatePensionFund(array $params, int $id): bool;
+
+    public function isAssignedAccountWithPensions(): bool;
+
 }

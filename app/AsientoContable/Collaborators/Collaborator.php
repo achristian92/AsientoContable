@@ -3,9 +3,8 @@
 
 namespace App\AsientoContable\Collaborators;
 
-use App\AsientoContable\CenterCosts\Cost;
+use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Customers\Customer;
-use App\AsientoContable\Payrolls\Payroll;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,14 +14,14 @@ class Collaborator extends Model
 
     protected $guarded = ['id'];
 
-    public function payrolls()
-    {
-        return $this->hasMany(Payroll::class);
-    }
-
     public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function concepts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Concept::class);
     }
 
 }

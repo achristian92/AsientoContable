@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin\AccountingPlan;
 
 use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\AccountPlan\Repositories\IAccountPlan;
+use App\AsientoContable\HeaderAccountingsAccount\HeaderAccount;
 use App\AsientoContable\Tools\NestedsetTrait;
 use App\Http\Controllers\Controller;
 
@@ -34,7 +35,7 @@ class AccountingPlanController extends Controller
     public function edit($customer_id, $account_id)
     {
         return view('customers.accounting-plan.edit', [
-            'model' => $this->accountRepo->findPlanAccountById($account_id)->load('parents')
+            'model' => $this->accountRepo->findPlanAccountById($account_id)->load('parents'),
         ]);
     }
 

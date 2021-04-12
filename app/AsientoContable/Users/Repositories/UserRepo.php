@@ -5,6 +5,7 @@ namespace App\AsientoContable\Users\Repositories;
 
 
 use App\Mail\SendEmailNewUser;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
@@ -34,6 +35,7 @@ class UserRepo extends BaseRepository implements IUser
         $data["password"]     = bcrypt($plainPassword);
         $user                 = $this->model->create($data);
         $this->sendEmailNewCredentials($user);
+        history(History::CREATED_TYPE,"Creó el usuario $user->full_name");
 
         return $user;
     }
@@ -57,6 +59,7 @@ class UserRepo extends BaseRepository implements IUser
     public function updateUser(array $data, int $id): bool
     {
         $user = $this->findUserById($id);
+        history(History::UPDATED_TYPE,"Actualizó el usuario $user->full_name");
         return $user->update($data);
     }
 

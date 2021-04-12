@@ -89,10 +89,10 @@
                                                 <option disabled value="">Seleccione un tipo</option>
                                                 <option value="GASTO">GASTO</option>
                                                 <option value="PASIVO">PASIVO</option>
+                                                <option value="ACTIVO">ACTIVO</option>
                                             </select>
                                         </div>
                                     </div>
-
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input"
                                                type="checkbox"
@@ -125,7 +125,7 @@
                                     <div class="row col-md-12">
                                         <div class="col-md-6">
                                             <button type="submit" class="btn btn-primary"> Guardar </button>
-                                            <a :href="`/admin/customer/${currentCustomerID}/accounting-plan`" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
+                                            <a :href="`${this.baseUrl}admin/customer/${currentCustomerID}/accounting-plan`" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
                                         </div>
                                         <div class="col-md-6 text-right" v-show="isEdit">
                                             <a href="#" @click.prevent="handleDestroy" type="submit" class="btn btn-sm btn-outline-danger"> Eliminar </a>
@@ -186,7 +186,7 @@ export default {
             return !!this.formData.id;
         },
         backUrl() {
-            return `/admin/customer/${this.currentCustomerID}/accounting-plan`
+            return `${this.baseUrl}admin/customer/${this.currentCustomerID}/accounting-plan`
         }
     },
     watch: {
@@ -203,7 +203,7 @@ export default {
         },
         selectedAccount: function () {
             this.getDataPlanAccount()
-        }
+        },
     },
 
     methods: {
@@ -213,6 +213,7 @@ export default {
             return 'Crear plan de cuentas'
         },
         loadData() {
+
             if (this.isEdit) {
                 this.formData = this.p_model
                 if (this.p_model.category === 'subAccount')
@@ -225,7 +226,7 @@ export default {
             }
         },
         getDataPlanAccount() {
-            axios.get(`/api/customer/${this.currentCustomerID}/plan-account`,{params: {'root': this.selectedAccount}})
+            axios.get(`${this.baseUrl}api/customer/${this.currentCustomerID}/plan-account`,{params: {'root': this.selectedAccount}})
                 .then(res => {
                     this.accounts = res.data.accounts
                     this.subAccounts = res.data.subAccounts
@@ -236,11 +237,11 @@ export default {
             let url = ''
             let data = this.sendParams()
             if (this.isEdit) {
-                url = `/api/customer/${this.currentCustomerID}/plan-account/${this.formData.id}`
+                url = `${this.baseUrl}api/customer/${this.currentCustomerID}/plan-account/${this.formData.id}`
                 data['_method'] = 'PUT'
             }
             else
-                url = `/api/customer/${this.currentCustomerID}/plan-account`
+                url = `${this.baseUrl}api/customer/${this.currentCustomerID}/plan-account`
 
             axios.post(url, data)
                 .then(res => {
@@ -270,7 +271,7 @@ export default {
         },
         handleDestroy() {
             this.isLoading = true
-            axios.delete(`/api/customer/${this.currentCustomerID}/plan-account/${this.formData.id}`)
+            axios.delete(`${this.baseUrl}api/customer/${this.currentCustomerID}/plan-account/${this.formData.id}`)
                 .then(res => {
                     this.isLoading = false
                     Vue.$toast.success(res.data.msg)

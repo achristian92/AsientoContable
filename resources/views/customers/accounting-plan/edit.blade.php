@@ -4,5 +4,6 @@
         'title' => 'Plan de cuentas',
         'tab' => 'Gestión comercial',
     ])
-    <add-plan-account :p_model="{{$model}}"></add-plan-account>
+    <add-plan-account :p_model="{{$model}}">
+    </add-plan-account>
 @endsection

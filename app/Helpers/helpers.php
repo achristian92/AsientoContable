@@ -1,7 +1,16 @@
 <?php
 
+use App\AsientoContable\Concepts\Concept;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
+function slug(string $text,$format = '_'): string
+{
+    if (!$text)
+        return '';
+
+    return Str::slug($text,$format);
+}
 function isOpenRoute($segmento, $route = '')
 {
     request()->segment($segmento) === $route ? $route = 'open' : $route;
@@ -25,6 +34,8 @@ if (!function_exists('_add4NumRand')) {
 if (!function_exists('customerID')) {
     function customerID()
     {
+        if (!request()->segment(3))
+            return '';
         return (int) request()->segment(3);
     }
 }
@@ -113,6 +124,21 @@ function EventExportStyles()
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                 ),
             ),
+        ],
+        'NUMBER' => [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+            ],
         ]
     ];
+}
+
+function history(string $type,string $description,string $file_url = null)
+{
+    Auth::user()->history()->create([
+        'type'        => $type,
+        'description' => $description,
+        'file_url'    => $file_url,
+        'customer_id' => customerID()
+    ]);
 }

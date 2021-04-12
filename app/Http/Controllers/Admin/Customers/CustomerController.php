@@ -4,10 +4,12 @@
 namespace App\Http\Controllers\Admin\Customers;
 
 
+use App\AsientoContable\Base\BaseHeader;
+use App\AsientoContable\Base\BasePension;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Requests\CustomerRequest;
-use App\AsientoContable\Customers\Requests\StoreCustomerRequest;
-use App\AsientoContable\Customers\Requests\UpdateCustomerRequest;
+use App\AsientoContable\Headers\Header;
+use App\AsientoContable\PensionFund\PensionFund;
 use App\Http\Controllers\Controller;
 use App\AsientoContable\Customers\Repositories\ICustomer;
 
@@ -34,7 +36,16 @@ class CustomerController extends Controller
 
     public function store(CustomerRequest $request)
     {
-        $this->customerRepo->createCustomer($request->all());
+        $customer = $this->customerRepo->createCustomer($request->all());
+        BaseHeader::all()->each(function ($base) use ($customer) {
+            $base['customer_id'] = $customer->id;
+            Header::create($base->toArray());
+        });
+
+        BasePension::all()->each(function ($value) use($customer){
+            $value['customer_id'] = $customer->id;
+            PensionFund::create($value->toArray());
+        });
         return redirect()->route('admin.customers.index')->with('message',"Cliente creado");
     }
 

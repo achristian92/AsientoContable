@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\AsientoContable\PensionFund\PensionFund;
 use Illuminate\Database\Seeder;
 
 class PensionSeeder extends Seeder
@@ -37,7 +36,7 @@ class PensionSeeder extends Seeder
             ],
         ]);
         $pensions->each(function ($pension) {
-            PensionFund::create($pension);
+            \App\AsientoContable\Base\BasePension::create($pension);
         });
     }
 }

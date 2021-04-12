@@ -5,27 +5,37 @@ namespace App\AsientoContable\CenterCosts\Repositories;
 
 
 use App\AsientoContable\CenterCosts\Cost;
-use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
+use App\Models\History;
 use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class CenterCostRepo extends BaseRepository implements ICenterCost
 {
 
-    public function model()
+    public function model(): string
     {
         return Cost::class;
     }
 
-    public function finCostCenterById(int $id): Cost
+    public function findCostCenterById(int $id): Cost
     {
         return $this->model->findOrFail($id);
+    }
+
+    public function findCostCenterByCode(string $code,int $customer): Cost
+    {
+        return $this->model::where('customer_id',$customer)
+                    ->where('code',$code)
+                    ->first();
     }
 
     public function createCostCenter(array $data): Cost
     {
         $data['customer_id'] = customerID();
-        return $this->model->create($data);
+        $cost = $this->model->create($data);
+        history(History::CREATED_TYPE,"Creó centro de costo $cost->name");
+        return $cost;
+
     }
 
     public function updateCostCenter(array $data, int $id): bool
@@ -38,8 +48,9 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
     {
         return $this->model::whereCustomerId(customerID())
                    ->orderBy($orderBy,$sortBy)
-                   ->get();
+                   ->get($columns);
     }
+
 
 
 }

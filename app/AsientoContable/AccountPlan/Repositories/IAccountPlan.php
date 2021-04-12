@@ -20,4 +20,6 @@ interface IAccountPlan
 
     public function updatePlanAccount(array $params, int $id);
 
+    public function listAccountsAnalitica(array $columns = ['*'], string $order = 'code', string $sort = 'asc');
+
 }

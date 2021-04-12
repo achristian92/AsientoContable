@@ -6,13 +6,14 @@ namespace App\AsientoContable\AccountPlan\Repositories;
 
 use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\Tools\NestedsetTrait;
+use App\Models\History;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class AccountPlanRepo extends BaseRepository implements IAccountPlan
 {
     use NestedsetTrait;
 
-    public function model()
+    public function model(): string
     {
         return AccountPlan::class;
     }
@@ -41,8 +42,10 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
     {
         $params['parent_id'] = self::searchParent($params);
         $params['customer_id'] = customerID();
+        $account = $this->model->create($params);
+        history(History::CREATED_TYPE,"Creó plan de cuenta $account->code $account->name");
 
-        return $this->model->create($params);
+        return $account;
     }
 
     public function listPlanAccountNested(): array
@@ -53,7 +56,6 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
                         'id'        => $account['id'],
                         'code'      => $account['code'],
                         'name'      => $account['name'],
-                        'import'    => $account['import'],
                         'type'      => $account['type'],
                         'parent_id' => $account['parent_id'],
                         'children'  => []
@@ -67,8 +69,8 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
     public function updatePlanAccount(array $params, int $id)
     {
         $params['parent_id'] = self::searchParent($params);
-
         $account = $this->findPlanAccountById($id);
+        history(History::CREATED_TYPE,"Creó plan de cuenta $account->code $account->name");
         return $account->update($params);
     }
 
@@ -85,4 +87,10 @@ class AccountPlanRepo extends BaseRepository implements IAccountPlan
         return $parent;
     }
 
+    public function listAccountsAnalitica(array $columns = ['*'], string $order = 'code', string $sort = 'asc')
+    {
+        return $this->model::where(['customer_id' => customerID(),'category' => $this->model::TYPE_ACCOUNT])
+                    ->orderBy($order,$sort)
+                    ->get($columns);
+    }
 }

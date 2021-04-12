@@ -8,12 +8,12 @@
                     <div class="row">
                         <div class="col-md-12 text-right" >
                             <button type="button"
-                                    class="btn btn-outline-primary btn-pulse btn-sm"
+                                    class="btn btn-outline-dark btn-pulse btn-sm"
                                     data-toggle="modal"
                                     data-target="#importModalCenterCost">
                                 <i class="ti-upload mr-1"></i> Importar
                             </button>
-                            <a href="{{ route('admin.customers.cost-center.create',$currentCustomer->id) }}" type="button" class="btn btn-outline-primary btn-pulse btn-sm ml-2">
+                            <a href="{{ route('admin.customers.cost-center.create',$currentCustomer->id) }}" type="button" class="btn btn-outline-dark btn-pulse btn-sm ml-2">
                                 <i class="ti-plus mr-1"></i> Nuevo
                             </a>
                         </div>

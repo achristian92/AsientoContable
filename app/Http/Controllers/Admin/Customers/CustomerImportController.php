@@ -4,21 +4,22 @@
 namespace App\Http\Controllers\Admin\Customers;
 
 
+use App\AsientoContable\Tools\FileExcelRequest;
+use App\AsientoContable\Tools\UploadableTrait;
 use App\Http\Controllers\Controller;
 use App\Imports\CustomersImport;
-use App\Imports\PlanCounterImport;
-use Illuminate\Http\Request;
+use App\Models\History;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerImportController extends Controller
 {
-    public function __invoke(Request $request)
-    {
-        $request->validate([
-            'file_upload' => 'required|file|mimes:xls,xlsx'
-        ]);
+    use UploadableTrait;
 
+    public function __invoke(FileExcelRequest $request)
+    {
         Excel::import(new CustomersImport, $request->file('file_upload'));
+        $url = $this->handleUploadedDocument($request->file('file_upload'),'import');
+        history(History::IMPORT_TYPE,"Importó clientes",$url);
 
         return redirect()->route('admin.customers.index')->with('message','Información cargada');
 

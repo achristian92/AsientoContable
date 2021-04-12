@@ -18,7 +18,6 @@ export default {
         validationErrors(){
             let errors = Object.values(this.errors);
             errors = errors.flat();
-            console.log(errors)
             return errors;
         }
     }

@@ -47,7 +47,7 @@ class CostCenterController extends Controller
     public function edit($customer_id,int $id)
     {
         return view('customers.cost-center.edit',[
-            'model' => $this->centerCostRepo->finCostCenterById($id),
+            'model' => $this->centerCostRepo->findCostCenterById($id),
         ]);
     }
 
