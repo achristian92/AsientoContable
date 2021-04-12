@@ -18,7 +18,7 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        $customers = collect([
+        /*$customers = collect([
             [
                 'name' => 'JIMENEZ & ESPINOZA ASOCIADOS SOCIEDAD ANONIMA CERRADA',
                 'ruc' => '20557915541',
@@ -27,7 +27,7 @@ class CustomerSeeder extends Seeder
         ]);
         $customers->each(function ($customer) {
            Customer::create($customer);
-        });
+        });*/
 
         $firstCustomer = Customer::first();
 
