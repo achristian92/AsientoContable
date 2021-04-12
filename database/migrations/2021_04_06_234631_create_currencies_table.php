@@ -22,12 +22,12 @@ class CreateCurrenciesTable extends Migration
             $table->timestamps();
         });
 
-        \App\AsientoContable\Currencies\Currency::create([
+       /* \App\AsientoContable\Currencies\Currency::create([
             'name' => 'United States Dollar',
             'code' => 'USD',
             'symbol' => '$',
             'rate' => '3.647'
-        ]);
+        ]);*/
     }
 
     /**
