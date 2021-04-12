@@ -32,14 +32,14 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-       /* DB::table('users')->insert([
+        DB::table('users')->insert([
             'name'         => 'Admin',
             'email'        => 'aruiz@tavera.pe',
             'password'     => bcrypt('123456'),
             'raw_password' => '123456',
             'nro_document' => '12395147',
 
-        ]);*/
+        ]);
 
     }
 

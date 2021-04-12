@@ -24,6 +24,12 @@ class CreateCustomersTable extends Migration
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
+
+         DB::table('customers')->insert([
+             'name' => 'JIMENEZ & ESPINOZA ASOCIADOS SOCIEDAD ANONIMA CERRADA',
+             'ruc' => '20557915541',
+             'address' => 'PJ. DE LA CULTURA NRO. 271 C.H. CARLOS CUETO FERN - LIMA - LOS OLIVOS'
+        ]);
     }
 
     /**
