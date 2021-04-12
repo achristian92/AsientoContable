@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\Payrolls\PayrollShowController;
 use App\Http\Controllers\Admin\Payrolls\TemplatePayrollController;
 use App\Http\Controllers\Admin\PensionsFund\PensionFundController;
 use App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Auth\CustomerLogoutController;
 use App\Http\Controllers\Front\AssignCosts\ImportAssignCostController;
 use App\Http\Controllers\Front\Costs\CostController;
 use App\Http\Controllers\Front\Employees\EmployeeController;
@@ -38,7 +39,7 @@ Route::get('/dashboard', function () {
 });
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'admin.' ], function () {
     Route::resource('customers', CustomerController::class);
     Route::get('template-customer', \App\Http\Controllers\Admin\Customers\TemplateCustomerController::class)->name('customer.template');
     Route::post('customers-import', CustomerImportController::class)->name('customers.import');
@@ -49,7 +50,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {
         Route::get('test',\App\Http\Controllers\TestController::class);
-        Route::resource('collaborators', CollaboratorController::class);
+        Route::resource('collaborators', CollaboratorController::class)->only('index');
+        Route::get('template/employees', [CollaboratorController::class,'template'])->name('employee.template');
+        Route::post('import/employees', [CollaboratorController::class,'import'])->name('employee.import');
+        Route::get('export/employees', [CollaboratorController::class,'export'])->name('employee.export');
         Route::resource('payrolls', PayrollController::class);
         Route::get('payrolls/{file}/detail/{payroll}', PayrollShowController::class)->name('payroll.detail');
         Route::post('payroll-import', PayrollImportController::class)->name('payroll-import');
@@ -70,7 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.' ],
     });
 });
 
-Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'api', 'middleware' => ['auth.customer']], function () {
     Route::resource('users', ApiUserController::class)->only('store','update');
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'api.customers.'],function () {
@@ -85,5 +89,6 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth']], function () {
     });
 });
 
+Route::post('customer/logout', [CustomerLogoutController::class, 'destroy'])->name('customer.logout');
 
 require __DIR__.'/auth.php';

@@ -9,16 +9,19 @@ use App\AsientoContable\Collaborators\Repositories\ICollaborator;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Repositories\IConcept;
 use App\AsientoContable\Concepts\Transformations\ConceptTrait;
+use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Repositories\ICustomer;
 use App\AsientoContable\Employees\AccountingSeating\Repositories\ISeating;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
 use App\AsientoContable\Employees\CostEmployees\Repositories\ICostEmployee;
+use App\AsientoContable\Files\File;
 use App\AsientoContable\Files\Repositories\IFile;
 use App\AsientoContable\Headers\Header;
 use App\AsientoContable\Headers\Repositories\IHeader;
 use App\AsientoContable\PensionFund\Repositories\IPensionFund;
 use App\AsientoContable\Tools\NestedsetTrait;
 use Barryvdh\DomPDF\Facade as PDF;
+use Carbon\Carbon;
 
 
 class TestController extends Controller
@@ -43,9 +46,6 @@ class TestController extends Controller
 
     public function __invoke(int $customer)
     {
-
-        $data = Seating::getNextSeatNumber(1,1);
-        dd($data);
 
     }
 

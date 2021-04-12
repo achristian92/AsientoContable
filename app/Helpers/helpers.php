@@ -34,6 +34,8 @@ if (!function_exists('_add4NumRand')) {
 if (!function_exists('customerID')) {
     function customerID()
     {
+        if (!request()->segment(3))
+            return '';
         return (int) request()->segment(3);
     }
 }
@@ -129,4 +131,14 @@ function EventExportStyles()
             ],
         ]
     ];
+}
+
+function history(string $type,string $description,string $file_url = null)
+{
+    Auth::user()->history()->create([
+        'type'        => $type,
+        'description' => $description,
+        'file_url'    => $file_url,
+        'customer_id' => customerID()
+    ]);
 }

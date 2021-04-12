@@ -61,4 +61,22 @@ class CollaboratorRepo extends BaseRepository implements ICollaborator
             ]
         );
     }
+
+    public function exportEmployees(int $customer): array
+    {
+        return $this->model->whereCustomerId(customerID())
+            ->orderBy('full_name','asc')
+            ->get()
+            ->transform(function ($employee) {
+                return [
+                    'user' => $employee->full_name,
+                    'code' => $employee->code,
+                    'docType' => $employee->type_document,
+                    'nroDoc' => $employee->nro_document,
+                    'startWork' => $employee->date_start_work,
+                    'cuspp' => $employee->cuspp,
+                    'codeCuspp' => $employee->code_cuspp,
+                ];
+            })->values()->toArray();
+    }
 }

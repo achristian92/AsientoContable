@@ -87,6 +87,9 @@
                             :disabled='!building'>
                         <i class="ti-settings mr-1 ml-1"></i> G.Asiento
                     </button>
+                    <br>
+                    <span class="badge badge-success" v-if="file.status === 'Abierto'">Abierto</span>
+                    <span class="badge badge-danger" v-else>Cerrado</span>
                 </div>
             </div>
             <div class="table-responsive" tabindex="1" style="overflow: hidden; outline: none;">
@@ -166,6 +169,7 @@ export default {
     data() {
         return {
             isLoading : false,
+            file: '',
             payrolls: [],
             moreOneCosts: 0,
             withoutCosts: 0,
@@ -175,8 +179,10 @@ export default {
             errors  : [],
         }
     },
-    props : ['p_payrolls','p_more_one_costs','p_without_costs'],
+    props : ['p_file','p_payrolls','p_more_one_costs','p_without_costs'],
     created() {
+        if (this.p_file)
+            this.file = this.p_file
         if (this.p_payrolls)
             this.payrolls = this.p_payrolls
         if (this.p_more_one_costs)
@@ -186,7 +192,7 @@ export default {
     },
     computed: {
         building: function(){
-            return (this.showButtonBuild && this.withoutCosts === 0);
+            return (this.showButtonBuild && this.withoutCosts === 0 && this.file.status === 'Abierto');
         }
     },
     methods: {
@@ -220,6 +226,7 @@ export default {
                 'file_id' : this.payrolls[0].file_id
             })
                 .then(res => {
+                    this.file = res.data.file
                     this.isLoading = false
                     Vue.$toast.success(res.data.msg)
                 }).

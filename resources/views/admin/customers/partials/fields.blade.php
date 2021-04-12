@@ -6,7 +6,7 @@
     </div>
     <div class="form-group col-md-6">
         <label for="inputEmail4">RUC</label>
-        @include('components.input-sm',['name' => 'ruc'])
+        @include('components.input-number-sm',['name' => 'ruc'])
     </div>
 </div>
 <div class="form-row mb-1">
@@ -15,7 +15,7 @@
         @include('components.input-sm',['name' => 'address'])
     </div>
     <div class="form-group col-md-6">
-        <label for="inputEmail4">Email</label>
+        <label for="inputEmail4">Correo electronico</label>
         @include('components.input-sm',['name' => 'email'])
     </div>
 </div>

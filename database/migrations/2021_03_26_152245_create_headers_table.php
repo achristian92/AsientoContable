@@ -21,6 +21,7 @@ class CreateHeadersTable extends Migration
             $table->boolean('is_required')->default(false);
             $table->string('type')->nullable();
             $table->integer('order')->nullable();
+            $table->boolean('is_active')->default(true);
             $table->foreignId('account_plan_id')->nullable();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

@@ -21,6 +21,9 @@ class CreateCollaboratorsTable extends Migration
             $table->string('full_name');
             $table->string('date_start_work');
             $table->boolean('is_active')->default(1);
+            $table->string('cuspp')->nullable();
+            $table->string('code_cuspp')->nullable();
+            $table->string('especial')->default('NINGUNO')->nullable();
             $table->timestamps();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
         });

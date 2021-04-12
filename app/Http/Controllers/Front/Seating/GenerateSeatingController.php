@@ -4,10 +4,12 @@
 namespace App\Http\Controllers\Front\Seating;
 
 use App\AsientoContable\Collaborators\Collaborator;
+use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Repositories\IConcept;
 use App\AsientoContable\Currencies\Currency;
 use App\AsientoContable\Employees\AccountingSeating\Repositories\ISeating;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
+use App\AsientoContable\Files\File;
 use App\AsientoContable\Files\Repositories\IFile;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -54,14 +56,17 @@ class GenerateSeatingController extends Controller
             }
         });
 
+        $this->updateFileStatus($request);
+
         return response()->json([
-            'msg' => 'Asientos contables generados'
+            'msg' => 'Asientos contables generados',
+            'file' => $this->fileRepo->findFileById($request->input('file_id'))
         ]);
     }
 
     private function transformData($IDS,int $file_id)
     {
-        $file = $this->fileRepo->findFileById($file_id);
+        $file = $this->fileRepo->findFileById($file_id)->load('concepts');
         $payrollDate = Carbon::parse($file->created_at);
 
         $data =  $IDS->map(function ($id) use ($file,$payrollDate) {
@@ -74,6 +79,10 @@ class GenerateSeatingController extends Controller
                 'nroDoc'      => $employee->nro_document,
                 'createdAt'   => $payrollDate->format('d/m/Y'),
                 'month'       => $payrollDate->format('m'),
+                'costCenters2'=> $file->concepts->where('header',Concept::COSTCENTER2)
+                                    ->where('collaborator_id',$employee->id)
+                                    ->first()
+                                    ->value,
                 'accounts'    => $this->conceptRepo->accounts(['file_id'=> $file->id, 'collaborator_id'=> $id])->toArray(),
                 'costCenters' => $this->conceptRepo->costCenterEmployee(['file_id'=> $file->id, 'collaborator_id'=> $id])
             ];
@@ -90,6 +99,18 @@ class GenerateSeatingController extends Controller
             return $this->conceptRepo->employeeIDS($request->input('file_id'));
 
         return collect($request->input('employeeIDS'));
+    }
+
+    public function updateFileStatus(Request $request): void
+    {
+        $file = File::with('concepts','seating')->find($request->input('file_id'));
+        $totalConcepts = $file->concepts->unique('collaborator_id')->count();
+        $totalSeating = $file->seating->unique('collaborator_id')->count();
+        if ($totalConcepts === $totalSeating) {
+            $file->status = File::STATUS_CLOSE;
+            $file->save();
+        }
+
     }
 
 }

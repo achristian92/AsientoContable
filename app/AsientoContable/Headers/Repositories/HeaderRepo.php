@@ -5,6 +5,7 @@ namespace App\AsientoContable\Headers\Repositories;
 
 
 use App\AsientoContable\Headers\Header;
+use App\Models\History;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -12,7 +13,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
 class HeaderRepo extends BaseRepository implements IHeader
 {
 
-    public function model()
+    public function model(): string
     {
         return Header::class;
     }
@@ -24,14 +25,20 @@ class HeaderRepo extends BaseRepository implements IHeader
 
     public function createHeader(array $data): Header
     {
+        if (!$data['order'])
+            $data['order'] = $this->model::getNextOrderNumber();
+
         $data['customer_id'] = customerID();
         $data['slug'] = Str::slug($data['name'],'_');
+        $header = $this->model->create($data);
+        history(History::CREATED_TYPE,"Creó la cabecera $header->name");
 
-        return $this->model->create($data);
+        return $header;
     }
 
     public function updateHeader(array $data, int $id): bool
     {
+        $data['is_active'] = isset($data['is_active']);
         $header = $this->findHeaderById($id);
         if ($header->is_required)
             $data['name'] = $header->name;
@@ -43,9 +50,18 @@ class HeaderRepo extends BaseRepository implements IHeader
 
     public function listHeaders($columns = array('*'), string $orderBy = 'order', string $sortBy = 'asc'): Collection
     {
-        return $this->model::with('account')->where('customer_id',customerID())
+        return $this->model::with('account')
+                    ->where('customer_id',customerID())
+                    ->where('is_active',true)
                     ->orderBy($orderBy,$sortBy)
                     ->get($columns);
+    }
+
+    public function listHeadersAll($columns = array('*'), string $orderBy = 'order', string $sortBy = 'asc'): Collection
+    {
+        return $this->model::with('account')->where('customer_id',customerID())
+            ->orderBy($orderBy,$sortBy)
+            ->get($columns);
     }
 
     public function isAssignedAccountWithHeaders(): bool
@@ -59,10 +75,5 @@ class HeaderRepo extends BaseRepository implements IHeader
 
     }
 
-    public function listHeadersByType(string $type): Collection
-    {
-        return $this->model::where('customer_id',customerID())
-                    ->where('type',$type)
-                    ->get();
-    }
+
 }

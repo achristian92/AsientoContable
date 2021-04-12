@@ -18,14 +18,13 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class VoucherController extends Controller
 {
-    private $headerRepo,$conceptRepo,$pensionRepo,$costCenterRepo,$fileRepo,$customerRepo;
+    private $headerRepo,$pensionRepo,$costCenterRepo,$fileRepo,$customerRepo;
 
-    public function __construct(ICustomer $ICustomer,IFile $IFile,IHeader $IHeader,IConcept $IConcept,IPensionFund $IPensionFund,ICenterCost $ICenterCost)
+    public function __construct(ICustomer $ICustomer,IFile $IFile,IHeader $IHeader,IPensionFund $IPensionFund,ICenterCost $ICenterCost)
     {
         $this->customerRepo = $ICustomer;
         $this->fileRepo = $IFile;
         $this->headerRepo = $IHeader;
-        $this->conceptRepo = $IConcept;
         $this->pensionRepo = $IPensionFund;
         $this->costCenterRepo = $ICenterCost;
     }
@@ -33,9 +32,9 @@ class VoucherController extends Controller
     public function __invoke(int $customer, int $file, int $employee)
     {
 
-        $headerIncome = $this->headerRepo->listHeadersByType(Header::TYPE_INCOME)->pluck('name');
-        $headerExpense = $this->headerRepo->listHeadersByType(Header::TYPE_EXPENSE)->pluck('name');
-        $headerContribution = $this->headerRepo->listHeadersByType(Header::TYPE_CONTRIBUTION)->pluck('name');
+        $headerIncome = $this->fileRepo->listHeaderNamesByType($file,Header::TYPE_INCOME);
+        $headerExpense = $this->fileRepo->listHeaderNamesByType($file,Header::TYPE_EXPENSE);
+        $headerContribution = $this->fileRepo->listHeaderNamesByType($file,Header::TYPE_CONTRIBUTION);
 
         $data = Collaborator::with(['concepts'=> function($query) use ($file) {
             return $query->where('file_id',$file);
@@ -68,9 +67,16 @@ class VoucherController extends Controller
         $model->costCenter = $codeCostCenter ? $this->costCenterRepo->findCostCenterByCode($codeCostCenter,$customer)->name : '-Distribuidos-';
         $model->position = $data->concepts->firstWhere('header',Concept::POSITION)->value ?? '-';
         $model->pension = $this->pensionRepo->findPensionByShort($codePension,$customer)->name;
-        $model->pension = $this->pensionRepo->findPensionByShort($codePension,$customer)->name;
+        $model->cuspp = $data->cuspp;
+        $model->codeCuspp = $data->code_cuspp;
+        $model->especial = $data->especial ?? 'Ninguno';
         $model->workedDays = $data->concepts->firstWhere('header',Concept::WORKED_DAYS)->value;
+        $model->lcgh = $data->concepts->firstWhere('header',Concept::LCGH)->value;
+        $model->workedNotDays = $data->concepts->firstWhere('header',Concept::WORKED_NOT_DAYS)->value;
+        $model->nroVac = $data->concepts->firstWhere('header',Concept::VACATION_DAYS)->value;
         $model->workedHours = $data->concepts->firstWhere('header',Concept::WORKED_HOURS)->value;
+        $model->hoursExt25 = $data->concepts->firstWhere('header',Concept::HOURS_EXT25)->value;
+        $model->hoursExt35 = $data->concepts->firstWhere('header',Concept::HOURS_EXT35)->value;
         $model->remuneration = $data->concepts->firstWhere('header',Concept::BASIC_SALARY)->value;
         $model->income = $income;
         $model->expense = $expense;

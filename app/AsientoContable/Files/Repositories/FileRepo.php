@@ -6,11 +6,15 @@ namespace App\AsientoContable\Files\Repositories;
 
 use App\AsientoContable\Employees\CostEmployees\Transformations\CostEmployeeTrait;
 use App\AsientoContable\Files\File;
+use App\AsientoContable\Headers\Header;
+use App\AsientoContable\Tools\UploadableTrait;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class FileRepo extends BaseRepository implements IFile
 {
-    use CostEmployeeTrait;
+    use CostEmployeeTrait,UploadableTrait;
 
     public function model(): string
     {
@@ -52,4 +56,29 @@ class FileRepo extends BaseRepository implements IFile
     }
 
 
+    public function fileUpdateOrCreate(Request $request): File
+    {
+        $date = Carbon::parse($request->month);
+
+        return $this->model::updateOrCreate(
+            [
+                'month_payroll' => $date,
+                'customer_id'   => customerID()
+            ],
+            [
+                'headers'       => json_encode(Header::where('customer_id',customerID())->get()),
+                'url_file'      => $this->handleUploadedDocument($request->file('file_upload'),'import'),
+                'name'          => ucfirst($date->monthName).'-'.$date->year,
+                'user_id'       => \Auth::id(),
+                'status'        => $this->model::STATUS_OPEN
+            ]
+        );
+    }
+
+    public function listHeaderNamesByType(int $id, string $type): array
+    {
+        $file = $this->findFileById($id);
+        $headers = collect(json_decode($file->headers));
+        return $headers->where('type',$type)->pluck('name')->toArray();
+    }
 }

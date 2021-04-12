@@ -8,7 +8,9 @@ use App\AsientoContable\Employees\CostEmployees\CostEmployee;
 use App\AsientoContable\Employees\CostEmployees\Repositories\ICostEmployee;
 use App\AsientoContable\Employees\CostEmployees\Requests\CostEmployeeRequest;
 use App\AsientoContable\Employees\CostEmployees\Transformations\CostEmployeeTrait;
+use App\AsientoContable\Files\File;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class AssignCostController extends Controller
 {
@@ -21,10 +23,18 @@ class AssignCostController extends Controller
     }
     public function store(CostEmployeeRequest $request): \Illuminate\Http\JsonResponse
     {
+        if (!$this->isOpenPayroll($request)) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Planilla cerrada',
+            ]);
+        }
+
         $this->costEmployeeRepo->createCostEmployee($request->all());
         $assign = $this->costEmployeeRepo->listCostEmployees($request->collaborator_id,$request->file_id);
 
         return response()->json([
+            'status' => true,
             'assign' => $this->transformAgroupCostEmployee($assign),
             'msg'  => 'Registro actualizado'
         ]);
@@ -53,6 +63,15 @@ class AssignCostController extends Controller
         return response()->json([
             'msg' => 'Eliminó la asignación'                                    ,
         ]);
+    }
+    public function isOpenPayroll(Request $request): bool
+    {
+        $file = File::find($request->file_id);
+        if ($file)
+            if ($file->status === File::STATUS_CLOSE)
+                return false;
+
+        return true;
     }
 
 }

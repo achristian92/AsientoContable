@@ -2145,6 +2145,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'file_id': this.file_id
       };
       axios.post("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/assign-cost"), data).then(function (res) {
+        if (res.data.status === false) {
+          Vue.$toast.error(res.data.msg);
+          return '';
+        }
+
         $('#AssignCostModal').modal('hide');
         _event_bus__WEBPACK_IMPORTED_MODULE_0__.default.$emit('updateAssign', {
           assign: res.data.assign
@@ -2202,6 +2207,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-loading-overlay */ "./node_modules/vue-loading-overlay/dist/vue-loading.min.js");
+/* harmony import */ var vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2254,9 +2261,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Loading: (vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default())
+  },
   data: function data() {
     return {
+      isLoading: false,
       uploadedImage: false,
       fileObject: '',
       name: '',
@@ -2284,6 +2297,12 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (res) {
         _this.isLoading = false;
+
+        if (res.data.status === false) {
+          Vue.$toast.error(res.data.msg);
+          return '';
+        }
+
         Vue.$toast.success(res.data.msg);
         setTimeout(function () {
           location.reload();
@@ -2624,6 +2643,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2633,6 +2655,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       isLoading: false,
+      file: '',
       payrolls: [],
       moreOneCosts: 0,
       withoutCosts: 0,
@@ -2642,15 +2665,16 @@ __webpack_require__.r(__webpack_exports__);
       errors: []
     };
   },
-  props: ['p_payrolls', 'p_more_one_costs', 'p_without_costs'],
+  props: ['p_file', 'p_payrolls', 'p_more_one_costs', 'p_without_costs'],
   created: function created() {
+    if (this.p_file) this.file = this.p_file;
     if (this.p_payrolls) this.payrolls = this.p_payrolls;
     if (this.p_more_one_costs) this.moreOneCosts = this.p_more_one_costs;
     if (this.p_without_costs) this.withoutCosts = this.p_without_costs;
   },
   computed: {
     building: function building() {
-      return this.showButtonBuild && this.withoutCosts === 0;
+      return this.showButtonBuild && this.withoutCosts === 0 && this.file.status === 'Abierto';
     }
   },
   methods: {
@@ -2691,6 +2715,7 @@ __webpack_require__.r(__webpack_exports__);
         'employeeIDS': checkedIDS,
         'file_id': this.payrolls[0].file_id
       }).then(function (res) {
+        _this2.file = res.data.file;
         _this2.isLoading = false;
         Vue.$toast.success(res.data.msg);
       })["catch"](function (error) {
@@ -3239,6 +3264,9 @@ __webpack_require__.r(__webpack_exports__);
     this.loadData();
   },
   computed: {
+    back: function back() {
+      return "".concat(this.baseUrl, "admin/users");
+    },
     isEdit: function isEdit() {
       return !!this.formData.id;
     },
@@ -22731,6 +22759,15 @@ var render = function() {
               }
             },
             [
+              _c("loading", {
+                attrs: { active: _vm.isLoading, "is-full-page": false },
+                on: {
+                  "update:active": function($event) {
+                    _vm.isLoading = $event
+                  }
+                }
+              }),
+              _vm._v(" "),
               _c(
                 "div",
                 { staticClass: "modal-body" },
@@ -22831,7 +22868,8 @@ var render = function() {
               ),
               _vm._v(" "),
               _vm._m(2)
-            ]
+            ],
+            1
           )
         ])
       ])
@@ -23328,7 +23366,17 @@ var render = function() {
                 _c("i", { staticClass: "ti-settings mr-1 ml-1" }),
                 _vm._v(" G.Asiento\n                ")
               ]
-            )
+            ),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _vm.file.status === "Abierto"
+              ? _c("span", { staticClass: "badge badge-success" }, [
+                  _vm._v("Abierto")
+                ])
+              : _c("span", { staticClass: "badge badge-danger" }, [
+                  _vm._v("Cerrado")
+                ])
           ])
         ]),
         _vm._v(" "),
@@ -24999,7 +25047,7 @@ var render = function() {
                           "a",
                           {
                             staticClass: "btn btn-sm btn-outline-light ml-2",
-                            attrs: { href: this.baseUrl + "admin/users" }
+                            attrs: { href: _vm.back }
                           },
                           [_vm._v(" Regresar ")]
                         )

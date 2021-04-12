@@ -28,14 +28,16 @@ class HeaderController extends Controller
     public function index(int $customer_id)
     {
         return view('customers.headers.index',[
-            'headers' => $this->headerRepo->listHeaders()
+            'headers' => $this->headerRepo->listHeadersAll()
         ]);
     }
 
     public function create()
     {
+        $model = new Header();
+        $model->order = Header::getNextOrderNumber();
         return view('customers.headers.create',[
-            'model' => new Header(),
+            'model' => $model,
             'accounts' => $this->accountsRepo->listAccountsAnalitica(),
             'types' => Header::HEADER_TYPES
         ]);

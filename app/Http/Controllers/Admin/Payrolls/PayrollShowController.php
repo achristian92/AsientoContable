@@ -22,7 +22,7 @@ class PayrollShowController extends Controller
     {
 
         return view('customers.collaborators.monthly-payroll.detail',[
-            'detail' => $this->conceptRepo->detailConceptCollaborator($file_id,$collaborator_id)
+            'detail' => $this->conceptRepo->detailConceptCollaborator($file_id,$collaborator_id),
         ]);
     }
 

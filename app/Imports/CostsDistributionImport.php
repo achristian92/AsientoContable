@@ -31,7 +31,7 @@ class CostsDistributionImport implements ToCollection,WithHeadingRow,WithValidat
     public function collection(Collection $rows)
     {
         $rows->each(function ($row) {
-            CostEmployee::firstOrCreate(
+            CostEmployee::updateOrCreate(
                 [
                     'collaborator_id' => $this->searchEmployeeByNroDocument($row['nro_documento']),
                     'cost_id'         => $this->searchCostCenterByCode($row['cod_centro_costo']),

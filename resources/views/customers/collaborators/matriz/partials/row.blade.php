@@ -6,6 +6,10 @@
     <td>
         {{ $collaborator->date_start_work }}
     </td>
+    <td>
+        {{ $collaborator->cuspp }} <br>
+        <small class="text-muted">{{ $collaborator->code_cuspp }}</small>
+    </td>
     <td><span class='badge badge-success'>Activo</span></td>
     <td class="text-right">
         <div class="dropdown">

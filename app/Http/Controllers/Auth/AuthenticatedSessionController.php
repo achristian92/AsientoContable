@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AsientoContable\Customers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
@@ -28,8 +29,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        if ($this->authenticateCustomer($request)) {
+            return redirect()->route('admin.customers.vouchers.index',Auth::guard('customer')->id());
+        }
         $request->authenticate();
-
         $request->session()->regenerate();
         Auth::user()->update(['last_login' => now()]);
         return redirect(RouteServiceProvider::CUSTOMERS);
@@ -50,5 +53,17 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function authenticateCustomer(Request $request): bool
+    {
+        $data = $request->only('email', 'password');
+        if (Customer::whereEmail($data['email'])->whereRawPassword($data['password'])->exists()) {
+            $customer = Customer::where('email', $data['email'])->first();
+            Auth::guard('customer')->loginUsingId($customer->id);
+            return true;
+        }
+
+        return false;
     }
 }

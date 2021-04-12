@@ -16,169 +16,194 @@ class HeaderSeeder extends Seeder
      */
     public function run()
     {
-        $headers = collect([
+        $baseHeaders = collect([
             [
-                'header' => Concept::CODE,
+                'name' => Concept::CODE,
                 'is_required' => true
             ],
             [
-                'header' => Concept::FULL_NAME,
+                'name' => Concept::FULL_NAME,
                 'is_required' => true
             ],
             [
-                'header' => Concept::COSTCENTER,
+                'name' => Concept::COSTCENTER,
                 'is_required' => true
             ],
             [
-                'header' => 'Centro costo2',
+                'name' => Concept::COSTCENTER2,
                 'is_required' => true
             ],
             [
-                'header' => 'Cod Area',
+                'name' => 'Cod Area',
                 'is_required' => false
             ],
             [
-                'header' => Concept::AREA,
+                'name' => Concept::AREA,
                 'is_required' => false
             ],
             [
-                'header' => 'Cod Cargo',
+                'name' => 'Cod Cargo',
                 'is_required' => false
             ],
             [
-                'header' => Concept::POSITION,
+                'name' => Concept::POSITION,
                 'is_required' => false
             ],
             [
-                'header' => Concept::DATE_ENTRY,
+                'name' => Concept::DATE_ENTRY,
                 'is_required' => true
             ],
             [
-                'header' => Concept::DATE_TERMINATION,
+                'name' => Concept::DATE_TERMINATION,
                 'is_required' => false
             ],
             [
-                'header' => Concept::NRO_DOC,
+                'name' => Concept::NRO_DOC,
                 'is_required' => true
             ],
             [
-                'header' => Concept::PENSION_SHORT,
+                'name' => Concept::PENSION_SHORT,
                 'is_required' => true
             ],
             [
-                'header' => 'Moneda',
+                'name' => 'Moneda',
                 'is_required' => true
             ],
             [
-                'header' => 'Basico',
+                'name' => 'Basico',
                 'is_required' => false
             ],
             [
-                'header' => Concept::WORKED_DAYS,
+                'name' => Concept::WORKED_DAYS,
                 'is_required' => false
             ],
             [
-                'header' => Concept::WORKED_HOURS,
+                'name' => Concept::LCGH,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::WORKED_NOT_DAYS,
                 'is_required' => false
             ],
             [
-                'header' => 'Horas extra',
+                'name' => Concept::VACATION_DAYS,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::WORKED_HOURS,
                 'is_required' => false
             ],
             [
-                'header' => 'Min extra',
+                'name' => Concept::HOURS_EXT25,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::HOURS_EXT35,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => 'Horas extra',
                 'is_required' => false
             ],
             [
-                'header' => 'Días PDT',
+                'name' => 'Min extra',
                 'is_required' => false
             ],
             [
-                'header' => 'Base imponible',
+                'name' => 'Días PDT',
                 'is_required' => false
             ],
             [
-                'header'      => Concept::BASIC_SALARY,
+                'name' => 'Base imponible',
+                'is_required' => false
+            ],
+            [
+                'name'      => Concept::BASIC_SALARY,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_INCOME
             ],
             [
-                'header'      => Concept::WITH_FAMILY,
+                'name'      => Concept::WITH_FAMILY,
                 'is_required' => 'true',
                 'has_account' => true,
                 'type'        => Header::TYPE_INCOME
             ],
             [
-                'header' => Concept::TOTAL_INCOME,
+                'name' => Concept::TOTAL_INCOME,
                 'is_required' => true
             ],
             [
-                'header' => Concept::AFP_CONTRIBUTION,
+                'name' => Concept::AFP_CONTRIBUTION,
                 'is_required' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'header' => Concept::ONP,
-                'is_required' => true,
-                'has_account' => true,
-                'type'        => Header::TYPE_EXPENSE
-            ],
-            [
-                'header' => Concept::AFP_SURE_PRIME,
-                'is_required' => true,
-                'type'        => Header::TYPE_EXPENSE
-            ],
-            [
-                'header' => Concept::AFP_COMISSION,
-                'is_required' => true,
-                'type'        => Header::TYPE_EXPENSE
-            ],
-            [
-                'header' => Concept::FIFTH_CATEGORY,
+                'name' => Concept::ONP,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'header' => 'EPS',
+                'name' => Concept::AFP_SURE_PRIME,
+                'is_required' => true,
+                'type'        => Header::TYPE_EXPENSE
+            ],
+            [
+                'name' => Concept::AFP_COMISSION,
+                'is_required' => true,
+                'type'        => Header::TYPE_EXPENSE
+            ],
+            [
+                'name' => Concept::FIFTH_CATEGORY,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'header' => Concept::TOTAL_DISCOUNT,
+                'name' => 'EPS',
+                'is_required' => true,
+                'has_account' => true,
+                'type'        => Header::TYPE_EXPENSE
+            ],
+            [
+                'name' => Concept::TOTAL_DISCOUNT,
                 'is_required' => true
             ],
             [
-                'header' => Concept::HEALTH,
+                'name' => Concept::HEALTH,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_CONTRIBUTION
             ],
             [
-                'header' => 'EsSalud(P)',
+                'name' => 'EsSalud(P)',
                 'is_required' => true,
                 'has_account' => true
             ],
             [
-                'header' => Concept::TOTAL_CONTRIBUTION,
+                'name' => Concept::TOTAL_CONTRIBUTION,
                 'is_required' => true
             ],
             [
-                'header' => Concept::NET,
+                'name' => Concept::NET,
                 'is_required' => true,
                 'has_account' => true
             ],
         ]);
-        $headers->each(function ($item,$key) {
+        $baseHeaders->each(function ($item,$key) {
             \DB::table('base_header')->insert([
-                'header'       => $item['header'],
-                'header_slug'  => slug($item['header']),
-                'type'         => $item['type'],
-                'order'        => $key * 10,
-                'is_required'  => $item['is_required'],
-                'has_account'  => $item['has_account'] ?? false,
+                'name'        => $item['name'],
+                'slug'        => slug($item['name']),
+                'type'        => $item['type'],
+                'order'       => $key * 10,
+                'is_required' => $item['is_required'],
+                'has_account' => $item['has_account'] ?? false,
+                'is_active'   => isset($item['is_active']) ? $item['is_active'] : true,
             ]);
         });
 

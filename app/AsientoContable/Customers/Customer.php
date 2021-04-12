@@ -7,17 +7,20 @@ namespace App\AsientoContable\Customers;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Customers\Presenters\CustomerPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
+    protected $guard = 'customer';
 
     protected $with = ['collaborators'];
 
     protected $guarded = ['id'];
 
-    public function collaborators()
+    public function collaborators(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Collaborator::class);
     }
@@ -25,6 +28,16 @@ class Customer extends Model
     public function present(): CustomerPresenter
     {
         return new CustomerPresenter($this);
+    }
+
+    public function imgUser()
+    {
+        return asset('img/user-default.png');
+    }
+
+    public function imgCompany()
+    {
+        return asset('img/jga.png');
     }
 
 }

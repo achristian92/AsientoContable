@@ -39,5 +39,19 @@
         </select>
     </div>
 </div>
+@if ($model->id)
+    <div class="form-check mt-0">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            name="is_active"
+            id="isActive"
+            {{ old('is_active',$model->is_active) ? 'checked' : '' }}>
+        <label class="form-check-label" for="isActive" >
+            Activar
+        </label>
+    </div>
+@endif
+<br>
 <button type="submit" class="btn btn-sm btn-primary"> Guardar </button>
 <a href="{{ $back }}" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>

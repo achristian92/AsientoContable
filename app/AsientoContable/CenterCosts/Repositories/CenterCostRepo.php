@@ -5,6 +5,7 @@ namespace App\AsientoContable\CenterCosts\Repositories;
 
 
 use App\AsientoContable\CenterCosts\Cost;
+use App\Models\History;
 use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -31,7 +32,10 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
     public function createCostCenter(array $data): Cost
     {
         $data['customer_id'] = customerID();
-        return $this->model->create($data);
+        $cost = $this->model->create($data);
+        history(History::CREATED_TYPE,"Creó centro de costo $cost->name");
+        return $cost;
+
     }
 
     public function updateCostCenter(array $data, int $id): bool

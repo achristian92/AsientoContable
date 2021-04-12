@@ -36,15 +36,8 @@ class CustomersImport implements ToCollection,WithHeadingRow
                 );
 
             BaseHeader::all()->each(function ($base) use ($customer) {
-                Header::create([
-                    'name'        => $base->header,
-                    'slug'        => $base->header_slug,
-                    'type'        => $base->type,
-                    'order'       => $base->order,
-                    'is_required' => $base->is_required,
-                    'has_account' => $base['has_account'] ?? false,
-                    'customer_id' => $customer->id,
-                ]);
+                $base['customer_id'] = $customer->id;
+                Header::create($base->toArray());
             });
 
             BasePension::all()->each(function ($pension) use ($customer) {
@@ -59,14 +52,14 @@ class CustomersImport implements ToCollection,WithHeadingRow
         $currentRow = $key + 2;
 
         $messages = [
-            'required'    => "El campo :attribute es requerido en la fila $currentRow.",
-            'unique'    => "El campo :attribute  ya está en uso en la fila $currentRow.",
+            'required' => "El campo :attribute es requerido en la fila $currentRow.",
+            'unique'   => "El campo :attribute  ya está en uso en la fila $currentRow.",
 
         ];
 
         Validator::make($row->toArray(), [
-            'empresa'     => 'required|unique:customers,name',
-            'ruc'     => 'required|unique:customers,ruc',
+            'empresa' => 'required|unique:customers,name',
+            'ruc'     => 'required|numeric|unique:customers',
         ], $messages)->validate();
 
     }

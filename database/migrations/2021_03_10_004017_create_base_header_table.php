@@ -15,12 +15,13 @@ class CreateBaseHeaderTable extends Migration
     {
         Schema::create('base_header', function (Blueprint $table) {
             $table->id();
-            $table->string('header');
-            $table->string('header_slug');
-            $table->string('type')->nullable();
+            $table->string('name');
+            $table->string('slug');
             $table->boolean('has_account')->default(false);
             $table->boolean('is_required')->default(false);
+            $table->string('type')->nullable();
             $table->integer('order')->default(1);
+            $table->boolean('is_active')->default(true);
         });
     }
 

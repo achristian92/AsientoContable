@@ -6,6 +6,7 @@ namespace App\AsientoContable\PensionFund\Repositories;
 
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\PensionFund\PensionFund;
+use App\Models\History;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class PensionFundRepo extends BaseRepository implements IPensionFund
@@ -39,7 +40,9 @@ class PensionFundRepo extends BaseRepository implements IPensionFund
     public function createPensionFund(array $params)
     {
         $params['customer_id'] = customerID();
-        return $this->model::create($params);
+        $pension = $this->model::create($params);
+        history(History::CREATED_TYPE,"Creó fondo de pension $pension->name");
+        return $pension;
     }
 
     public function updatePensionFund(array $params, int $id): bool

@@ -17,8 +17,8 @@ interface IHeader
 
     public function listHeaders($columns = array('*'), string $orderBy = 'order', string $sortBy = 'asc') : Collection;
 
-    public function isAssignedAccountWithHeaders(): bool;
+    public function listHeadersAll($columns = array('*'), string $orderBy = 'order', string $sortBy = 'asc') : Collection;
 
-    public function listHeadersByType(string $type): Collection;
+    public function isAssignedAccountWithHeaders(): bool;
 
 }

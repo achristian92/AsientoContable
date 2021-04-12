@@ -141,6 +141,11 @@ export default {
             }
             axios.post(`${this.baseUrl}api/customer/${this.currentCustomerID}/assign-cost`,data)
                 .then(res => {
+                    if (res.data.status === false) {
+                        Vue.$toast.error(res.data.msg)
+                        return '';
+                    }
+
                     $('#AssignCostModal').modal('hide');
                     EventBus.$emit('updateAssign', {assign: res.data.assign});
                     Vue.$toast.success(res.data.msg)

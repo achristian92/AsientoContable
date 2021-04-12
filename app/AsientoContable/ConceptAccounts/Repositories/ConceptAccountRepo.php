@@ -6,6 +6,7 @@ namespace App\AsientoContable\ConceptAccounts\Repositories;
 
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\ConceptAccounts\ConceptAccount;
+use App\AsientoContable\Files\File;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class ConceptAccountRepo extends BaseRepository implements IConceptAccount
@@ -16,15 +17,15 @@ class ConceptAccountRepo extends BaseRepository implements IConceptAccount
         return ConceptAccount::class;
     }
 
-    public function createConceptAccount(string $header,$account,$value,Collaborator $employee,$fileDate,int $customer,int $file): void
+    public function createConceptAccount(string $header,$account,$value,Collaborator $employee,int $customer,File $file): void
     {
         $this->model::updateOrCreate(
             [
                 'header'          => $header,
-                'payroll_date'    => $fileDate,
+                'payroll_date'    => $file->month_payroll,
                 'collaborator_id' => $employee->id,
                 'customer_id'     => $customer,
-                'file_id'         => $file
+                'file_id'         => $file->id
             ],
             [
                 'account' => json_encode($account),

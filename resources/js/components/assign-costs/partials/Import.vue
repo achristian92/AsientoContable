@@ -9,6 +9,7 @@
                     </button>
                 </div>
                 <form @submit.prevent="submitImport">
+                    <loading :active.sync="isLoading" :is-full-page="false"></loading>
                     <div class="modal-body">
                         <validation-errors :errors="errors" v-if="errors"></validation-errors>
                         <div class="form-group" v-if="!uploadedImage">
@@ -51,9 +52,15 @@
 </template>
 
 <script>
+import Loading from "vue-loading-overlay";
+
 export default {
+    components: {
+        Loading,
+    },
     data() {
         return {
+            isLoading     : false,
             uploadedImage : false,
             fileObject    : '',
             name          : '',
@@ -79,6 +86,10 @@ export default {
             }).
             then(res => {
                 this.isLoading = false
+                if (res.data.status === false) {
+                    Vue.$toast.error(res.data.msg)
+                    return '';
+                }
                 Vue.$toast.success(res.data.msg)
                 setTimeout(() => {
                     location.reload();

@@ -121,17 +121,17 @@
                     <tr>
                         <td width="39%"><strong>C.U.S.P.P</strong></td>
                         <td width="1%">:</td>
-                        <td width="60%">-</td>
+                        <td width="60%">{{ $data->cuspp }}</td>
                     </tr>
                     <tr>
                         <td width="39%"><strong>Autogenerado</strong></td>
                         <td width="1%">:</td>
-                        <td width="60%">-</td>
+                        <td width="60%">{{ $data->codeCuspp }}</td>
                     </tr>
                     <tr>
                         <td width="39%"><strong>Sit. Especial</strong></td>
                         <td width="1%">:</td>
-                        <td width="60%">-</td>
+                        <td width="60%">{{ $data->especial }}</td>
                     </tr>
                 </table>
             </td>
@@ -145,17 +145,17 @@
                     <tr>
                         <td width="59%"><strong>Días L.C.G.H</strong></td>
                         <td width="1%">:</td>
-                        <td width="40%"align="right"></td>
+                        <td width="40%"align="right">{{ $data->lcgh }}</td>
                     </tr>
                     <tr>
                         <td width="59%"><strong>Días No Lab</strong></td>
                         <td width="1%">:</td>
-                        <td width="40%"align="right"></td>
+                        <td width="40%"align="right">{{ $data->workedNotDays }}</td>
                     </tr>
                     <tr>
                         <td width="59%"><strong>Días Vac.</strong></td>
                         <td width="1%">:</td>
-                        <td width="40%"align="right"></td>
+                        <td width="40%"align="right">{{ $data->nroVac }}</td>
                     </tr>
                     <tr>
                         <td width="59%"><strong>N° Horas Ord.</strong></td>
@@ -165,12 +165,12 @@
                     <tr>
                         <td width="59%"><strong>N° Hs. Ext. 25%</strong></td>
                         <td width="1%">:</td>
-                        <td width="40%"align="right"></td>
+                        <td width="40%"align="right">{{ $data->hoursExt25 }}</td>
                     </tr>
                     <tr>
                         <td width="59%"><strong>N° Hs. Ext. 35%</strong></td>
                         <td width="1%">:</td>
-                        <td width="40%"align="right"></td>
+                        <td width="40%"align="right">{{ $data->hoursExt35 }}</td>
                     </tr>
                     <tr>
                         <td width="59%"><strong>Rem. Mensual</strong></td>

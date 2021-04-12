@@ -17,7 +17,7 @@ class GlobalTemplateServiceProvider extends ServiceProvider
         ], function ($view)
         {
             $view->with([
-                'userCurrent' => Auth::user()
+                'userCurrent' => Auth::user(),
             ]);
         });
 

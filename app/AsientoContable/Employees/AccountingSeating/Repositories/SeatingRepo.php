@@ -63,7 +63,7 @@ class SeatingRepo extends BaseRepository implements ISeating
                 'nro_doc'         => 'PL'.(int)$employee['month'].'000'.($nro_seat),
                 'fecha_doc'       => $employee['createdAt'],
                 'fecha_vencimiento' => '',
-                'cost2'           => '',
+                'cost2'           => $employee['costCenters2'],
             ]
         );
     }

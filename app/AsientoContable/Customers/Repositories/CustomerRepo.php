@@ -5,12 +5,15 @@ namespace App\AsientoContable\Customers\Repositories;
 
 
 use App\AsientoContable\Customers\Customer;
+use App\Mail\SendEmailNewCustomer;
+use App\Models\History;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class CustomerRepo extends BaseRepository implements ICustomer
 {
-    public function model()
+    public function model(): string
     {
         return Customer::class;
     }
@@ -22,13 +25,33 @@ class CustomerRepo extends BaseRepository implements ICustomer
 
     public function createCustomer(array $data): Customer
     {
-        return $this->model->create($data);
+        $data['raw_password'] = $data['ruc'];
+        $data["password"]     = bcrypt($data['ruc']);
+        $customer             = $this->model->create($data);
+
+        $this->sendEmailNewCredentials($customer);
+        history(History::CREATED_TYPE,"Creó el cliente $customer->name");
+        return $customer;
     }
 
     public function updateCustomer(array $data, int $id): bool
     {
         $customer = $this->findCustomerById($id);
-        return $customer->update($data);
+        if ($customer->email !== $data['email']) {
+            $data['raw_password'] = $data['ruc'];
+            $data["password"]     = bcrypt($data['ruc']);
+        }
+
+        $email = $customer->email;
+        $customer->update($data);
+
+        history(History::UPDATED_TYPE,"Actualizó el cliente $customer->name");
+
+
+        if ($email !== $data['email'])
+            $this->sendEmailNewCredentials($this->findCustomerById($id));
+
+        return true;
     }
 
     public function listCustomers($columns = array('*'), string $orderBy = 'name', string $sortBy = 'asc'): Collection
@@ -50,5 +73,10 @@ class CustomerRepo extends BaseRepository implements ICustomer
     public function listCustomersActivated($columns = array('*'), string $orderBy = 'name', string $sortBy = 'asc'): Collection
     {
         return $this->model->whereIsActive(true)->orderBy($orderBy,$sortBy)->get($columns);
+    }
+    public function sendEmailNewCredentials(Customer $customer)
+    {
+        if ($customer->email)
+            Mail::to($customer->email)->send(new SendEmailNewCustomer($customer));
     }
 }

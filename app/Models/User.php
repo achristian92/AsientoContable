@@ -14,9 +14,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasRoles;
-
-    use HasFactory, Notifiable;
+    use HasRoles,HasFactory,Notifiable;
 
     protected $guarded = ['id'];
 
@@ -29,7 +27,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function image()
+    public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(History::class);
+    }
+
+    public function image(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
         return $this->morphOne(Image::class, 'imageable');
     }
@@ -56,7 +59,7 @@ class User extends Authenticatable
 
     public function imgUser()
     {
-        return $this->image ? $this->image->url_img : asset('img/user-default.png');
+        return asset('img/user-default.png');
     }
 
     public function imgCompany()

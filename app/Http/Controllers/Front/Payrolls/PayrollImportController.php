@@ -6,11 +6,15 @@ namespace App\Http\Controllers\Front\Payrolls;
 
 use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\Files\File;
+use App\AsientoContable\Files\Repositories\IFile;
 use App\AsientoContable\Files\Requests\FileImportRequest;
 use App\AsientoContable\Headers\Repositories\IHeader;
 use App\AsientoContable\PensionFund\Repositories\IPensionFund;
+use App\AsientoContable\Tools\UploadableTrait;
+use App\Exports\EmployeeExport;
 use App\Http\Controllers\Controller;
 use App\Imports\PayrollImport;
+use App\Models\History;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,10 +27,13 @@ if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
 
 class PayrollImportController extends Controller
 {
-    private $headerRepo, $pensionRepo, $centerCostRepo;
+    use UploadableTrait;
 
-    public function __construct(ICenterCost $ICenterCost, IHeader $IHeader,IPensionFund $IPensionFund)
+    private $headerRepo, $pensionRepo, $centerCostRepo,$fileRepo;
+
+    public function __construct(IFile $IFile,ICenterCost $ICenterCost, IHeader $IHeader,IPensionFund $IPensionFund)
     {
+        $this->fileRepo = $IFile;
         $this->centerCostRepo = $ICenterCost;
         $this->headerRepo = $IHeader;
         $this->pensionRepo = $IPensionFund;
@@ -46,21 +53,14 @@ class PayrollImportController extends Controller
         if (!$this->hasEqualsHeaders($request))
             return back()->with('error','Las cabeceras del excel no coinciden con la del cliente');
 
-        $date = Carbon::parse($request->month);
+        if (!$this->canCreateOrUpdate($request))
+            return back()->with('error','Planilla cerrada, Se generó todos los asientos contables');
 
-        $file = File::updateOrCreate(
-            [
-                'month_payroll' => $date,
-                'customer_id' => customerID()
-            ],
-            [
-                'name' => ucfirst($date->monthName).'-'.$date->year,
-                'url_file' => 'file',
-                'user_id' => \Auth::id(),
-            ]
-        );
+        $file = $this->fileRepo->fileUpdateOrCreate($request);
 
-        Excel::import(new PayrollImport($customer_id,$date,$file->id), $request->file('file_upload'));
+        Excel::import(new PayrollImport($customer_id,$file), $request->file('file_upload'));
+
+        history(History::IMPORT_TYPE,"Importó Planilla Mensual",$file->url_file);
 
         return redirect()->route('admin.customers.payrolls.show',[$customer_id,$file->id])
                          ->with('message','Información cargada');
@@ -72,6 +72,17 @@ class PayrollImportController extends Controller
         $headerCustomer = $this->headerRepo->listHeaders()->pluck('slug');
         $diff = collect($headings)->diff($headerCustomer);
         return count(($diff->all())) === 0;
+    }
+
+    public function canCreateOrUpdate(Request $request): bool
+    {
+        $date = Carbon::parse($request->month);
+        $file = File::where('month_payroll',$date)->where('customer_id',customerID())->first();
+        if ($file)
+            if ($file->status === File::STATUS_CLOSE)
+                return false;
+
+        return true;
     }
 
 }

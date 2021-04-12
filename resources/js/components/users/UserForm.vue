@@ -114,7 +114,7 @@
                                     <br>
                                     <br>
                                     <button type="submit" class="btn btn-primary"> Guardar </button>
-                                    <a :href="`${this.baseUrl}admin/users`" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
+                                    <a :href="back" class="btn btn-sm btn-outline-light ml-2"> Regresar </a>
                                 </form>
                             </div>
                         </div>
@@ -165,6 +165,9 @@ export default {
         this.loadData()
     },
     computed: {
+        back() {
+            return `${this.baseUrl}admin/users`
+        },
         isEdit() {
             return !!this.formData.id;
         },

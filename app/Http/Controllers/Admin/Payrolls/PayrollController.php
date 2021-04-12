@@ -39,10 +39,11 @@ class PayrollController extends Controller
         })->count();
 
         return view('customers.collaborators.monthly-payroll.show',[
-            'payrolls' => $data,
-            'moreCosts' => $moreOneCosts,
+            'file'         => $this->fileRepo->findFileById($id),
+            'payrolls'     => $data,
+            'moreCosts'    => $moreOneCosts,
             'withoutCosts' => $withoutCosts,
-            'files'    => $this->fileRepo->listFiles()
+            'files'        => $this->fileRepo->listFiles()
         ]);
     }
 

@@ -6,6 +6,7 @@
             @include('customers.collaborators.monthly-payroll.partials.sidebar')
             <div class="col-md-9 app-content">
                 <payrolls-data-table
+                    :p_file="{{ json_encode($file) }}"
                     :p_payrolls="{{ json_encode($payrolls) }}"
                     :p_more_one_costs="{{$moreCosts}}"
                     :p_without_costs="{{$withoutCosts}}"

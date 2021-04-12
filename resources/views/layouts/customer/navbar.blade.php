@@ -17,9 +17,15 @@
             <!-- end::navigation-toggler -->
 
             <li class="nav-item">
-                <a href="{{ route('admin.customers.collaborators.index',$currentCustomer->id) }}" class="nav-link ">
-                    <img width="18" class="mr-2" src="{{ asset('img/edex.png') }}" alt="flag"> {{ $currentCustomer->name }}
-                </a>
+                @if(Auth::check())
+                    <a href="{{ route('admin.customers.collaborators.index',$currentCustomer->id) }}" class="nav-link ">
+                        <img width="18" class="mr-2" src="{{ asset('img/edex.png') }}" alt="flag"> {{ $currentCustomer->name }}
+                    </a>
+                @else
+                    <a href="" class="nav-link ">
+                        <img width="18" class="mr-2" src="{{ asset('img/edex.png') }}" alt="flag"> {{ $currentCustomer->name }}
+                    </a>
+                @endif
             </li>
 
         </ul>

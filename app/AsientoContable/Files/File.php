@@ -14,6 +14,9 @@ class File extends Model
 {
     protected $guarded = ['id'];
 
+    CONST STATUS_OPEN = 'Abierto';
+    CONST STATUS_CLOSE = 'Cerrado';
+
     public function concepts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Concept::class);

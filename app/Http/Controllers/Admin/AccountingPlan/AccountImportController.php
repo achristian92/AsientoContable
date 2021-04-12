@@ -4,24 +4,23 @@
 namespace App\Http\Controllers\Admin\AccountingPlan;
 
 
+use App\AsientoContable\Tools\FileExcelRequest;
+use App\AsientoContable\Tools\UploadableTrait;
 use App\Http\Controllers\Controller;
 use App\Imports\AccountPlanImport;
-use App\Imports\CustomersImport;
-use Illuminate\Http\Request;
+use App\Models\History;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\HeadingRowImport;
 
 class AccountImportController extends Controller
 {
-    public function __invoke(Request $request,$customer_id)
+    use UploadableTrait;
+
+    public function __invoke(FileExcelRequest $request,$customer_id)
     {
-        $request->validate([
-            'file_upload' => 'required|file|mimes:xls,xlsx'
-        ]);
-
-        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'));
-
         Excel::import(new AccountPlanImport($customer_id), $request->file('file_upload'));
+
+        $url = $this->handleUploadedDocument($request->file('file_upload'),'import');
+        history(History::IMPORT_TYPE,"Importó plan contable",$url);
 
         return redirect()
                ->route('admin.customers.accounting-plan.index',$customer_id)

@@ -38,15 +38,8 @@ class CustomerController extends Controller
     {
         $customer = $this->customerRepo->createCustomer($request->all());
         BaseHeader::all()->each(function ($base) use ($customer) {
-            Header::create([
-                'name'        => $base->header,
-                'slug'        => $base->header_slug,
-                'type'        => $base->type,
-                'order'       => $base->order,
-                'is_required' => $base->is_required,
-                'has_account' => $base['has_account'] ?? false,
-                'customer_id' => $customer->id,
-            ]);
+            $base['customer_id'] = $customer->id;
+            Header::create($base->toArray());
         });
 
         BasePension::all()->each(function ($value) use($customer){

@@ -18,9 +18,15 @@ class Concept extends Model
     CONST POSITION = 'Cargo';
 
     CONST COSTCENTER = 'Centro Costo';
+    CONST COSTCENTER2 = 'Centro Costo2';
 
     CONST WORKED_DAYS = 'Días trab';
+    CONST WORKED_NOT_DAYS = 'Días no trab';
+    CONST LCGH = 'Días L.C.G.H';
+    CONST VACATION_DAYS = 'Días Vac';
     CONST WORKED_HOURS = 'Horas trab';
+    CONST HOURS_EXT25 = 'Hs. Ext. 25%';
+    CONST HOURS_EXT35 = 'Hs. Ext. 35%';
 
     CONST DATE_ENTRY = 'Fecha Ingreso';
     CONST DATE_TERMINATION = 'Fecha cese';

@@ -17,6 +17,7 @@
                         <th>Cabecera</th>
                         <th>Orden</th>
                         <th>Cuenta contable</th>
+                        <th>Estado</th>
                         <th class="text-right"></th>
                     </tr>
                     </thead>

@@ -6,13 +6,17 @@ namespace App\Http\Controllers\Admin\AccountingSeat;
 
 use App\AsientoContable\Employees\AccountingSeating\Repositories\ISeating;
 use App\AsientoContable\Files\Repositories\IFile;
-use App\Exports\PlanCounterExportDays;
+use App\AsientoContable\Tools\UploadableTrait;
+use App\Exports\EmployeeExport;
 use App\Exports\SeatingExport;
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AccountingSeatController extends Controller
 {
+    use UploadableTrait;
+
     private $fileRepo,$seatingRepo;
 
     public function __construct(IFile $IFile,ISeating $ISeating)
@@ -42,6 +46,10 @@ class AccountingSeatController extends Controller
         $file = $this->fileRepo->findFileById($id);
         $nameFile = 'Asientos-'.slug($file->name,'-').'.xlsx';
         $seating = $this->seatingRepo->listSeating($id);
+
+        $url = $this->handleDocumentS3(new SeatingExport($seating->toArray()),$nameFile);
+        history(History::EXPORT_TYPE,"Exporto asiento generado $nameFile",$url);
+
         return Excel::download(new SeatingExport($seating->toArray()), $nameFile);
     }
 }

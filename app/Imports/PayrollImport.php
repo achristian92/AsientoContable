@@ -7,6 +7,8 @@ use App\AsientoContable\CenterCosts\Repositories\CenterCostRepo;
 use App\AsientoContable\Collaborators\Repositories\CollaboratorRepo;
 use App\AsientoContable\ConceptAccounts\Repositories\ConceptAccountRepo;
 use App\AsientoContable\Concepts\Concept;
+use App\AsientoContable\CostsCenter2\CostCenter2;
+use App\AsientoContable\Files\File;
 use App\AsientoContable\Headers\Header;
 use App\AsientoContable\PensionFund\Repositories\PensionFundRepo;
 use Carbon\Carbon;
@@ -18,12 +20,11 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 
 class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
 {
-    private $customer, $month, $file,$pensionRepo,$conceptAccountRepo,$employeeRepo;
+    private $customer, $file,$pensionRepo,$conceptAccountRepo,$employeeRepo;
 
-    public function __construct(int $customer, Carbon $month, int $file)
+    public function __construct(int $customer,File $file)
     {
         $this->customer = $customer;
-        $this->month = $month;
         $this->file = $file;
         $this->employeeRepo = resolve(CollaboratorRepo::class);
         $this->pensionRepo = resolve(PensionFundRepo::class);
@@ -41,7 +42,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
             $employee = $this->employeeRepo->updateOrCreateEmployee($row->toArray(),$this->customer);
 
             if(!$this->hasPensionOnp($row))
-                $this->conceptAccountRepo->createConceptAccount(Concept::AFP_CONTRIBUTION,$this->pensionAccount($row),$this->totalAFP($row), $employee,$this->month,$this->customer,$this->file);
+                $this->conceptAccountRepo->createConceptAccount(Concept::AFP_CONTRIBUTION,$this->pensionAccount($row),$this->totalAFP($row), $employee,$this->customer,$this->file);
 
             $row->each(function ($item,$row) use ($employee) {
                 $header = Header::where('slug',$row)
@@ -49,22 +50,21 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
                                 ->first();
                 if($header) {
                     if ($header->account_plan_id)
-                        $this->conceptAccountRepo->createConceptAccount($header->name,$header->account,$item, $employee,$this->month,$this->customer,$this->file);
+                        $this->conceptAccountRepo->createConceptAccount($header->name,$header->account,$item, $employee,$this->customer,$this->file);
 
                     Concept::updateOrCreate(
                         [
                             'header'          => $header->name,
-                            'payroll_date'    => $this->month,
+                            'payroll_date'    => $this->file->month_payroll,
                             'collaborator_id' => $employee->id,
                             'customer_id'     => $this->customer,
-                            'file_id'         => $this->file
+                            'file_id'         => $this->file->id
                         ],
                         [
                             'value' => trim($item),
                         ]
                     );
                 }
-
             });
         });
     }
@@ -77,7 +77,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
 
     private function hasPensionOnp($row): bool
     {
-        if (strtolower($row['fondo_de_pensiones']) === 'on')
+        if (strtolower($row[slug(Concept::PENSION_SHORT)]) === 'on')
             return true;
         return false;
     }
@@ -95,6 +95,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
         $costCenter = resolve(CenterCostRepo::class);
         $costs = $costCenter->listCostsCenter()->pluck('code')->toArray();
 
+        $costs2 = CostCenter2::where('customer_id',$this->customer)->get()->pluck('code');
         $pensions = $this->pensionRepo->listPensionsFund()->pluck('short')->toArray();
 
         return [
@@ -102,6 +103,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
             '*.trabajador'     => 'required',
             '*.nro_identidad'  => 'required',
             '*.centro_costo'   => ['nullable',Rule::in($costs)],
+            '*.centro_costo2'   => ['nullable',Rule::in($costs2)],
             '*.fecha_ingreso'  => 'required|date_format:d/m/Y',
             '*.pension'        => ['required',Rule::in($pensions)],
             '*.remuneracion_basica' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',

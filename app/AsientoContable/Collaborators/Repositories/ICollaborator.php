@@ -16,4 +16,6 @@ interface ICollaborator
     public function listCollaborators(array $columns = ['*'], string $order = 'full_name', string $sort = 'asc'): Collection;
 
     public function listEmployeeWithOutCostCenter(int $file,array $columns = ['*'], string $order = 'full_name', string $sort = 'asc'): Collection;
+
+    public function exportEmployees(int $customer): array;
 }

@@ -5,14 +5,16 @@ namespace App\Imports;
 
 
 use App\AsientoContable\CenterCosts\Cost;
-use App\AsientoContable\Customers\Customer;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class CenterCostImport implements ToCollection,WithHeadingRow
 {
+    use Importable;
+
     private $customer_id;
 
     public function __construct(int $customer_id)
@@ -52,8 +54,8 @@ class CenterCostImport implements ToCollection,WithHeadingRow
         ];
 
         Validator::make($row->toArray(), [
-            'cod'     => 'required',
-            'descripcion'     => 'required',
+            'cod'         => 'required',
+            'descripcion' => 'required',
         ], $messages)->validate();
 
     }

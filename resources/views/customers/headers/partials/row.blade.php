@@ -15,6 +15,9 @@
             {{ $header->account->code ?? '' }} - {{ $header->account->name ?? '' }}
         @endif
     </td>
+    <td>
+        {{ $header->present()->currentStatus() }}
+    </td>
     <td class="text-right">
         <a href="{{ route('admin.customers.headers.edit',[customerID(),$header->id]) }}" class="btn btn-outline-light btn-sm mr-1">
             <small><i class="ti-pencil"></i></small>

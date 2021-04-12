@@ -31,16 +31,9 @@ class CustomerSeeder extends Seeder
 
         $firstCustomer = Customer::first();
 
-        BaseHeader::all()->each(function ($item) use ($firstCustomer) {
-            Header::create([
-                'name'        => $item->header,
-                'slug'        => $item->header_slug,
-                'type'        => $item->type,
-                'order'       => $item->order,
-                'is_required' => $item->is_required,
-                'has_account' => $item['has_account'] ?? false,
-                'customer_id' => $firstCustomer->id,
-            ]);
+        BaseHeader::all()->each(function ($base) use ($firstCustomer) {
+            $base['customer_id'] = $firstCustomer->id;
+            Header::create($base->toArray());
         });
         BasePension::all()->each(function ($value) use($firstCustomer){
             $value['customer_id'] = $firstCustomer->id;
