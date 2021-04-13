@@ -7,7 +7,10 @@ namespace App\Http\Controllers\Admin\Users;
 use App\AsientoContable\Customers\Repositories\ICustomer;
 use App\AsientoContable\Users\Repositories\IUser;
 use App\Http\Controllers\Controller;
+use App\Imports\UserImport;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -45,6 +48,14 @@ class UserController extends Controller
             'customers' => $this->customerRepo->listCustomersActivated(),
             'roles'     => Role::all()
         ]);
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new UserImport(), $request->file('file_upload'));
+        return redirect()
+            ->route('admin.users.index')
+            ->with('message','Información cargada');
     }
 
 }

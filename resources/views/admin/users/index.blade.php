@@ -1,11 +1,20 @@
 @extends('layouts.admin.app')
 @section('content')
+    @include('components.errors-and-messages')
     <div class="container-fluid">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 text-right" >
+                            @if(Auth::user()->email === 'aruiz@tavera.pe')
+                                <button type="button"
+                                        class="btn btn-outline-dark btn-pulse btn-sm"
+                                        data-toggle="modal"
+                                        data-target="#importModalUser">
+                                    <i class="ti-upload mr-1"></i> Importar
+                                </button>
+                            @endif
                             <a href="{{ route('admin.users.create') }}" class="btn btn-outline-light btn-pulse btn-sm ml-2">
                                 <i class="ti-plus mr-1"></i> Nuevo
                             </a>
@@ -31,6 +40,6 @@
                 </div>
             </div>
         </div>
-
     </div>
+    @include('admin.users.partials.import')
 @endsection

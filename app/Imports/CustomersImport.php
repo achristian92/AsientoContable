@@ -11,8 +11,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CustomersImport implements ToCollection,WithHeadingRow
+class CustomersImport implements ToCollection,WithHeadingRow,WithValidation
 {
     public function headingRow(): int
     {
@@ -22,8 +23,6 @@ class CustomersImport implements ToCollection,WithHeadingRow
     public function collection(Collection $collection)
     {
         $collection->each(function ($row,$key) {
-
-                $this->validationRow($row, $key);
 
                  $customer = Customer::updateOrCreate(
                     [
@@ -47,21 +46,11 @@ class CustomersImport implements ToCollection,WithHeadingRow
         });
     }
 
-    private function validationRow($row, int $key)
+    public function rules(): array
     {
-        $currentRow = $key + 2;
-
-        $messages = [
-            'required' => "El campo :attribute es requerido en la fila $currentRow.",
-            'unique'   => "El campo :attribute  ya está en uso en la fila $currentRow.",
-
+        return [
+            '*.empresa' => 'required',
+            '*.ruc'     => 'required',
         ];
-
-        Validator::make($row->toArray(), [
-            'empresa' => 'required|unique:customers,name',
-            'ruc'     => 'required|numeric|unique:customers',
-        ], $messages)->validate();
-
     }
-
 }

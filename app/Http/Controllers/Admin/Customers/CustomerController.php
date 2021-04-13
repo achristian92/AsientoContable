@@ -12,6 +12,7 @@ use App\AsientoContable\Headers\Header;
 use App\AsientoContable\PensionFund\PensionFund;
 use App\Http\Controllers\Controller;
 use App\AsientoContable\Customers\Repositories\ICustomer;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -70,5 +71,6 @@ class CustomerController extends Controller
         $this->customerRepo->deleteCustomer($id);
         return redirect()->route('admin.customers.index')->with('message',"Cliente desactivado");
     }
+
 
 }
