@@ -27,7 +27,7 @@ class ConceptRepo extends BaseRepository implements IConcept
     public function showConceptCollaboratorList(int $file_id): array
     {
         $collaboratorIDS = $this->employeeIDS($file_id);
-        $pensionsFund = PensionFund::all();
+        $pensionsFund = PensionFund::where('customer_id',customerID())->get();
         $concepts = $this->employeeConcepts($collaboratorIDS,$file_id);
 
         return $concepts->map(function ($collaboratorConcept) use ($pensionsFund) {

@@ -68,10 +68,10 @@ class PayrollImportController extends Controller
 
     private function hasEqualsHeaders(Request $request): bool
     {
-        $headings = (new HeadingRowImport)->toArray($request->file('file_upload'))[0][0];
-        $headerCustomer = $this->headerRepo->listHeaders()->pluck('slug');
-        $diff = collect($headings)->diff($headerCustomer);
-        return count(($diff->all())) === 0;
+        $fileHeaders = (new HeadingRowImport)->toArray($request->file('file_upload'))[0][0];
+        $currentHeaders = $this->headerRepo->listHeaders()->pluck('slug');
+        $diff = $currentHeaders->diff($fileHeaders);
+        return $diff->count() === 0;
     }
 
     public function canCreateOrUpdate(Request $request): bool

@@ -46,6 +46,8 @@ class TestController extends Controller
 
     public function __invoke(int $customer)
     {
+        $data = $this->conceptRepo->showConceptCollaboratorList(1);
+        dd($data);
 
     }
 

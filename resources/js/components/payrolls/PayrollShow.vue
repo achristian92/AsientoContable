@@ -128,7 +128,7 @@
                             </label>
                         </td>
                         <td>
-                            {{ payroll.employee }} <br>
+                            {{ payroll.employee }} <span class="badge badge-danger" v-if="payroll.centerCost.length === 0">SIN CENTRO COSTO</span> <br>
                             <small class="text-muted">
                                 <a href="#" class="text-muted" data-toggle="tooltip" :title="payroll.workArea+' | '+payroll.position">
                                     <i class="fa fa-id-card-o"></i>
@@ -138,6 +138,9 @@
                                 </a>
                                 <a href="#" class="text-muted" v-if="payroll.withFamily" data-toggle="tooltip" title="" data-original-title="Asignación familiar">
                                     <i class="fa fa-user-o ml-2"></i>
+                                </a>
+                                <a href="#" class="text-muted" v-if="payroll.centerCost.length > 1" data-toggle="tooltip" title="" data-original-title="Varios centros costos">
+                                    <i class="fa fa-cogs ml-2"></i>
                                 </a>
                             </small>
                         </td>

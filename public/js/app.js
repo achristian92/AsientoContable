@@ -2646,6 +2646,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23529,6 +23532,12 @@ var render = function() {
                           _vm._s(payroll.employee) +
                           " "
                       ),
+                      payroll.centerCost.length === 0
+                        ? _c("span", { staticClass: "badge badge-danger" }, [
+                            _vm._v("SIN CENTRO COSTO")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("br"),
                       _vm._v(" "),
                       _c("small", { staticClass: "text-muted" }, [
@@ -23575,6 +23584,22 @@ var render = function() {
                                 }
                               },
                               [_c("i", { staticClass: "fa fa-user-o ml-2" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        payroll.centerCost.length > 1
+                          ? _c(
+                              "a",
+                              {
+                                staticClass: "text-muted",
+                                attrs: {
+                                  href: "#",
+                                  "data-toggle": "tooltip",
+                                  title: "",
+                                  "data-original-title": "Varios centros costos"
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-cogs ml-2" })]
                             )
                           : _vm._e()
                       ])
