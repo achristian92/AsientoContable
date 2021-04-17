@@ -94,9 +94,12 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
     {
         $costCenter = resolve(CenterCostRepo::class);
         $costs = $costCenter->listCostsCenter()->pluck('code')->toArray();
+        \Log::info('ENTRO PARA VALIDAR COSTOS');
 
         $costs2 = CostCenter2::where('customer_id',$this->customer)->get()->pluck('code');
         $pensions = $this->pensionRepo->listPensionsFund()->pluck('short')->toArray();
+
+        \Log::info('ENTRO PARA VALIDAR COSTOS2');
 
         return [
             '*.codigo'         => 'required',

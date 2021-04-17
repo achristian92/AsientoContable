@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Concepts/Repositories/ConceptRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Concepts/Repositories/ConceptRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/PayrollImportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/PayrollImportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerImportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerImportController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/payrolls/PayrollShow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/payrolls/PayrollShow.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/CustomersImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/CustomersImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/PayrollImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/PayrollImport.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -304,7 +303,8 @@
       <workItem from="1618282565836" duration="1327000" />
       <workItem from="1618284000835" duration="3707000" />
       <workItem from="1618330024155" duration="95000" />
-      <workItem from="1618333883834" duration="1474000" />
+      <workItem from="1618333883834" duration="1665000" />
+      <workItem from="1618700990453" duration="1231000" />
     </task>
     <servers />
   </component>
