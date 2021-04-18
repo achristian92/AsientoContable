@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PensionSeeder::class,
             HeaderSeeder::class,
-            CustomerSeeder::class,
+            CsvCostSeeder::class,
+            CsvCost2Seeder::class,
+            CsvAccountSeeder::class,
+            CsvHeaderSeeder::class,
+            CsvPensionSeeder::class,
         ]);
     }
 }

@@ -29,7 +29,7 @@ class CustomerSeeder extends Seeder
            Customer::create($customer);
         });*/
 
-        $firstCustomer = Customer::first();
+        /*$firstCustomer = Customer::first();
 
         BaseHeader::all()->each(function ($base) use ($firstCustomer) {
             $base['customer_id'] = $firstCustomer->id;
@@ -38,7 +38,7 @@ class CustomerSeeder extends Seeder
         BasePension::all()->each(function ($value) use($firstCustomer){
             $value['customer_id'] = $firstCustomer->id;
             PensionFund::create($value->toArray());
-        });
+        });*/
 
     }
 }

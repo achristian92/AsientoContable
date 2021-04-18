@@ -3,8 +3,6 @@
 
 namespace App\Imports;
 
-
-use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\CostsCenter2\CostCenter2;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
@@ -37,7 +35,7 @@ class CostCenter2Import implements ToCollection,WithHeadingRow
                     'customer_id' => $this->customer_id
                 ],
                 [
-                    'name' => $row['descripcion'],
+                    'name' => trim($row['descripcion']),
                 ]
             );
         });
