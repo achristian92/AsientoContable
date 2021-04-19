@@ -18,6 +18,7 @@ class CreateBaseHeaderTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->boolean('has_account')->default(false);
+            $table->boolean('is_account_main')->default(false);
             $table->boolean('is_required')->default(false);
             $table->string('type')->nullable();
             $table->integer('order')->default(1);

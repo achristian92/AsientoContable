@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CsvAccountSeeder::class,
             CsvHeaderSeeder::class,
             CsvPensionSeeder::class,
+            //CustomerSeeder::class,
         ]);
     }
 }

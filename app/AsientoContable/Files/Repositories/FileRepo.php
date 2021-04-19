@@ -35,6 +35,7 @@ class FileRepo extends BaseRepository implements IFile
                 $model = new File();
                 $model->id = $value->id;
                 $model->name = $value->name;
+                $model->isOpen = $value->status === $this->model::STATUS_OPEN;
                 $model->totalConcepts = $value->concepts->unique('collaborator_id')->count();
                 $model->totalAssignments = $value->assignments->unique('collaborator_id')->count();
                 $model->totalSeating = $value->seating->unique('collaborator_id')->count();

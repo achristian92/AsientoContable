@@ -17,6 +17,7 @@ class CreateConceptAccountsTable extends Migration
             $table->id();
             $table->string('header');
             $table->string('value')->nullable();
+            $table->string('type')->nullable();
             $table->json('account')->nullable();
             $table->date('payroll_date');
             $table->foreignId('collaborator_id')->constrained()->cascadeOnDelete();

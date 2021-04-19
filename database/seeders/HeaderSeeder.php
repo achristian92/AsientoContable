@@ -203,6 +203,7 @@ class HeaderSeeder extends Seeder
                 'order'       => $key * 10,
                 'is_required' => $item['is_required'],
                 'has_account' => $item['has_account'] ?? false,
+                'is_account_main' => (bool)$item['has_account'],
                 'is_active'   => isset($item['is_active']) ? $item['is_active'] : true,
             ]);
         });

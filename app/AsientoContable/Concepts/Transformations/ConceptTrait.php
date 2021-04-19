@@ -18,7 +18,7 @@ trait ConceptTrait
             'employee'          => $collection->firstWhere('header',Concept::FULL_NAME)->value,
             'workArea'          => $collection->firstWhere('header',Concept::AREA)->value ?? '--',
             'position'          => $collection->firstWhere('header',Concept::POSITION)->value ?? '--',
-            'withFamily'        => $collection->firstWhere('header',Concept::WITH_FAMILY)->value ? true : false,
+            'withFamily'        => (bool)$collection->firstWhere('header', Concept::WITH_FAMILY)->value,
             'pension'           => $this->searchPensionName($collection,$pensionFunds),
             'totalIncome'       => $this->totalIncome($collection),
             'totalExpense'      => $this->totalExpense($collection),

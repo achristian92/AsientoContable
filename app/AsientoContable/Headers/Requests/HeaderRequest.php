@@ -13,15 +13,15 @@ class HeaderRequest extends FormRequest
         $rules = [
             'name' => 'required|max:255',
             'order' => 'required|numeric',
-            'account_plan_id' => [
+            /*'account_plan_id' => [
                 'nullable',
                 Rule::unique('headers')->where(function ($query) {
                     return $query->where('account_plan_id',$this->account_plan_id)
                         ->whereCustomerId(customerID());
                 })
-            ]
+            ]*/
         ];
-        if ($this->isMethod('PUT')) {
+        /*if ($this->isMethod('PUT')) {
             $rules['account_plan_id'] = [
                 'nullable',
                 Rule::unique('headers')->where(function ($query) {
@@ -29,7 +29,7 @@ class HeaderRequest extends FormRequest
                         ->whereCustomerId(customerID());
                 })->ignore($this->segment(5))
             ];
-        }
+        }*/
 
         return $rules;
     }

@@ -29,7 +29,8 @@ class ConceptAccountRepo extends BaseRepository implements IConceptAccount
             ],
             [
                 'account' => json_encode($account),
-                'value'   => trim($value)
+                'value'   => trim($value),
+                'type'    => $account['type']
             ]
         );
     }

@@ -18,7 +18,7 @@ class CustomerSeeder extends Seeder
      */
     public function run()
     {
-        /*$customers = collect([
+        $customers = collect([
             [
                 'name' => 'JIMENEZ & ESPINOZA ASOCIADOS SOCIEDAD ANONIMA CERRADA',
                 'ruc' => '20557915541',
@@ -27,18 +27,19 @@ class CustomerSeeder extends Seeder
         ]);
         $customers->each(function ($customer) {
            Customer::create($customer);
-        });*/
+        });
 
-        /*$firstCustomer = Customer::first();
+        $firstCustomer = Customer::first();
 
         BaseHeader::all()->each(function ($base) use ($firstCustomer) {
             $base['customer_id'] = $firstCustomer->id;
             Header::create($base->toArray());
         });
+
         BasePension::all()->each(function ($value) use($firstCustomer){
             $value['customer_id'] = $firstCustomer->id;
             PensionFund::create($value->toArray());
-        });*/
+        });
 
     }
 }

@@ -13,6 +13,7 @@ use App\AsientoContable\Employees\CostEmployees\Repositories\CostEmployeeRepo;
 use App\AsientoContable\PensionFund\PensionFund;
 use App\AsientoContable\PensionFund\PensionTrait;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class ConceptRepo extends BaseRepository implements IConcept
@@ -29,14 +30,14 @@ class ConceptRepo extends BaseRepository implements IConcept
         $collaboratorIDS = $this->employeeIDS($file_id);
         $pensionsFund = PensionFund::where('customer_id',customerID())->get();
         $concepts = $this->employeeConcepts($collaboratorIDS,$file_id);
-
-        return $concepts->map(function ($collaboratorConcept) use ($pensionsFund) {
+        $costs = Cost::where('customer_id',customerID())->get();
+        return $concepts->map(function ($collaboratorConcept) use ($pensionsFund,$costs) {
             $filters = [
                 'file_id'=> $collaboratorConcept->first()->file_id,
                 'collaborator_id'=> $collaboratorConcept->first()->collaborator_id
             ];
             $data = $this->generalConceptCollaborator($collaboratorConcept,$pensionsFund);
-            $data['centerCost'] = $this->costCenterEmployee($filters);
+            $data['centerCost'] = $this->costCenterEmployee($collaboratorConcept,$filters,$costs);
 
             return $data;
         })->values()->toArray();
@@ -50,10 +51,11 @@ class ConceptRepo extends BaseRepository implements IConcept
         ];
         $collection = $this->model::where($filters)->get();
         $accounts = $this->accounts($filters);
+        $costs = Cost::where('customer_id',customerID())->get();
         return [
             'info'        => $this->basicInfo($collection),
             'costs'       => $this->basicCosts($collection),
-            'costCenters' => $this->costCenterEmployee($filters),
+            'costCenters' => $this->costCenterEmployee($collection,$filters,$costs),
             'concepts'    => $collection,
             'accounts'    => $accounts,
             'totalMust'   => number_format($accounts->where('type',AccountPlan::TYPE_EXPENSE)->sum('value'),2),
@@ -90,19 +92,18 @@ class ConceptRepo extends BaseRepository implements IConcept
             ->pluck('collaborator_id')->unique();
     }
 
-    public function costCenterEmployee($filters): array
+    public function costCenterEmployee(Collection $collection, $filters,$costs): array
     {
-        $concept = Concept::where($filters)->get();
-        $centerCostCode = $concept->firstWhere('header',Concept::COSTCENTER)->value;
+        $centerCostCode = $collection->firstWhere('header',Concept::COSTCENTER)->value;
         if ($centerCostCode)
-            return $this->oneCenterCost($centerCostCode);
+            return $this->oneCenterCost($costs,$centerCostCode);
 
         return $this->manyCenterCost($filters);
 
     }
-    public function oneCenterCost($code): array
+    public function oneCenterCost($costs,$code): array
     {
-        $costCenter = Cost::firstWhere('code',$code);
+        $costCenter = $costs->firstWhere('code',$code);
         return  [
             [
                 'code' => $costCenter->code,

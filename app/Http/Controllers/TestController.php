@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\CenterCosts\Repositories\ICenterCost;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Collaborators\Repositories\ICollaborator;
@@ -46,7 +47,25 @@ class TestController extends Controller
 
     public function __invoke(int $customer)
     {
-        $data = $this->conceptRepo->showConceptCollaboratorList(1);
+        $data =  $this->headerRepo->listHeaders()->firstWhere('slug','hs_ext_25');
+        $transform = $this->transformAccount($data->account);
+        $all = [
+            'code' => '123',
+            'name' => 'test',
+            'type' => 'type'
+
+        ];
+        dd($transform,$data->account,json_encode($all));
+    }
+
+    public function transformAccount(AccountPlan $account, string $name = null)
+    {
+        return json_encode([
+            'code' => $account->code,
+            'name' => is_null($name) ? $account->name : $name,
+            'type' => $account->type,
+            'customer_id' => $account->customer_id
+        ]);
     }
 
 

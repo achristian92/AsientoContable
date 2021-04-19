@@ -53,12 +53,20 @@ class HeaderController extends Controller
 
     public function store(HeaderRequest $request,$customer_id)
     {
+        $request->merge([
+            'is_account_main' => $request->is_account_main === '1',
+            'is_active'       => $request->is_active === '1'
+        ]);
         $this->headerRepo->createHeader($request->all());
         return redirect()->route('admin.customers.headers.index',$customer_id)->with('message',"Registro creado");
     }
 
     public function update(HeaderRequest $request,$customer_id,$id)
     {
+        $request->merge([
+            'is_account_main' => $request->is_account_main === '1',
+            'is_active'       => $request->is_active === '1'
+        ]);
         $this->headerRepo->updateHeader($request->all(),$id);
         return redirect()->route('admin.customers.headers.index',$customer_id)->with('message',"Registro actualizado");
     }

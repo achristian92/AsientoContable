@@ -2620,35 +2620,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23165,185 +23136,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "card app-content-body" },
-    [
-      _c("loading", {
-        attrs: { active: _vm.isLoading, "is-full-page": false },
-        on: {
-          "update:active": function($event) {
-            _vm.isLoading = $event
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "app-action mb-0" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "action-right" }, [
-            _c("form", { staticClass: "d-flex mr-3" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "app-sidebar-menu-button btn btn-outline-light",
-                  attrs: { href: "#" }
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "feather feather-menu",
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        width: "24",
-                        height: "24",
-                        viewBox: "0 0 24 24",
-                        fill: "none",
-                        stroke: "currentColor",
-                        "stroke-width": "1",
-                        "stroke-linecap": "round",
-                        "stroke-linejoin": "round"
-                      }
-                    },
-                    [
-                      _c("line", {
-                        attrs: { x1: "3", y1: "12", x2: "21", y2: "12" }
-                      }),
-                      _c("line", {
-                        attrs: { x1: "3", y1: "6", x2: "21", y2: "6" }
-                      }),
-                      _c("line", {
-                        attrs: { x1: "3", y1: "18", x2: "21", y2: "18" }
-                      })
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "input-group" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Buscar persona",
-                    "aria-describedby": "button-addon1"
-                  }
-                }),
+  return _c("div", { staticClass: "card app-content-body" }, [
+    _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row mt-3" }, [
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "card mb-0" }, [
+            _c("div", { staticClass: "card-body p-3" }, [
+              _c("div", { staticClass: "d-flex align-items-center" }, [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("div", { staticClass: "input-group-append" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-light",
-                      attrs: { type: "button", id: "button-addon1" }
-                    },
-                    [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "feather feather-search",
-                          attrs: {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            width: "24",
-                            height: "24",
-                            viewBox: "0 0 24 24",
-                            fill: "none",
-                            stroke: "currentColor",
-                            "stroke-width": "1",
-                            "stroke-linecap": "round",
-                            "stroke-linejoin": "round"
-                          }
-                        },
-                        [
-                          _c("circle", {
-                            attrs: { cx: "11", cy: "11", r: "8" }
-                          }),
-                          _c("line", {
-                            attrs: {
-                              x1: "21",
-                              y1: "21",
-                              x2: "16.65",
-                              y2: "16.65"
-                            }
-                          })
-                        ]
-                      )
-                    ]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mt-3" }, [
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "card mb-0" }, [
-              _c("div", { staticClass: "card-body p-3" }, [
-                _c("div", { staticClass: "d-flex align-items-center" }, [
-                  _vm._m(1),
+                _c("div", [
+                  _c("h6", { staticClass: "text-uppercase font-size-11" }, [
+                    _vm._v("COLABORADORES")
+                  ]),
                   _vm._v(" "),
-                  _c("div", [
-                    _c("h6", { staticClass: "text-uppercase font-size-11" }, [
-                      _vm._v("COLABORADORES")
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.payrolls.length) + " ")
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "card mb-0" }, [
-              _c("div", { staticClass: "card-body p-3" }, [
-                _c("div", { staticClass: "d-flex align-items-center" }, [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("h6", { staticClass: "text-uppercase font-size-11" }, [
-                      _vm._v("+ CENTRO DE COSTO")
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.moreOneCosts) + " Col.")
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-4" }, [
-            _c("div", { staticClass: "card mb-0" }, [
-              _c("div", { staticClass: "card-body p-3" }, [
-                _c("div", { staticClass: "d-flex align-items-center" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "icon-block icon-block-floating mr-3 icon-block-lg icon-block-outline-danger  text-danger"
-                    },
-                    [
-                      _vm._v(
-                        "\n                                !\n                            "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", [
-                    _c("h6", { staticClass: "text-uppercase font-size-11" }, [
-                      _vm._v("SIN CENTRO DE COSTO")
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.withoutCosts) + " Col.")
-                    ])
+                  _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.payrolls.length) + " ")
                   ])
                 ])
               ])
@@ -23351,7 +23159,71 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row mb-2" }, [
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "card mb-0" }, [
+            _c("div", { staticClass: "card-body p-3" }, [
+              _c("div", { staticClass: "d-flex align-items-center" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("div", [
+                  _c("h6", { staticClass: "text-uppercase font-size-11" }, [
+                    _vm._v("+ CENTRO DE COSTO")
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.moreOneCosts) + " Col.")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "card mb-0" }, [
+            _c("div", { staticClass: "card-body p-3" }, [
+              _c("div", { staticClass: "d-flex align-items-center" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "icon-block icon-block-floating mr-3 icon-block-lg icon-block-outline-danger  text-danger"
+                  },
+                  [
+                    _vm._v(
+                      "\n                                !\n                            "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c("h6", { staticClass: "text-uppercase font-size-11" }, [
+                    _vm._v("SIN CENTRO DE COSTO")
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "mb-0 font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.withoutCosts) + " Col.")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row mb-2" },
+        [
+          _c("loading", {
+            attrs: { active: _vm.isLoading, "is-full-page": false },
+            on: {
+              "update:active": function($event) {
+                _vm.isLoading = $event
+              }
+            }
+          }),
+          _vm._v(" "),
           _c("div", { staticClass: "col-md-12 text-right" }, [
             _c(
               "button",
@@ -23381,58 +23253,139 @@ var render = function() {
                   _vm._v("Cerrado")
                 ])
           ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "table-responsive",
-            staticStyle: { overflow: "hidden", outline: "none" },
-            attrs: { tabindex: "1" }
-          },
-          [
-            _c("table", { staticClass: "table table-striped mb-0" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", { staticClass: "text-center" }, [
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "table-responsive",
+          staticStyle: { overflow: "hidden", outline: "none" },
+          attrs: { tabindex: "1" }
+        },
+        [
+          _c("table", { staticClass: "table table-striped mb-0" }, [
+            _c("thead", [
+              _c("tr", [
+                _c("th", { staticClass: "text-center" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.allSelected,
+                        expression: "allSelected"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    staticStyle: { "margin-left": "2px" },
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.allSelected)
+                        ? _vm._i(_vm.allSelected, null) > -1
+                        : _vm.allSelected
+                    },
+                    on: {
+                      click: _vm.handleAllChecked,
+                      change: function($event) {
+                        var $$a = _vm.allSelected,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 && (_vm.allSelected = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.allSelected = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.allSelected = $$c
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "form-check-label" }, [
+                    _vm._v(
+                      "\n                              \n                        "
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("th", [_vm._v("Nombres")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Ingresos")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Egresos")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Aportes")]),
+                _vm._v(" "),
+                _c("th", { staticClass: "text-center" }, [_vm._v("Neto")]),
+                _vm._v(" "),
+                _c("th")
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.payrolls, function(payroll) {
+                return _c("tr", [
+                  _c("td", { staticClass: "text-center" }, [
                     _c("input", {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.allSelected,
-                          expression: "allSelected"
+                          value: payroll.checked,
+                          expression: "payroll.checked"
                         }
                       ],
                       staticClass: "form-check-input",
                       staticStyle: { "margin-left": "2px" },
                       attrs: { type: "checkbox" },
                       domProps: {
-                        checked: Array.isArray(_vm.allSelected)
-                          ? _vm._i(_vm.allSelected, null) > -1
-                          : _vm.allSelected
+                        value: payroll.id,
+                        checked: Array.isArray(payroll.checked)
+                          ? _vm._i(payroll.checked, payroll.id) > -1
+                          : payroll.checked
                       },
                       on: {
-                        click: _vm.handleAllChecked,
-                        change: function($event) {
-                          var $$a = _vm.allSelected,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.allSelected = $$a.concat([$$v]))
+                        change: [
+                          function($event) {
+                            var $$a = payroll.checked,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = payroll.id,
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    payroll,
+                                    "checked",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    payroll,
+                                    "checked",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
                             } else {
-                              $$i > -1 &&
-                                (_vm.allSelected = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
+                              _vm.$set(payroll, "checked", $$c)
                             }
-                          } else {
-                            _vm.allSelected = $$c
+                          },
+                          function($event) {
+                            return _vm.checkedPayroll($event)
                           }
-                        }
+                        ]
                       }
                     }),
                     _vm._v(" "),
@@ -23443,247 +23396,133 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("Nombres")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [
-                    _vm._v("Ingresos")
-                  ]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [_vm._v("Egresos")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [_vm._v("Aportes")]),
-                  _vm._v(" "),
-                  _c("th", { staticClass: "text-center" }, [_vm._v("Neto")]),
-                  _vm._v(" "),
-                  _c("th")
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.payrolls, function(payroll) {
-                  return _c("tr", [
-                    _c("td", { staticClass: "text-center" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: payroll.checked,
-                            expression: "payroll.checked"
-                          }
-                        ],
-                        staticClass: "form-check-input",
-                        staticStyle: { "margin-left": "2px" },
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          value: payroll.id,
-                          checked: Array.isArray(payroll.checked)
-                            ? _vm._i(payroll.checked, payroll.id) > -1
-                            : payroll.checked
-                        },
-                        on: {
-                          change: [
-                            function($event) {
-                              var $$a = payroll.checked,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = payroll.id,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 &&
-                                    _vm.$set(
-                                      payroll,
-                                      "checked",
-                                      $$a.concat([$$v])
-                                    )
-                                } else {
-                                  $$i > -1 &&
-                                    _vm.$set(
-                                      payroll,
-                                      "checked",
-                                      $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1))
-                                    )
-                                }
-                              } else {
-                                _vm.$set(payroll, "checked", $$c)
-                              }
-                            },
-                            function($event) {
-                              return _vm.checkedPayroll($event)
-                            }
-                          ]
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("label", { staticClass: "form-check-label" }, [
-                        _vm._v(
-                          "\n                              \n                        "
-                        )
-                      ])
-                    ]),
+                  _c("td", [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(payroll.employee) +
+                        " "
+                    ),
+                    payroll.centerCost.length === 0
+                      ? _c("span", { staticClass: "badge badge-danger" }, [
+                          _vm._v("SIN CENTRO COSTO")
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(payroll.employee) +
-                          " "
-                      ),
-                      payroll.centerCost.length === 0
-                        ? _c("span", { staticClass: "badge badge-danger" }, [
-                            _vm._v("SIN CENTRO COSTO")
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("br"),
-                      _vm._v(" "),
-                      _c("small", { staticClass: "text-muted" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-muted",
-                            attrs: {
-                              href: "#",
-                              "data-toggle": "tooltip",
-                              title: payroll.workArea + " | " + payroll.position
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-id-card-o" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "text-muted",
-                            attrs: {
-                              href: "#",
-                              "data-toggle": "tooltip",
-                              title: "Pension " + payroll.pension
-                            }
-                          },
-                          [
-                            _c("span", { staticClass: "ml-2" }, [
-                              _vm._v(_vm._s(payroll.pension) + " ")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        payroll.withFamily
-                          ? _c(
-                              "a",
-                              {
-                                staticClass: "text-muted",
-                                attrs: {
-                                  href: "#",
-                                  "data-toggle": "tooltip",
-                                  title: "",
-                                  "data-original-title": "Asignación familiar"
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-user-o ml-2" })]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        payroll.centerCost.length > 1
-                          ? _c(
-                              "a",
-                              {
-                                staticClass: "text-muted",
-                                attrs: {
-                                  href: "#",
-                                  "data-toggle": "tooltip",
-                                  title: "",
-                                  "data-original-title": "Varios centros costos"
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-cogs ml-2" })]
-                            )
-                          : _vm._e()
-                      ])
-                    ]),
+                    _c("br"),
                     _vm._v(" "),
-                    _c("td", { staticClass: "text-primary text-center" }, [
-                      _vm._v(_vm._s(payroll.totalIncome))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-danger text-center" }, [
-                      _vm._v(_vm._s(payroll.totalExpense))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-success text-center" }, [
-                      _vm._v(_vm._s(payroll.totalContribution))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-info text-center" }, [
-                      _vm._v(_vm._s(payroll.netToPay))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "text-right" }, [
+                    _c("small", { staticClass: "text-muted" }, [
                       _c(
                         "a",
                         {
+                          staticClass: "text-muted",
                           attrs: {
-                            href:
-                              _vm.baseUrl +
-                              "admin/customer/" +
-                              _vm.currentCustomerID +
-                              "/payrolls/" +
-                              payroll.file_id +
-                              "/detail/" +
-                              payroll.collaborator_id,
+                            href: "#",
                             "data-toggle": "tooltip",
-                            title: "Detalle",
-                            "data-original-title": "Detalle"
+                            title: payroll.workArea + " | " + payroll.position
                           }
                         },
-                        [_c("i", { staticClass: "fa fa-external-link" })]
-                      )
+                        [_c("i", { staticClass: "fa fa-id-card-o" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-muted",
+                          attrs: {
+                            href: "#",
+                            "data-toggle": "tooltip",
+                            title: "Pension " + payroll.pension
+                          }
+                        },
+                        [
+                          _c("span", { staticClass: "ml-2" }, [
+                            _vm._v(_vm._s(payroll.pension) + " ")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      payroll.withFamily
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "text-muted",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "tooltip",
+                                title: "",
+                                "data-original-title": "Asignación familiar"
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-user-o ml-2" })]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      payroll.centerCost.length > 1
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "text-muted",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "tooltip",
+                                title: "",
+                                "data-original-title": "Varios centros costos"
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-cogs ml-2" })]
+                          )
+                        : _vm._e()
                     ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-primary text-center" }, [
+                    _vm._v(_vm._s(payroll.totalIncome))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-danger text-center" }, [
+                    _vm._v(_vm._s(payroll.totalExpense))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-success text-center" }, [
+                    _vm._v(_vm._s(payroll.totalContribution))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-info text-center" }, [
+                    _vm._v(_vm._s(payroll.netToPay))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "text-right" }, [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href:
+                            _vm.baseUrl +
+                            "admin/customer/" +
+                            _vm.currentCustomerID +
+                            "/payrolls/" +
+                            payroll.file_id +
+                            "/detail/" +
+                            payroll.collaborator_id,
+                          "data-toggle": "tooltip",
+                          title: "Detalle",
+                          "data-original-title": "Detalle"
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-external-link" })]
+                    )
                   ])
-                }),
-                0
-              )
-            ])
-          ]
-        )
-      ])
-    ],
-    1
-  )
+                ])
+              }),
+              0
+            )
+          ])
+        ]
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "action-left" }, [
-      _c("ul", { staticClass: "list-inline" }, [
-        _c("li", { staticClass: "list-inline-item mb-0" }, [
-          _c(
-            "a",
-            {
-              staticClass: "btn btn-outline-light dropdown-toggle",
-              attrs: { href: "#", "data-toggle": "dropdown" }
-            },
-            [
-              _vm._v(
-                "\n                            Ordenar por\n                        "
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-menu" }, [
-            _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-              _vm._v("Nombres")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

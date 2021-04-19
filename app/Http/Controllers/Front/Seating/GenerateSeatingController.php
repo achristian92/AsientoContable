@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers\Front\Seating;
 
+use App\AsientoContable\CenterCosts\Cost;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Repositories\IConcept;
@@ -29,6 +30,7 @@ class GenerateSeatingController extends Controller
 
     public function __invoke(Request $request): \Illuminate\Http\JsonResponse
     {
+        //TODO REFACTOIZAR USA 1268 QURERIES PARA GENERAR ASIENTOS
         $IDS = $this->employeeIDS($request);
 
         $data = $this->transformData($IDS,$request->input('file_id'));
@@ -84,7 +86,11 @@ class GenerateSeatingController extends Controller
                                     ->first()
                                     ->value,
                 'accounts'    => $this->conceptRepo->accounts(['file_id'=> $file->id, 'collaborator_id'=> $id])->toArray(),
-                'costCenters' => $this->conceptRepo->costCenterEmployee(['file_id'=> $file->id, 'collaborator_id'=> $id])
+                'costCenters' => $this->conceptRepo->costCenterEmployee(
+                    $file->concepts,
+                    ['file_id'=> $file->id, 'collaborator_id'=> $id],
+                    Cost::where('customer_id',customerID())->get()
+                )
             ];
         });
 
