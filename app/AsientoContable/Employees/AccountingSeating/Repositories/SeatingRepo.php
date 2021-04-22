@@ -37,15 +37,14 @@ class SeatingRepo extends BaseRepository implements ISeating
         $USDValue  = $penValue/$exchangeRate;
 
 
-        Seating::updateOrCreate(
+        Seating::create(
             [
                 'collaborator_id' => $employee['workedID'],
                 'file_id'         => $employee['fileID'],
                 'customer_id'     => $employee['customerID'],
                 'cuenta_contable' => $account['nroAccount'],
                 'cost'            => $costCenter['code'],
-            ],
-            [
+
                 'nro_asiento'     => $nro_seat,
                 'sub_diario'      => 7,
                 'l_registro'      => 31,

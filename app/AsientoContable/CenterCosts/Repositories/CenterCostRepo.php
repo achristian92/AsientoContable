@@ -32,6 +32,7 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
     public function createCostCenter(array $data): Cost
     {
         $data['customer_id'] = customerID();
+        $data['code_general'] = $data['code'].customerID();
         $cost = $this->model->create($data);
         history(History::CREATED_TYPE,"Creó centro de costo $cost->name");
         return $cost;

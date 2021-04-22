@@ -1,13 +1,7 @@
 <div class="col-md-3 app-sidebar">
     <div class="card">
         <div class="card-body">
-            <div class="text-center">
-                <button class="btn btn-outline-facebook"
-                        data-toggle="modal"
-                        data-target="#importModalPayroll">
-                    <i class="fa fa-upload mr-2"></i> Subir planilla
-                </button>
-            </div>
+            <btn-upload-payroll></btn-upload-payroll>
         </div>
         <div class="app-sidebar-menu" tabindex="1" style="overflow: hidden; outline: none;">
             <div class="list-group list-group-flush">

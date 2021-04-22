@@ -50,7 +50,9 @@ class ConceptRepo extends BaseRepository implements IConcept
             'collaborator_id'=> $collaborator_id
         ];
         $collection = $this->model::where($filters)->get();
-        $accounts = $this->accounts($filters);
+        $collectAccounts = ConceptAccount::where($filters)->get();
+        $accounts = $this->accounts($collectAccounts);
+
         $costs = Cost::where('customer_id',customerID())->get();
         return [
             'info'        => $this->basicInfo($collection),
@@ -62,10 +64,9 @@ class ConceptRepo extends BaseRepository implements IConcept
             'totalHas'    => number_format($accounts->where('type',AccountPlan::TYPE_PASIVE)->sum('value'),2)
         ];
     }
-    public function accounts(array $filters)
+    public function accounts(Collection $accounts)
     {
-        return ConceptAccount::where($filters)
-            ->get()
+        return $accounts
             ->transform(function ($item) {
                 $account = json_decode($item->account);
                 return [

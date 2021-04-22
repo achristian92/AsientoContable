@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\CenterCosts\Repositories\CenterCostRepo;
 use App\AsientoContable\Collaborators\Repositories\CollaboratorRepo;
+use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\ConceptAccounts\Repositories\ConceptAccountRepo;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\CostsCenter2\CostCenter2;
@@ -17,10 +18,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
+class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithChunkReading
 {
     private $customer, $file,$pensionRepo,$conceptAccountRepo,$employeeRepo,$headerRepo;
 
@@ -39,54 +41,72 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
         return 1;
     }
 
-    public function collection(Collection $collection)
+    public function collection(Collection $collection) //9266
     {
-        $collection->each(function ($row) {
+        $headers = $this->headerRepo->listHeaders();
+        $pensions = $this->pensionRepo->listPensionsFund();
+        $collection->each(function ($row) use ($headers,$pensions) {
             $employee = $this->employeeRepo->updateOrCreateEmployee($row->toArray(),$this->customer);
 
             if(!$this->hasPensionOnp($row))
-                $this->conceptAccountRepo->createConceptAccount(Concept::AFP_CONTRIBUTION,$this->pensionAccount($row),$this->totalAFP($row), $employee,$this->customer,$this->file);
+                $this->conceptAccountRepo->createConceptAccount(Concept::AFP_CONTRIBUTION,$this->pensionAccount($pensions,$row),$this->totalAFP($row), $employee,$this->customer,$this->file);
 
-            $row->each(function ($item,$row) use ($employee) {
-                $header = $this->headerRepo->listHeaders()->firstWhere('slug',$row);
-                if($header) {
-                    if ($header->account_plan_id)
-                        if ($header->is_account_main)
-                        $this->conceptAccountRepo->createConceptAccount($header->name,$this->transformAccountToJson($header->account),$item, $employee,$this->customer,$this->file);
-                        else
-                        $this->conceptAccountRepo->createConceptAccount($header->name,$this->transformAccountToJson($header->account,$header->name),$item, $employee,$this->customer,$this->file);
-
-                    Concept::updateOrCreate(
-                        [
-                            'header'          => $header->name,
-                            'payroll_date'    => $this->file->month_payroll,
-                            'collaborator_id' => $employee->id,
-                            'customer_id'     => $this->customer,
-                            'file_id'         => $this->file->id
-                        ],
-                        [
-                            'value' => trim($item),
-                        ]
-                    );
-                }
+            $onlyHeadersExist = $row->filter(function ($item,$row) use ($headers) { //7407
+                return  $headers->firstWhere('slug',$row);
             });
+
+            $concepts = $onlyHeadersExist->map(function ($value1,$row) use ($headers,$employee) {
+                return  [
+                    'header'          => $headers->firstWhere('slug',$row)->name,
+                    'payroll_date'    => $this->file->month_payroll,
+                    'collaborator_id' => $employee->id,
+                    'customer_id'     => $this->customer,
+                    'file_id'         => $this->file->id,
+                    'value'           => trim($value1)
+                ];
+            })->toArray();
+
+            Concept::insert($concepts);
+
+            $accounts = $row->filter(function ($item,$row) use ($headers) { //7407
+                return  $headers->firstWhere('slug',$row) && $headers->firstWhere('slug',$row)->account_plan_id;
+            })->map(function ($value1,$row) use ($headers,$employee) {
+                $header = $headers->firstWhere('slug',$row);
+                $nameAccountSecondary = !$header->is_account_main ? $header->name : null;
+                $account = $this->transformAccountToJson($header->account,$nameAccountSecondary);
+                return [
+                        'header'          => $header->name,
+                        'payroll_date'    => $this->file->month_payroll,
+                        'collaborator_id' => $employee->id,
+                        'customer_id'     => $this->customer,
+                        'file_id'         => $this->file->id,
+                        'account'         => json_encode($account),
+                        'value'           => trim($value1),
+                        'type'            => $account['type']
+                    ];
+            })->toArray();
+            ConceptAccount::insert($accounts);
+
         });
+    }
+
+    private function pensionAccount($pensions,$row)
+    {
+        Log::info('Buscar Pension Account');
+        $pension = $pensions->firstWhere('short',$row[slug(Concept::PENSION_SHORT)]);
+        return $this->transformAccountToJson($pension->account); //Cuenta contable a la q pertecenece
     }
 
     public function transformAccountToJson(AccountPlan $account, string $name = null): array
     {
+        Log::info('Transforma account to json');
+
         return [
             'code' => $account->code,
             'name' => is_null($name) ? $account->name : $name,
             'type' => $account->type,
             'customer_id' => $account->customer_id
         ];
-    }
-
-    private function pensionAccount($row)
-    {
-        $pension = $this->pensionRepo->findPensionByShort($row[slug(Concept::PENSION_SHORT)],$this->customer);
-        return $this->transformAccountToJson($pension->account); //Cuenta contable a la q pertecenece
     }
 
     private function hasPensionOnp($row): bool
@@ -124,5 +144,10 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation
             '*.neto'           => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/'
         ];
 
+    }
+
+    public function chunkSize(): int
+    {
+        return 500;
     }
 }

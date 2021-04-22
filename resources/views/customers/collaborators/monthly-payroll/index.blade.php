@@ -19,6 +19,6 @@
                 </div>
             </div>
         </div>
-    @include('customers.collaborators.monthly-payroll.partials.import')
+    <import-payroll></import-payroll>
     </div>
 @endsection

@@ -7,6 +7,7 @@ namespace App\AsientoContable\ConceptAccounts\Repositories;
 use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\Files\File;
+use Illuminate\Support\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 class ConceptAccountRepo extends BaseRepository implements IConceptAccount
@@ -33,5 +34,10 @@ class ConceptAccountRepo extends BaseRepository implements IConceptAccount
                 'type'    => $account['type']
             ]
         );
+    }
+
+    public function listAccountsByFileId(int $file_id): Collection
+    {
+        return $this->model::where('file_id',$file_id)->get();
     }
 }

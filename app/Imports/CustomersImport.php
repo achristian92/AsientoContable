@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Headers\Header;
 use App\AsientoContable\PensionFund\PensionFund;
+use Arr;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -29,9 +30,11 @@ class CustomersImport implements ToCollection,WithHeadingRow,WithValidation
     public function collection(Collection $collection)
     {
         $collection->each(function ($row) {
-             $customerID = $this->createOrUpdateCustomer($row->toArray());
-             $this->addHeadersDefault($customerID);
-             $this->addPensionDefault($customerID);
+             $customer = $this->createOrUpdateCustomer($row->toArray());
+             if ($customer->wasRecentlyCreated) {
+                 $this->addHeadersDefault($customer->id);
+                 $this->addPensionDefault($customer->id);
+             }
         });
     }
 
@@ -43,9 +46,9 @@ class CustomersImport implements ToCollection,WithHeadingRow,WithValidation
         ];
     }
 
-    public function createOrUpdateCustomer(array $row): int
+    public function createOrUpdateCustomer(array $row): Customer
     {
-        $customer =  Customer::updateOrCreate(
+        return Customer::updateOrCreate(
             [
                 'ruc'     => $row['ruc'],
             ],
@@ -54,22 +57,26 @@ class CustomersImport implements ToCollection,WithHeadingRow,WithValidation
                 'address' => $row['direccion'],
             ]
         );
-        return intval($customer->id);
     }
 
     public function addHeadersDefault(int $customer): void
     {
-        foreach ($this->headers as $header) {
-            $header['customer_id'] = $customer;
-            Header::create($header);
+        $newArray = [];
+        foreach ($this->headers as $key => $arrayItem) {
+            $newArray[$key] = Arr::add($arrayItem,'customer_id',$customer);
         }
+
+        Header::insert($newArray);
     }
 
     public function addPensionDefault(int $customer): void
     {
-        foreach ($this->pensions as $pension) {
-            $pension['customer_id'] = $customer;
-            PensionFund::create($pension);
+        $newArray = [];
+        foreach ($this->pensions as $key => $arrayItem) {
+            $newArray[$key] = Arr::add($arrayItem,'customer_id',$customer);
         }
+
+        PensionFund::insert($newArray);
     }
+
 }

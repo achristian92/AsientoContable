@@ -18,4 +18,6 @@ interface ICollaborator
     public function listEmployeeWithOutCostCenter(int $file,array $columns = ['*'], string $order = 'full_name', string $sort = 'asc'): Collection;
 
     public function exportEmployees(int $customer): array;
+
+    public function listEmployeesByWhereIn(array $ids): Collection;
 }

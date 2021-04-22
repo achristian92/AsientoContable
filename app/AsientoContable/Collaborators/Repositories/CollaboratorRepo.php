@@ -79,4 +79,9 @@ class CollaboratorRepo extends BaseRepository implements ICollaborator
                 ];
             })->values()->toArray();
     }
+
+    public function listEmployeesByWhereIn(array $ids): Collection
+    {
+        return $this->model::whereIn('id',$ids)->get();
+    }
 }

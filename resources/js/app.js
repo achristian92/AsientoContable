@@ -10,7 +10,9 @@ import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
 Vue.use(VueToast)
 
-
+//Payrolls
+Vue.component('btn-upload-payroll', require('./components/payrolls/BtnUpload').default);
+Vue.component('import-payroll', require('./components/payrolls/partials/Import').default);
 Vue.component('payrolls-data-table', require('./components/payrolls/PayrollShow').default);
 
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\PayrollImport;
 use App\Models\History;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\HeadingRowImport;
@@ -41,29 +42,56 @@ class PayrollImportController extends Controller
 
     public function __invoke(FileImportRequest $request,int $customer_id)
     {
+        $time_start = $this->microtime_float();
+
         if ($this->centerCostRepo->listCostsCenter()->count() === 0)
-            return back()->with('error','No tienes ningún centro de costo para este cliente');
+            return response()->json([
+                'is_correct' => false,
+                'msg' => 'No tienes ningún centro de costo para este cliente',
+            ]);
 
         if (!$this->headerRepo->isAssignedAccountWithHeaders())
-            return back()->with('error','Falta asignar las cuentas contables a algunas cabeceras del excel');
+            return response()->json([
+                'is_correct' => false,
+                'msg' => 'Falta asignar las cuentas contables a algunas cabeceras del excel',
+            ]);
 
         if (!$this->pensionRepo->isAssignedAccountWithPensions())
-            return back()->with('error','Falta asignar las cuentas contables a las pensiones');
+            return response()->json([
+                'is_correct' => false,
+                'msg' => 'Falta asignar las cuentas contables a las pensiones',
+            ]);
 
         if (!$this->hasEqualsHeaders($request))
-            return back()->with('error','Las cabeceras del excel no coinciden con la del cliente');
+            return response()->json([
+                'is_correct' => false,
+                'msg' => 'Las cabeceras del excel no coinciden con la del cliente',
+            ]);
 
         if (!$this->canCreateOrUpdate($request))
-            return back()->with('error','Planilla cerrada, Se generó todos los asientos contables');
+            return response()->json([
+                'is_correct' => false,
+                'msg' => 'Se generó todos los asientos contables(Estado Cerrado)',
+            ]);
 
         $file = $this->fileRepo->fileUpdateOrCreate($request);
-
+        DB::table('concepts')->where('file_id',$file->id)->delete();
+        DB::table('concept_accounts')->where('file_id',$file->id)->delete();
+        DB::table('seatings')->where('file_id',$file->id)->delete();
+        DB::table('cost_employee')->where('file_id',$file->id)->delete();
         Excel::import(new PayrollImport($customer_id,$file), $request->file('file_upload'));
 
-        history(History::IMPORT_TYPE,"Importó Planilla Mensual",$file->url_file);
+        $time_end = $this->microtime_float();
 
-        return redirect()->route('admin.customers.payrolls.show',[$customer_id,$file->id])
-                         ->with('message','Información cargada');
+        $time = round(($time_end - $time_start),2);
+
+        history(History::IMPORT_TYPE,"Importó Planilla Mensual en $time sec",$file->url_file);
+
+        return response()->json([
+            'is_correct' => true,
+            'url' => route('admin.customers.payrolls.show',[$customer_id,$file->id]),
+            'msg' => 'Información cargada',
+        ],201);
     }
 
     private function hasEqualsHeaders(Request $request): bool

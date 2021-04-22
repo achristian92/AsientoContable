@@ -17,8 +17,9 @@ class CreateCenterCostTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
-            $table->timestamps();
+            $table->string('code_general')->unique()->nullable();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

@@ -19,24 +19,24 @@ class Seating extends Model
 
     public static function getNextSeatNumber(int $payroll, int $employee) : int
     {
-        $hasNumber = Seating::where('customer_id',customerID())
+        $employeeSeating = Seating::where('customer_id',customerID())
             ->where('file_id',$payroll)
             ->where('collaborator_id',$employee)
             ->orderBy('nro_asiento', 'desc')
             ->first();
 
-        if ($hasNumber)
-            return $hasNumber->nro_asiento;
+        if ($employeeSeating)
+            return $employeeSeating->nro_asiento;
 
-        $lastVoucher = Seating::where('customer_id',customerID())
+        $lastNroSeating = Seating::where('customer_id',customerID())
             ->where('file_id',$payroll)
             ->orderBy('nro_asiento', 'desc')
             ->first();
 
-        if (!$lastVoucher)
+        if (!$lastNroSeating)
             $number = 0;
         else
-            $number = $lastVoucher->nro_asiento;
+            $number = $lastNroSeating->nro_asiento;
 
         return  intval($number) + 1;
     }

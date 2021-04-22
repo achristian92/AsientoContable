@@ -19,14 +19,23 @@ class CustomerImportController extends Controller
 
     public function __invoke(FileExcelRequest $request)
     {
-        $headers = BaseHeader::all()->toArray();
-        $pensions = BasePension::all()->toArray();
-        Excel::import(new CustomersImport($headers,$pensions), $request->file('file_upload'));
+        $time_start = $this->microtime_float();
+
+        $baseHeaders = BaseHeader::all(['name','slug','has_account','is_account_main','is_required','type','order','is_active'])->toArray();
+
+        $basePensions = BasePension::all(['short','name'])->toArray();
+
+        Excel::import(new CustomersImport($baseHeaders,$basePensions), $request->file('file_upload'));
+
         $url = $this->handleUploadedDocument($request->file('file_upload'),'import');
-        history(History::IMPORT_TYPE,"Importó clientes",$url);
+
+        $time_end = $this->microtime_float();
+
+        $time = round(($time_end - $time_start),2);
+
+        history(History::IMPORT_TYPE,"Importó clientes en $time sec",$url);
 
         return redirect()->route('admin.customers.index')->with('message','Información cargada');
-
     }
 
 }

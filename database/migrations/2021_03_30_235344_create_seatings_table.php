@@ -38,6 +38,7 @@ class CreateSeatingsTable extends Migration
             $table->foreignId('collaborator_id')->constrained()->cascadeOnDelete();
             $table->foreignId('file_id')->constrained()->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
+            $table->string('code_unique')->unique()->nullable();
             $table->timestamps();
         });
     }
