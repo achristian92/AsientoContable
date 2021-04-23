@@ -5,34 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/payrolls/BtnUpload.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/payrolls/partials/Import.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Repositories/CenterCostRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Repositories/CenterCostRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Repositories/CollaboratorRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Repositories/CollaboratorRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Repositories/ICollaborator.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Collaborators/Repositories/ICollaborator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/ConceptAccounts/Repositories/ConceptAccountRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/ConceptAccounts/Repositories/ConceptAccountRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/ConceptAccounts/Repositories/IConceptAccount.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/ConceptAccounts/Repositories/IConceptAccount.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Concepts/Repositories/ConceptRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Concepts/Repositories/ConceptRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Employees/AccountingSeating/Repositories/SeatingRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Employees/AccountingSeating/Repositories/SeatingRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Employees/AccountingSeating/Seating.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Employees/AccountingSeating/Seating.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerImportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerImportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/PayrollImportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/PayrollImportController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/Seating/GenerateSeatingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/Seating/GenerateSeatingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Imports/CustomersImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/CustomersImport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Imports/PayrollImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/PayrollImport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_02_15_224204_create_center_cost_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_02_15_224204_create_center_cost_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_02_213634_create_files_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_02_213634_create_files_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_30_235344_create_seatings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_30_235344_create_seatings_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/mail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -336,7 +312,8 @@
       <workItem from="1618974728200" duration="4095000" />
       <workItem from="1619018044782" duration="14862000" />
       <workItem from="1619063108567" duration="6956000" />
-      <workItem from="1619104184259" duration="9820000" />
+      <workItem from="1619104184259" duration="10031000" />
+      <workItem from="1619195044221" duration="985000" />
     </task>
     <servers />
   </component>

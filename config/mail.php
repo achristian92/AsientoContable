@@ -85,7 +85,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'no-replay@brainbox.pe'),
-        'name' => env('MAIL_FROM_NAME', 'VOUCHERS TEAM'),
+        'name' => env('MAIL_FROM_NAME', 'JGA TEAM'),
     ],
 
     /*

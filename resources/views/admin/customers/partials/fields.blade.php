@@ -11,12 +11,12 @@
 </div>
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
-        <label for="inputEmail4">Dirección</label>
-        @include('components.input-sm',['name' => 'address'])
-    </div>
-    <div class="form-group col-md-6">
         <label for="inputEmail4">Correo electronico</label>
         @include('components.input-sm',['name' => 'email'])
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputEmail4">Dirección</label>
+        @include('components.input-sm',['name' => 'address'])
     </div>
 </div>
 @if(isset($model->id))
