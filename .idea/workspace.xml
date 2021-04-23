@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/mail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/Seating/GenerateSeatingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/Seating/GenerateSeatingController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,7 +311,7 @@
       <workItem from="1619018044782" duration="14862000" />
       <workItem from="1619063108567" duration="6956000" />
       <workItem from="1619104184259" duration="10031000" />
-      <workItem from="1619195044221" duration="985000" />
+      <workItem from="1619195044221" duration="3037000" />
     </task>
     <servers />
   </component>

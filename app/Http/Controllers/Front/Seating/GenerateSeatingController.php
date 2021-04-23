@@ -75,7 +75,7 @@ class GenerateSeatingController extends Controller
 
         $file = $this->fileRepo->findFileById($request->input('file_id'));
 
-        history(History::CREATED_TYPE,"Generó asientos contables de la planilla $file->id",);
+        history(History::CREATED_TYPE,"Generó asientos contables de la planilla $file->id");
 
         return response()->json([
             'msg' => 'Asientos contables generados',

@@ -3736,7 +3736,7 @@ module.exports = {
       return JSON.parse(customerID.content);
     },
     baseUrl: function baseUrl() {
-      if (false) {}else return '/';
+      if (true) return "http://ec2-18-234-129-86.compute-1.amazonaws.com/jga-entries/";else {}
     }
   }
 };
