@@ -23,6 +23,7 @@
                 <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
+                <a href="{{ route('admin.customers.notify', $customer->id) }}" class="dropdown-item" type="button">Enviar credencial</a>
                 <a href="{{ route('admin.customers.edit', $customer->id) }}" class="dropdown-item" type="button">Editar</a>
                 <form action="{{ route('admin.customers.destroy', $customer->id) }}" method="POST">
                     @csrf

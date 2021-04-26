@@ -199,12 +199,12 @@ class HeaderSeeder extends Seeder
             \DB::table('base_header')->insert([
                 'name'        => $item['name'],
                 'slug'        => slug($item['name']),
-                'type'        => $item['type'],
+                'type'        => $item['type'] ?? '',
                 'order'       => $key * 10,
                 'is_required' => $item['is_required'],
                 'has_account' => $item['has_account'] ?? false,
                 'is_account_main' => (bool)$item['has_account'],
-                'is_active'   => isset($item['is_active']) ? $item['is_active'] : true,
+                'is_active'   => $item['is_active'] ?? true,
             ]);
         });
 

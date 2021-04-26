@@ -72,5 +72,11 @@ class CustomerController extends Controller
         return redirect()->route('admin.customers.index')->with('message',"Cliente desactivado");
     }
 
+    public function notify(Customer $customer)
+    {
+        $this->customerRepo->sendEmailNewCredentials($customer);
+        return redirect()->route('admin.customers.index')->with('message',"Cliente notificado");
+    }
+
 
 }

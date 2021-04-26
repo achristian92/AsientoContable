@@ -41,6 +41,7 @@ Route::get('/dashboard', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'admin.' ], function () {
     Route::resource('customers', CustomerController::class);
+    Route::get('customers/{customer}/notify', [CustomerController::class,'notify'])->name('customers.notify');
     Route::get('template-customer', \App\Http\Controllers\Admin\Customers\TemplateCustomerController::class)->name('customer.template');
     Route::post('customers-import', CustomerImportController::class)->name('customers.import');
     Route::resource('users', UserController::class)->except('store','update');
