@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/Setting.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/SendEmailNewCustomer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/SendEmailNewCustomer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Mail/SendEmailNewUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/SendEmailNewUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/GlobalTemplateServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/GlobalTemplateServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Setting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Setting.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/emails/customer-credentials.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/customer-credentials.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/emails/users/credentials-new-user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/users/credentials-new-user.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,7 +314,7 @@
       <workItem from="1619063108567" duration="6956000" />
       <workItem from="1619104184259" duration="10031000" />
       <workItem from="1619195044221" duration="4474000" />
-      <workItem from="1619448752324" duration="1688000" />
+      <workItem from="1619448752324" duration="2184000" />
     </task>
     <servers />
   </component>
