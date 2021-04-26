@@ -38,6 +38,7 @@ class GenerateSeatingController extends Controller
 
     public function __invoke(Request $request): \Illuminate\Http\JsonResponse
     {
+
         $IDS = $this->employeeIDS($request);
 
         if ($request->has('all'))
@@ -99,7 +100,7 @@ class GenerateSeatingController extends Controller
             'file_id'         => $employee['fileID'],
             'customer_id'     => $employee['customerID'],
             'cuenta_contable' => $account['nroAccount'],
-            'cost'            => $employee['costCenters'][0]['code'],
+            'cost'            => $costCenter['code'],
             'nro_asiento'     => $nro_seat,
             'sub_diario'      => 7,
             'l_registro'      => 31,

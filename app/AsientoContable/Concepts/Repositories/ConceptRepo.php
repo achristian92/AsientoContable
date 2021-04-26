@@ -95,7 +95,9 @@ class ConceptRepo extends BaseRepository implements IConcept
 
     public function costCenterEmployee(Collection $collection, $filters,$costs): array
     {
-        $centerCostCode = $collection->firstWhere('header',Concept::COSTCENTER)->value;
+        $centerCostCode = $collection->where('header',Concept::COSTCENTER)
+                                     ->firstWhere('collaborator_id',$filters['collaborator_id'])
+                                     ->value;
         if ($centerCostCode)
             return $this->oneCenterCost($costs,$centerCostCode);
 
