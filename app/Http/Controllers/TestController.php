@@ -26,6 +26,7 @@ use App\AsientoContable\Headers\Header;
 use App\AsientoContable\Headers\Repositories\IHeader;
 use App\AsientoContable\PensionFund\Repositories\IPensionFund;
 use App\AsientoContable\Tools\NestedsetTrait;
+use App\Models\Setting;
 use Arr;
 use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
@@ -56,52 +57,8 @@ class TestController extends Controller
 
     public function __invoke(Request $request, int $customer)
     {
-        $request->merge([
-            'all' => true,
-            'file_id' => 1
-        ]);
-        //TODO REFACTOIZAR USA 1975 QURERIES PARA GENERAR ASIENTOS
-        $IDS = $this->employeeIDS($request);
-
-        if ($request->has('all'))
-            \DB::table('seatings')->where('file_id',$request->file_id)->delete();
-
-        $data = $this->transformData($IDS,$request->input('file_id'));//316 queries || 213 || 110 || 7
-
-        $exchangeRate = floatval(Currency::first()->rate);
-
-        $data->each(function ($employee) use ($exchangeRate) { //1665
-            $nro_seat  = Seating::getNextSeatNumber($employee['fileID'],$employee['workedID']);
-
-            if (count($employee['costCenters']) === 1) {
-                $dataInsert = collect($employee['accounts'])->map(function ($account) use ($employee,$exchangeRate,$nro_seat) {
-                    return $this->transformDataToInsertMass($employee,$account,$employee['costCenters'][0],$nro_seat,$exchangeRate,false);
-                })->toArray();
-                Seating::insert($dataInsert);
-            }
-            else {
-                collect($employee['accounts'])->each(function ($account) use ($employee,$exchangeRate,$nro_seat) {
-                    if (substr($account['nroAccount'],0,2) === "62") {
-                        $dataInsert2 = collect($employee['costCenters'])->map(function ($center) use ($account,$employee,$exchangeRate,$nro_seat) {
-                            return $this->transformDataToInsertMass($employee,$account,$center,$nro_seat,$exchangeRate,true);
-                        })->toArray();
-                        Seating::insert($dataInsert2);
-                    } else {
-                        $dataInsert3 = $this->transformDataToInsertMass($employee,$account,$employee['costCenters'][0],$nro_seat,$exchangeRate,false);
-                        Seating::insert($dataInsert3);
-                    }
-                });
-            }
-        });
-
-        $this->updateFileStatus($request);
-
-        return view('welcome');
-
-        /*return response()->json([
-            'msg' => 'Asientos contables generados',
-            'file' => $this->fileRepo->findFileById($request->input('file_id'))
-        ]);*/
+        $setting = Setting::first();
+        dd($setting);
     }
 
     public function transformDataToInsertMass($employee,$account,$costCenter, $nro_seat,$exchangeRate,$isVariousCost): array

@@ -3,7 +3,7 @@
     <div>
         <div id="navigation-logo">
             <a href="{{ route('admin.customers.index') }}">
-                <img class="logo" src="{{ $userCurrent->imgCompany() }}" style="width: 150px; object-fit: contain" alt="logo">
+                <img class="logo" src="{{ $setting->url_logo }}" style="width: 150px; object-fit: contain" alt="logo">
             </a>
         </div>
     </div>

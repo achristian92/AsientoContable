@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -26,6 +27,7 @@ class SendEmailNewUser extends Mailable implements ShouldQueue
             ->subject("Bienvenido ".$this->user->name)
             ->with([
                 'user' => $this->user,
+                'setting' => Setting::first()
             ]);
     }
 }

@@ -32,7 +32,7 @@
                                 <meta itemprop="name" content="Confirm Email" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                 <table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <tr>
-                                        <td><a href="#"><img src="{{ $user->imgCompany() }}" alt="image" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 30px;"></a></td>
+                                        <td><a href="#"><img src="{{ $setting->url_logo }}" alt="image" style="margin-left: auto; margin-right: auto; display:block; margin-bottom: 10px; height: 30px;"></a></td>
                                     </tr>
                                     <br>
                                     <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

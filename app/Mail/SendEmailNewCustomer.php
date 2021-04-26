@@ -5,6 +5,7 @@ namespace App\Mail;
 
 
 use App\AsientoContable\Customers\Customer;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -29,6 +30,7 @@ class SendEmailNewCustomer extends Mailable implements ShouldQueue
             ->subject("Bienvenido ".$this->customer->name)
             ->with([
                 'customer' => $this->customer,
+                'setting' => Setting::first()
             ]);
     }
 

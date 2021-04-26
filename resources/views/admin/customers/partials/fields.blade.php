@@ -1,7 +1,7 @@
 @csrf
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
-        <label for="inputEmail4">Nombre</label>
+        <label for="inputEmail4">Razón social</label>
         @include('components.input-sm',['name' => 'name'])
     </div>
     <div class="form-group col-md-6">
