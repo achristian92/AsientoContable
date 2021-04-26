@@ -7,6 +7,7 @@
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Setting.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Setting.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/cache/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/cache/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/emails/customer-credentials.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/customer-credentials.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/emails/users/credentials-new-user.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/emails/users/credentials-new-user.blade.php" afterDir="false" />
     </list>
@@ -314,7 +315,7 @@
       <workItem from="1619063108567" duration="6956000" />
       <workItem from="1619104184259" duration="10031000" />
       <workItem from="1619195044221" duration="4474000" />
-      <workItem from="1619448752324" duration="4614000" />
+      <workItem from="1619448752324" duration="4802000" />
     </task>
     <servers />
   </component>
