@@ -8,11 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-
-    protected $appends = ['url_login'];
-
-
-    public function getUrlLoginAttribute()
+    
+    public function linkLogin(): string
     {
         return route('login');
     }
