@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Setting extends Model
 {
 
-    public function getRouteToLogin(): string
+    protected $appends = ['url_login'];
+
+
+    public function getUrlLoginAttribute()
     {
         return route('login');
     }

@@ -58,7 +58,7 @@ class TestController extends Controller
     public function __invoke(Request $request, int $customer)
     {
         $setting = Setting::first();
-        dd($setting);
+        dd($setting->url_login);
     }
 
     public function transformDataToInsertMass($employee,$account,$costCenter, $nro_seat,$exchangeRate,$isVariousCost): array
