@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->alias('bugsnag.multi', \Illuminate\Contracts\Logging\Log::class);
+        $this->app->alias('bugsnag.multi', \Psr\Log\LoggerInterface::class);
     }
 
     /**
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         /*if(config('app.env') === 'production') {
             \URL::forceScheme('https');
         }*/
+        Carbon::setLocale(config('app.locale'));
 
         Factory::guessFactoryNamesUsing(function ($class) {
             return 'Database\\Factories\\' . class_basename($class) . 'Factory';

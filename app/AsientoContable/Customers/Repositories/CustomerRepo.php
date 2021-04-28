@@ -25,7 +25,7 @@ class CustomerRepo extends BaseRepository implements ICustomer
 
     public function createCustomer(array $data): Customer
     {
-        $data['name'] = strtoupper($data['ruc']);
+        $data['name']         = strtoupper($data['name']);
         $data['raw_password'] = $data['ruc'];
         $data["password"]     = bcrypt($data['ruc']);
         $customer             = $this->model->create($data);
