@@ -15,6 +15,8 @@ interface ICustomer
 
     public function updateCustomer(array $data, int $id): bool;
 
+    public function searchCustomer(string $text) : Collection;
+
     public function listCustomers($columns = array('*'), string $orderBy = 'name', string $sortBy = 'asc') : Collection;
 
     public function listCustomersActivated($columns = array('*'), string $orderBy = 'name', string $sortBy = 'asc') : Collection;

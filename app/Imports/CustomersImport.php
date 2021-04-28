@@ -53,8 +53,13 @@ class CustomersImport implements ToCollection,WithHeadingRow,WithValidation
                 'ruc'     => $row['ruc'],
             ],
             [
-                'name'    => $row['empresa'],
+                'name'    => strtoupper($row['empresa']),
                 'address' => $row['direccion'],
+                'email' => $row['email'],
+                'phones' => $row['telefonos'],
+                'contact_name' => ucwords(strtolower($row['nombre_contacto'])),
+                'raw_password' => $row['ruc'],
+                'password' => bcrypt($row['ruc'])
             ]
         );
     }

@@ -19,7 +19,6 @@ class GlobalTemplateServiceProvider extends ServiceProvider
         {
             $view->with([
                 'userCurrent' => Auth::user(),
-                'setting' => Setting::first(),
             ]);
         });
 

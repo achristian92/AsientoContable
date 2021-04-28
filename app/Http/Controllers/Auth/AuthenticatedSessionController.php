@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
     public function authenticateCustomer(Request $request): bool
     {
         $data = $request->only('email', 'password');
-        if (Customer::whereEmail($data['email'])->whereRawPassword($data['password'])->exists()) {
+        if (Customer::whereIsActive(true)->whereEmail($data['email'])->whereRawPassword($data['password'])->exists()) {
             $customer = Customer::where('email', $data['email'])->first();
             Auth::guard('customer')->loginUsingId($customer->id);
             return true;

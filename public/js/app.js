@@ -2647,6 +2647,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2679,6 +2689,18 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    openPayroll: function openPayroll() {
+      if (confirm("Perderás toda la información cargada del mes si vuelves a cargar la planilla. Estas seguro de continuar?")) {
+        axios.post("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/open-payroll"), {
+          'file_id': this.payrolls[0].file_id
+        }).then(function (res) {
+          Vue.$toast.success(res.data.msg);
+          window.location.href = res.data.url;
+        });
+      }
+
+      console.log("abrir planilla");
+    },
     handleAllChecked: function handleAllChecked() {
       if (!this.allSelected) {
         this.payrolls.map(function (item) {
@@ -23525,6 +23547,37 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card app-content-body" }, [
     _c("div", { staticClass: "card-body" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col text-right" }, [
+          _vm._v("\n                Estado:\n                "),
+          _vm.file.status === "Abierto"
+            ? _c("span", { staticClass: "badge badge-success" }, [
+                _vm._v("Abierto")
+              ])
+            : _c("span", { staticClass: "badge badge-danger" }, [
+                _vm._v("Cerrado")
+              ]),
+          _vm._v(" "),
+          _c("br"),
+          _vm._v(" "),
+          _vm.file.status === "Cerrado"
+            ? _c(
+                "a",
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.openPayroll($event)
+                    }
+                  }
+                },
+                [_c("u", [_vm._v("Abrir planilla")])]
+              )
+            : _vm._e()
+        ])
+      ]),
+      _vm._v(" "),
       _c("div", { staticClass: "row mt-3" }, [
         _c("div", { staticClass: "col-md-4" }, [
           _c("div", { staticClass: "card mb-0" }, [
@@ -23628,17 +23681,7 @@ var render = function() {
                 _c("i", { staticClass: "ti-settings mr-1 ml-1" }),
                 _vm._v(" G.Asiento\n                ")
               ]
-            ),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _vm.file.status === "Abierto"
-              ? _c("span", { staticClass: "badge badge-success" }, [
-                  _vm._v("Abierto")
-                ])
-              : _c("span", { staticClass: "badge badge-danger" }, [
-                  _vm._v("Cerrado")
-                ])
+            )
           ])
         ],
         1

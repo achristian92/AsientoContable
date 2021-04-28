@@ -3,7 +3,12 @@
         {{ $customer->ruc }}
     </td>
     <td>
-         {{ $customer->name }}
+         {{ $customer->name }} <br>
+        <small class="text-muted">
+            {{ $customer->present()->showContact() }}
+            {{ $customer->present()->showPhones() }}
+            {{ $customer->present()->showAccess() }}
+        </small>
     </td>
     <td>
         {{ $customer->present()->currentStatus() }} <br>

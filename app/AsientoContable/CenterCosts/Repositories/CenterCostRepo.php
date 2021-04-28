@@ -41,7 +41,7 @@ class CenterCostRepo extends BaseRepository implements ICenterCost
 
     public function updateCostCenter(array $data, int $id): bool
     {
-        $costCenter = $this->finCostCenterById($id);
+        $costCenter = $this->findCostCenterById($id);
         return $costCenter->update($data);
     }
 

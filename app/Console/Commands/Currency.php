@@ -43,8 +43,8 @@ class Currency extends Command
         $compra = $data['Cotizacion'][0]['Compra'];
         $venta = $data['Cotizacion'][0]['Venta'];
 
-        $currency = \App\Voucher\Currencies\Currency::find(1);
-        $currency->update(['rate' => $venta]);
+        $currency = \App\AsientoContable\Currencies\Currency::find(1);
+        $currency->update(['rate' => $venta,'compra' => $compra]);
 
         return 0;
     }

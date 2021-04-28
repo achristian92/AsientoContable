@@ -1,6 +1,19 @@
 <template>
     <div class="card app-content-body">
         <div class="card-body">
+            <div class="row">
+                <div class="col text-right">
+                    Estado:
+                    <span class="badge badge-success" v-if="file.status === 'Abierto'">Abierto</span>
+                    <span class="badge badge-danger" v-else>Cerrado</span>
+                    <br>
+                    <a href="#" @click.prevent="openPayroll"
+                       class=""
+                       v-if="file.status === 'Cerrado'">
+                        <u>Abrir planilla</u>
+                    </a>
+                </div>
+            </div>
             <div class="row mt-3">
                 <div class="col-md-4">
                     <div class="card mb-0">
@@ -58,9 +71,6 @@
                             :disabled='!building'>
                         <i class="ti-settings mr-1 ml-1"></i> G.Asiento
                     </button>
-                    <br>
-                    <span class="badge badge-success" v-if="file.status === 'Abierto'">Abierto</span>
-                    <span class="badge badge-danger" v-else>Cerrado</span>
                 </div>
             </div>
             <div class="table-responsive" tabindex="1" style="overflow: hidden; outline: none;">
@@ -170,6 +180,18 @@ export default {
         }
     },
     methods: {
+        openPayroll() {
+            if(confirm("Perderás toda la información cargada del mes si vuelves a cargar la planilla. Estas seguro de continuar?")) {
+                axios.post(`${this.baseUrl}api/customer/${this.currentCustomerID}/open-payroll`, {
+                    'file_id' : this.payrolls[0].file_id
+                })
+                .then(res => {
+                    Vue.$toast.success(res.data.msg)
+                    window.location.href = res.data.url;
+                })
+            }
+          console.log("abrir planilla")
+        },
         handleAllChecked() {
             if (!this.allSelected) {
                 this.payrolls.map(item => item.checked = true);

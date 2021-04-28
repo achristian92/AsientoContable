@@ -18,21 +18,24 @@ class CreateCustomersTable extends Migration
             $table->string('name')->unique();
             $table->string('ruc')->unique()->nullable();
             $table->text('address')->nullable();
+            $table->string('phones')->nullable();
+            $table->string('contact_name')->nullable();
             $table->string('email')->nullable();
             $table->string('password')->nullable();;
             $table->string('raw_password')->nullable();
+            $table->boolean('notified')->default(false);
             $table->boolean('is_active')->default(1);
             $table->timestamps();
         });
 
-         DB::table('customers')->insert([
+         /*DB::table('customers')->insert([
              'name'         => 'JIMENEZ & ESPINOZA ASOCIADOS SOCIEDAD ANONIMA CERRADA',
              'ruc'          => '20557915541',
              'email'        => 'aruizdev27@gmail.com',
              'raw_password' => '20557915541',
              'password'     => bcrypt('20557915541'),
              'address'      => 'PJ. DE LA CULTURA NRO. 271 C.H. CARLOS CUETO FERN - LIMA - LOS OLIVOS'
-        ]);
+        ]);*/
     }
 
     /**

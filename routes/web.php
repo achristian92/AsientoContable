@@ -25,6 +25,7 @@ use App\Http\Controllers\Front\AssignCosts\ImportAssignCostController;
 use App\Http\Controllers\Front\Costs\CostController;
 use App\Http\Controllers\Front\Employees\EmployeeController;
 use App\Http\Controllers\Front\Payrolls\PayrollImportController;
+use App\Http\Controllers\Front\Payrolls\StatusPayrollController;
 use App\Http\Controllers\Front\Seating\GenerateSeatingController;
 use App\Http\Controllers\Front\Users\UserController as ApiUserController;
 use App\Http\Controllers\Front\PlanAccount\PlanAccountController;
@@ -85,6 +86,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth.customer']], function ()
         Route::post('/import/assign-cost', [ImportAssignCostController::class,'import']);
         Route::resource('plan-account', PlanAccountController::class);
         Route::get('vouchers/{file}/download/{employee}',\App\Http\Controllers\Front\Vouchers\VoucherController::class);
+        Route::post('open-payroll', [StatusPayrollController::class,'open']);
         Route::post('generate-seating', GenerateSeatingController::class);
         Route::get('template-payroll', TemplatePayrollController::class)->name('template-payroll');
         Route::post('payroll-import', PayrollImportController::class);

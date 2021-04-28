@@ -10,10 +10,20 @@
     </div>
 </div>
 <div class="form-row mb-1">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         <label for="inputEmail4">Correo electronico</label>
         @include('components.input-sm',['name' => 'email'])
     </div>
+    <div class="form-group col-md-4">
+        <label for="inputEmail4">Teléfonos</label>
+        @include('components.input-sm',['name' => 'phones'])
+    </div>
+    <div class="form-group col-md-4">
+        <label for="inputEmail4">Nombre Contacto</label>
+        @include('components.input-sm',['name' => 'contact_name'])
+    </div>
+</div>
+<div class="form-row mb-1">
     <div class="form-group col-md-6">
         <label for="inputEmail4">Dirección</label>
         @include('components.input-sm',['name' => 'address'])

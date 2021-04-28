@@ -10,11 +10,28 @@ use Illuminate\Validation\Rule;
 class PensionFundRequest extends FormRequest
 {
     public function rules() {
-        return [
-            'short' => 'required',
+        $rules = [
+            'account_plan_id' => 'required',
             'name' => 'required',
-            'account_plan_id' => 'required'
+            'short' => [
+                'required',
+                Rule::unique('pension_fund')->where(function ($query) {
+                    return $query->where('short',$this->short)
+                        ->whereCustomerId(customerID());
+                })
+            ]
         ];
+
+        if ($this->isMethod('PUT')) {
+            $rules['short'] = [
+                'required',
+                Rule::unique('pension_fund')->where(function ($query) {
+                    return $query->where('short',$this->short)
+                        ->whereCustomerId(customerID());
+                })->ignore($this->segment(5))
+            ];
+        }
+        return $rules;
     }
     public function messages()
     {

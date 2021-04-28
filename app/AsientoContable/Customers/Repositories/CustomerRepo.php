@@ -25,6 +25,7 @@ class CustomerRepo extends BaseRepository implements ICustomer
 
     public function createCustomer(array $data): Customer
     {
+        $data['name'] = strtoupper($data['ruc']);
         $data['raw_password'] = $data['ruc'];
         $data["password"]     = bcrypt($data['ruc']);
         $customer             = $this->model->create($data);
@@ -78,5 +79,10 @@ class CustomerRepo extends BaseRepository implements ICustomer
     {
         if ($customer->email)
             Mail::to($customer->email)->send(new SendEmailNewCustomer($customer));
+    }
+
+    public function searchCustomer(string $text): Collection
+    {
+        return $this->model->searchCustomer($text);
     }
 }

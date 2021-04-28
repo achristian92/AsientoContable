@@ -27,6 +27,11 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = $this->customerRepo->listCustomers();
+
+        if (request()->has('q') && request()->input('q') != '') {
+            $customers = $this->customerRepo->searchCustomer(request()->input('q'));
+        }
+
         return view('admin.customers.index',compact('customers'));
     }
 
@@ -75,6 +80,10 @@ class CustomerController extends Controller
     public function notify(Customer $customer)
     {
         $this->customerRepo->sendEmailNewCredentials($customer);
+
+        if ($customer->email)
+            $customer->update(['notified'=> true]);
+
         return redirect()->route('admin.customers.index')->with('message',"Cliente notificado");
     }
 

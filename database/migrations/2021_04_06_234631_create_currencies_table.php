@@ -19,6 +19,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('code');
             $table->string('symbol');
             $table->float('rate')->nullable();
+            $table->float('compra')->nullable();
             $table->timestamps();
         });
 

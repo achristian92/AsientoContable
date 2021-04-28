@@ -32,7 +32,8 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use RuntimeException;
 
 class TestController extends Controller
 {
@@ -57,7 +58,7 @@ class TestController extends Controller
 
     public function __invoke(Request $request, int $customer)
     {
-
+        Bugsnag::notifyException(new RuntimeException("Test error"));
     }
 
     public function transformDataToInsertMass($employee,$account,$costCenter, $nro_seat,$exchangeRate,$isVariousCost): array
