@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -38,13 +39,15 @@ class Currency extends Command
      */
     public function handle()
     {
-        $response = Http::get('https://deperu.com/api/rest/cotizaciondolar.json');
-        $data = $response->json();
-        $compra = $data['Cotizacion'][0]['Compra'];
-        $venta = $data['Cotizacion'][0]['Venta'];
-
-        $currency = \App\AsientoContable\Currencies\Currency::find(1);
-        $currency->update(['rate' => $venta,'compra' => $compra]);
+        $date = Carbon::now()->format('Y-m-d');
+        $response = Http::get("https://api.apis.net.pe/v1/tipo-cambio-sunat?fecha=$date");
+        if ($response->ok()) {
+            $data = $response->json();
+            \App\AsientoContable\Currencies\Currency::create([
+                'buy' => $data['compra'],
+                'sell' => $data['venta']
+            ]);
+        }
 
         return 0;
     }

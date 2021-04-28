@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Admin\Users;
 
 
+use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Repositories\ICustomer;
 use App\AsientoContable\Users\Repositories\IUser;
 use App\Http\Controllers\Controller;
@@ -56,6 +57,19 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->with('message','Información cargada');
+    }
+
+    public function notify(User $user)
+    {
+        $msg = 'Usuario notificado';
+        $this->userRepo->sendEmailNewCredentials($user);
+
+        if ($user->email)
+            $user->update(['notified'=> true]);
+        else
+            $msg = 'El usuario no tiene correo asignado';
+
+        return redirect()->route('admin.users.index')->with('message',$msg);
     }
 
 }

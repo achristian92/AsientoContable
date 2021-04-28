@@ -8,21 +8,36 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr class="font-italic font-weight-bold">
-                                <th scope="col">Nombres</th>
-                                <th scope="col">Código</th>
-                                <th scope="col">Símbolo</th>
-                                <th scope="col">Valor</th>
+                                <th scope="col">Moneda</th>
+                                <th scope="col">Compra</th>
+                                <th scope="col">Venta</th>
+                                <th scope="col">Fecha creación</th>
                                 <th class="text-right" scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @each('admin.currencies.partials.row', $currencies,'currency', 'components.row-empty')
+                            @foreach($currencies as $currency)
+                                    <tr>
+                                        @if ($loop->first)
+                                        <td>{{ $currency->code }} <span class="badge badge-info">Usando</span></td>
+                                        @else
+                                            <td>{{ $currency->code }} </td>
+                                        @endif
+                                        <td>{{ $currency->buy }}</td>
+                                        <td>{{ $currency->sell }}</td>
+                                        <td>{{ formatDate($currency->created_at,true) }}</td>
+                                        <td class="text-right">
+                                            <a href="{{ route('admin.currencies.edit',$currency->id) }}" data-toggle="tooltip" title="" data-original-title="Editar">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 @endsection

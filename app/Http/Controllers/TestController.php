@@ -33,7 +33,9 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
+use Illuminate\Support\Facades\Http;
 use RuntimeException;
+use GuzzleHttp\Client;
 
 class TestController extends Controller
 {
@@ -58,7 +60,10 @@ class TestController extends Controller
 
     public function __invoke(Request $request, int $customer)
     {
-        Bugsnag::notifyException(new RuntimeException("Test error"));
+
+        $currencyu = Setting::first()->send_credentials;
+        dd($currencyu);
+
     }
 
     public function transformDataToInsertMass($employee,$account,$costCenter, $nro_seat,$exchangeRate,$isVariousCost): array

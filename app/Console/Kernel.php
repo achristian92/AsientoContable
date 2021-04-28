@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('getvaluedolar:currency')
             ->dailyAt('06:00')
-            ->emailOutputOnFailure('aruizdev27@gmail.com');
+            ->emailOutputOnFailure('alan.ruiz@brainbox.pe');
     }
 
     /**

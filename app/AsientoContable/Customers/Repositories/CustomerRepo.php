@@ -7,6 +7,7 @@ namespace App\AsientoContable\Customers\Repositories;
 use App\AsientoContable\Customers\Customer;
 use App\Mail\SendEmailNewCustomer;
 use App\Models\History;
+use App\Models\Setting;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 use Prettus\Repository\Eloquent\BaseRepository;
@@ -30,7 +31,7 @@ class CustomerRepo extends BaseRepository implements ICustomer
         $data["password"]     = bcrypt($data['ruc']);
         $customer             = $this->model->create($data);
 
-        $this->sendEmailNewCredentials($customer);
+        //$this->sendEmailNewCredentials($customer);
         history(History::CREATED_TYPE,"Creó el cliente $customer->name");
         return $customer;
     }
@@ -77,7 +78,7 @@ class CustomerRepo extends BaseRepository implements ICustomer
     }
     public function sendEmailNewCredentials(Customer $customer)
     {
-        if ($customer->email)
+        if ($customer->email && Setting::first()->send_credentials)
             Mail::to($customer->email)->send(new SendEmailNewCustomer($customer));
     }
 

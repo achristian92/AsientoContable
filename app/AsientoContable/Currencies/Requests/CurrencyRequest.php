@@ -13,7 +13,8 @@ class CurrencyRequest  extends FormRequest
             'name'   => 'required',
             'code'   => 'required',
             'symbol' => 'required',
-            'rate'   => 'required|regex:/^\d+(\.\d{1,3})?$/',
+            'buy'   => 'required|regex:/^\d+(\.\d{1,3})?$/',
+            'sell'   => 'required|regex:/^\d+(\.\d{1,3})?$/',
         ];
     }
 }

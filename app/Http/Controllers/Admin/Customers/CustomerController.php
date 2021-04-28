@@ -79,12 +79,15 @@ class CustomerController extends Controller
 
     public function notify(Customer $customer)
     {
+        $msg = 'Cliente notificado';
         $this->customerRepo->sendEmailNewCredentials($customer);
 
         if ($customer->email)
             $customer->update(['notified'=> true]);
+        else
+            $msg = 'El cliente no tiene correo asignado';
 
-        return redirect()->route('admin.customers.index')->with('message',"Cliente notificado");
+        return redirect()->route('admin.customers.index')->with('message',$msg);
     }
 
 

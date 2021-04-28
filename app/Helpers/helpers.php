@@ -40,10 +40,13 @@ if (!function_exists('customerID')) {
     }
 }
 
-function formatDate(string $date = null)
+function formatDate(string $date = null, $hours = false)
 {
     if ($date === null)
         return '';
+
+    if ($hours)
+        return Carbon::parse($date)->format('d/m/y H:i');
 
     return Carbon::parse($date)->format('d/m/y');
 }

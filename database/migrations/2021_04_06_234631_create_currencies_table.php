@@ -15,19 +15,17 @@ class CreateCurrenciesTable extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
-            $table->string('symbol');
-            $table->float('rate')->nullable();
-            $table->float('compra')->nullable();
+            $table->string('name')->default('United States Dollar');
+            $table->string('code')->default('USD');
+            $table->string('symbol')->default('$');
+            $table->float('buy')->nullable();
+            $table->float('sell')->nullable();
             $table->timestamps();
         });
 
         \App\AsientoContable\Currencies\Currency::create([
-            'name' => 'United States Dollar',
-            'code' => 'USD',
-            'symbol' => '$',
-            'rate' => '3.647'
+            'buy' => '3.834',
+            'sell' => '3.841',
         ]);
     }
 

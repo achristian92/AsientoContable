@@ -52,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'a
     Route::post('customers-import', CustomerImportController::class)->name('customers.import');
     Route::resource('users', UserController::class)->except('store','update');
     Route::post('user-import',[UserController::class,'import'])->name('users.import');
+    Route::get('users/{user}/notify', [UserController::class,'notify'])->name('users.notify');
     Route::get('template-account',AccountTemplateController::class)->name('template.account');
     Route::resource('currencies', \App\Http\Controllers\Admin\Currencies\CurrencyController::class);
 

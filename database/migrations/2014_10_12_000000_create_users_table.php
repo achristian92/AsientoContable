@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->boolean('is_active')->default(true);
             $table->dateTime('last_login')->nullable();
             $table->boolean('all_customers')->default(true);
+            $table->boolean('notified')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

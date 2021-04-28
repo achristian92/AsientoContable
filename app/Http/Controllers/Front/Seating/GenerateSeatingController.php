@@ -46,7 +46,7 @@ class GenerateSeatingController extends Controller
 
         $data = $this->transformData($IDS,$request->input('file_id'));//316 queries || 213 || 110 || 7
 
-        $exchangeRate = floatval(Currency::first()->rate);
+        $exchangeRate = floatval(Currency::latest()->first()->buy);
 
         $data->each(function ($employee) use ($exchangeRate) { //1665
             $nro_seat  = Seating::getNextSeatNumber($employee['fileID'],$employee['workedID']);

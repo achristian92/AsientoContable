@@ -6,6 +6,7 @@ namespace App\AsientoContable\Users\Repositories;
 
 use App\Mail\SendEmailNewUser;
 use App\Models\History;
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
@@ -33,6 +34,7 @@ class UserRepo extends BaseRepository implements IUser
         $plainPassword        = _add4NumRand($data['name']);
         $data['raw_password'] = $plainPassword;
         $data["password"]     = bcrypt($plainPassword);
+        $data["notified"]     = true;
         $user                 = $this->model->create($data);
         $this->sendEmailNewCredentials($user);
         history(History::CREATED_TYPE,"Creó el usuario $user->full_name");
@@ -52,7 +54,8 @@ class UserRepo extends BaseRepository implements IUser
 
     public function sendEmailNewCredentials(User $user)
     {
-        Mail::to($user->email)->send(new SendEmailNewUser($user));
+        if ($user->email && Setting::first()->send_credentials)
+            Mail::to($user->email)->send(new SendEmailNewUser($user));
     }
 
 
