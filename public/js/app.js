@@ -23751,7 +23751,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("th", { staticClass: "text-center" }, [_vm._v("Ingresos")]),
                 _vm._v(" "),
-                _c("th", { staticClass: "text-center" }, [_vm._v("Egresos")]),
+                _c("th", { staticClass: "text-center" }, [
+                  _vm._v("Descuentos")
+                ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "text-center" }, [_vm._v("Aportes")]),
                 _vm._v(" "),

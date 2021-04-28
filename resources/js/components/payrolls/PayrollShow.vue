@@ -89,7 +89,7 @@
                         </th>
                         <th>Nombres</th>
                         <th class="text-center">Ingresos</th>
-                        <th class="text-center">Egresos</th>
+                        <th class="text-center">Descuentos</th>
                         <th class="text-center">Aportes</th>
                         <th class="text-center">Neto</th>
                         <th></th>

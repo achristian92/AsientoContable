@@ -22,7 +22,7 @@
                         <span class="font-weight-800">-</span>
                     </div>
                     <div>
-                        <h6 class="text-uppercase font-size-11">Total Egresos</h6>
+                        <h6 class="text-uppercase font-size-11">Total Descuentos</h6>
                         <h4 class="mb-0 font-weight-bold">{{ $expense }}</h4>
                     </div>
                 </div>
