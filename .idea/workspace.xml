@@ -5,36 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/StatusPayrollController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vouchers.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vouchers.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Repositories/CenterCostRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/CenterCosts/Repositories/CenterCostRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Customers/Customer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Customers/Customer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Customers/Presenters/CustomerPresenter.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Customers/Presenters/CustomerPresenter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Customers/Repositories/CustomerRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Customers/Repositories/CustomerRepo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Customers/Repositories/ICustomer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Customers/Repositories/ICustomer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/PensionFundRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/PensionFund/Requests/PensionFundRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/Currency.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/Currency.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/CustomerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticatedSessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticatedSessionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Imports/CustomersImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/CustomersImport.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/CustomerServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/CustomerServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/GlobalTemplateServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/GlobalTemplateServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/logging.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/logging.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_23_212818_create_customers_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_04_06_234631_create_currencies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_04_06_234631_create_currencies_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/payrolls/PayrollShow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/payrolls/PayrollShow.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/fields.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/partials/row.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/partials/row.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/partials/row.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/partials/row.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -346,7 +319,7 @@
       <workItem from="1619104184259" duration="10031000" />
       <workItem from="1619195044221" duration="4474000" />
       <workItem from="1619448752324" duration="8890000" />
-      <workItem from="1619552640154" duration="9541000" />
+      <workItem from="1619552640154" duration="11141000" />
     </task>
     <servers />
   </component>

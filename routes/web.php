@@ -39,6 +39,11 @@ Route::get('/dashboard', function () {
     return redirect()->route('admin.customers.index');
 });
 
+Route::get("reboot",function (){
+    Artisan::call('config:cache');
+    Artisan::call('queue:restart');
+    dd("Ready to Re-start");
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'admin.' ], function () {
     Route::resource('customers', CustomerController::class);
