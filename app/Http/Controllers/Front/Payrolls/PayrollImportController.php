@@ -42,6 +42,9 @@ class PayrollImportController extends Controller
 
     public function __invoke(FileImportRequest $request,int $customer_id)
     {
+        $url = $this->handleUploadedDocument($request->file('file_upload'),'import');
+        history(History::IMPORT_TYPE,"Cargó planilla $request->month",$url);
+
         $time_start = $this->microtime_float();
 
         if ($this->centerCostRepo->listCostsCenter()->count() === 0)
@@ -96,7 +99,7 @@ class PayrollImportController extends Controller
 
     private function hasEqualsHeaders(Request $request): bool
     {
-        $fileHeaders = (new HeadingRowImport)->toArray($request->file('file_upload'))[0][0];
+        $fileHeaders = (new HeadingRowImport(2))->toArray($request->file('file_upload'))[0][0];
         $currentHeaders = $this->headerRepo->listHeaders()->pluck('slug');
         $diff = $currentHeaders->diff($fileHeaders);
         return $diff->count() === 0;

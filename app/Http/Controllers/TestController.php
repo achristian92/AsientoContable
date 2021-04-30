@@ -61,8 +61,15 @@ class TestController extends Controller
     public function __invoke(Request $request, int $customer)
     {
 
-        $currencyu = Setting::first()->send_credentials;
-        dd($currencyu);
+        $headers = $this->headerRepo->listHeaders();
+        $transform = $headers->transform(function ($header) {
+            return [
+                'name' => $header->name,
+                'nroAccount' => $header->nroAccount(),
+                'bgColor' => $header->bgColorByAccountType()
+            ];
+        });
+        dd($transform);
 
     }
 

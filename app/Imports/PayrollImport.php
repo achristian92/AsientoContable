@@ -38,7 +38,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
 
     public function headingRow(): int
     {
-        return 1;
+        return 2;
     }
 
     public function collection(Collection $collection) //9266
@@ -139,9 +139,9 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
             '*.centro_costo'   => ['nullable',Rule::in($costs)],
             '*.centro_costo2'   => ['nullable',Rule::in($costs2)],
             '*.fecha_ingreso'  => 'required|date_format:d/m/Y',
-            '*.pension'        => ['required',Rule::in($pensions)],
+            '*.fondo_de_pensiones' => ['required',Rule::in($pensions)],
             '*.remuneracion_basica' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
-            '*.neto'           => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/'
+            '*.sueldo'           => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/'
         ];
 
     }

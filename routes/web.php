@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\Payrolls\PayrollController;
 use App\Http\Controllers\Admin\Payrolls\PayrollShowController;
 use App\Http\Controllers\Admin\Payrolls\TemplatePayrollController;
 use App\Http\Controllers\Admin\PensionsFund\PensionFundController;
+use App\Http\Controllers\Admin\Users\HistoryController;
 use App\Http\Controllers\Admin\Users\UserController;
 use App\Http\Controllers\Auth\CustomerLogoutController;
 use App\Http\Controllers\Front\AssignCosts\ImportAssignCostController;
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'a
     Route::get('users/{user}/notify', [UserController::class,'notify'])->name('users.notify');
     Route::get('template-account',AccountTemplateController::class)->name('template.account');
     Route::resource('currencies', \App\Http\Controllers\Admin\Currencies\CurrencyController::class);
+    Route::get('history',HistoryController::class)->name('history.index');
 
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {

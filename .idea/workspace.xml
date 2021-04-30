@@ -5,11 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Users/HistoryController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/history/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/exports/template-payroll.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Concepts/Concept.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Concepts/Concept.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Customers/Repositories/CustomerRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Customers/Repositories/CustomerRepo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Headers/Header.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Headers/Header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Headers/Repositories/HeaderRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Headers/Repositories/HeaderRepo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Headers/Requests/HeaderRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Headers/Requests/HeaderRequest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Exports/TemplatePayrollExport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exports/TemplatePayrollExport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Currencies/CurrencyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Currencies/CurrencyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/TemplateCustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Customers/TemplateCustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Payrolls/TemplatePayrollController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Payrolls/TemplatePayrollController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticatedSessionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/AuthenticatedSessionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/PayrollImportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/Payrolls/PayrollImportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Imports/PayrollImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/PayrollImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/History.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/History.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/HeaderSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/HeaderSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/payrolls/PayrollShow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/payrolls/PayrollShow.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/partials/total-costs.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/collaborators/monthly-payroll/partials/total-costs.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/customers/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/customers/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/customers/headers/partials/fields.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/headers/partials/fields.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/customers/headers/partials/row.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/customers/headers/partials/row.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin/sidebar-body.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +341,8 @@
       <workItem from="1619195044221" duration="4474000" />
       <workItem from="1619448752324" duration="8890000" />
       <workItem from="1619552640154" duration="12637000" />
-      <workItem from="1619622487284" duration="6589000" />
+      <workItem from="1619622487284" duration="7065000" />
+      <workItem from="1619744558605" duration="15422000" />
     </task>
     <servers />
   </component>

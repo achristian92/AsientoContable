@@ -30,6 +30,28 @@ class Header extends Model
     {
         return $this->belongsTo(AccountPlan::class,'account_plan_id');
     }
+
+    public function hasAssignedAccount(): bool
+    {
+        return !empty($this->account_plan_id);
+    }
+
+    public function nroAccount()
+    {
+        if (!$this->hasAssignedAccount())
+            return '';
+
+        return $this->account->code;
+    }
+
+    public function bgColorByAccountType(): string
+    {
+        if (!$this->hasAssignedAccount())
+            return '#EBF1DE';
+
+        return $this->account->type === AccountPlan::TYPE_EXPENSE ? '#C5D9F1' : '#F2DCDB';
+    }
+
     public function present(): HeaderPresenter
     {
         return new HeaderPresenter($this);

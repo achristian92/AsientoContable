@@ -13,7 +13,7 @@
 </div>
 <div class="form-row mb-1">
     <div class="form-group col-md-6">
-        <label for="name">Tipo(Opcional)</label>
+        <label for="name">Tipo(Sirve para mostrar en la boleta)(Opcional)</label>
         <select class="form-control" name="type">
             <option value="">Seleccionar</option>
             @foreach($types as $type)

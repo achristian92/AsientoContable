@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\AsientoContable\Customers\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\History;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
         Auth::user()->update(['last_login' => now()]);
+        history(History::LOGIN_TYPE,"Login del usuario ". Auth::user()->full_name);
         return redirect(RouteServiceProvider::CUSTOMERS);
     }
 
@@ -61,6 +63,7 @@ class AuthenticatedSessionController extends Controller
         if (Customer::whereIsActive(true)->whereEmail($data['email'])->whereRawPassword($data['password'])->exists()) {
             $customer = Customer::where('email', $data['email'])->first();
             Auth::guard('customer')->loginUsingId($customer->id);
+
             return true;
         }
 

@@ -12,7 +12,8 @@
     <div class="navigation-menu-group">
 
         <div id="dashboards" class="{{ isOpenRoute(2,'customers') }} || {{ isOpenRoute(2,'users') }} ||
-                                    {{ isOpenRoute(2,'pensions') }} || {{ isOpenRoute(2,'currencies') }}">
+                                    {{ isOpenRoute(2,'pensions') }} || {{ isOpenRoute(2,'currencies') }} ||
+                                    {{ isOpenRoute(2,'history') }}">
             <ul>
                 <li class="navigation-divider">Dashboard</li>
                 <li><a href="{{ route('admin.customers.index') }}" class="{{ isActiveRoute(2,'customers') }}">Clientes</a></li>
@@ -20,6 +21,9 @@
                 <li><a href="{{ route('admin.users.index') }}" class="{{ isActiveRoute(2,'users') }}">Usuarios</a></li>
                 @endif
                 <li><a href="{{ route('admin.currencies.index') }}" class="{{ isActiveRoute(2,'currencies') }}">Moneda</a></li>
+                @if(Auth::user()->email === 'aruiz@tavera.pe')
+                    <li><a href="{{ route('admin.history.index') }}" class="{{ isActiveRoute(2,'history') }}">Historial</a></li>
+                @endif
             </ul>
         </div>
     </div>

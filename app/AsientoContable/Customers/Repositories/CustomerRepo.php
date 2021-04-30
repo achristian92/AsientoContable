@@ -39,7 +39,7 @@ class CustomerRepo extends BaseRepository implements ICustomer
     public function updateCustomer(array $data, int $id): bool
     {
         $customer = $this->findCustomerById($id);
-        if ($customer->email !== $data['email']) {
+        if ($customer->email !== $data['email'] || $customer->ruc !== $data['ruc']) {
             $data['raw_password'] = $data['ruc'];
             $data["password"]     = bcrypt($data['ruc']);
         }

@@ -38,7 +38,6 @@ class HeaderRepo extends BaseRepository implements IHeader
 
     public function updateHeader(array $data, int $id): bool
     {
-        $data['is_active'] = isset($data['is_active']);
         $header = $this->findHeaderById($id);
         if ($header->is_required)
             $data['name'] = $header->name;
@@ -68,6 +67,7 @@ class HeaderRepo extends BaseRepository implements IHeader
     {
         $collection = $this->model::where('customer_id',customerID())
                     ->where('has_account',true)
+                    ->where('is_active',true)
                     ->get();
 
         $filtered = $collection->whereNull('account_plan_id')->count();

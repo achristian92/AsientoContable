@@ -5,24 +5,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12 text-right" >
-                            @if(Auth::user()->email === 'aruiz@tavera.pe')
-                                <button type="button"
-                                        class="btn btn-outline-dark btn-pulse btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#importModalCustomer">
-                                    <i class="ti-upload mr-1"></i> Importar
-                                </button>
-                            @endif
-                            <a href="{{ route('admin.customers.create') }}" class="btn btn-outline-dark btn-pulse btn-sm ml-2">
-                                <i class="ti-plus mr-1"></i> Nuevo
-                            </a>
-                        </div>
-                    </div>
-                    <br>
                     <div class="col-md-12">
-                        <form action="{{ route('admin.customers.index') }}" method="get">
+                        <form action="{{ route('admin.history.index') }}" method="get">
                             <div class="input-group mb-3">
                                 <input type="text"
                                        name="q"
@@ -41,14 +25,27 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr class="font-italic font-weight-bold">
-                                <th scope="col">RUC</th>
-                                <th scope="col">EMPRESA</th>
-                                <th scope="col">ESTADO</th>
-                                <th class="text-right" scope="col"></th>
+                                <th>DESCRIPCION</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @each('admin.customers.partials.row', $customers,'customer', 'components.row-empty')
+                                @foreach($histories as $history)
+                                    <tr>
+                                        <td>
+                                            {{ $history->description }} <br>
+                                            <small>
+                                                <i class="fa fa-info-circle"></i>  {{ $history->id }} |
+                                                <i class="far fa fa-edit mr-1 ml-1"></i> {{ $history->type }} |
+                                                @if($history->type === \App\Models\History::IMPORT_TYPE)
+                                                    <a href="{{ $history->file_url }}">
+                                                        <i class="far fa fa-upload mr-1 ml-1"></i> Descargar |
+                                                    </a>
+                                                @endif
+                                                <i class="far fa fa-user-o mr-1 ml-1"></i> {{ $history->user->full_name }} |
+                                                <i class="far fa fa-clock-o mr-1 ml-1"></i> {{ \Carbon\Carbon::parse($history->created_at)->format('d/m/y h:i') }} </small>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -57,5 +54,4 @@
         </div>
 
     </div>
-    @include('admin.customers.partials.import')
 @endsection

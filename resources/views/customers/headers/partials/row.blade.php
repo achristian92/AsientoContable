@@ -12,7 +12,9 @@
         @if ($header->has_account && !$header->account_plan_id)
             <span class="fa fa-circle text-warning mr-2"> Pendiente!</span>
         @else
-            {{ $header->account->code ?? '' }} - {{ $header->account->name ?? '' }}
+            @if ($header->account_plan_id)
+                {{ $header->account->code }} - {{  $header->is_account_main ? $header->account->name : $header->name }}
+            @endif
         @endif
     </td>
     <td>

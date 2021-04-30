@@ -96,16 +96,6 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'name' => Concept::HOURS_EXT25,
-                'is_required' => false,
-                'is_active' => false,
-            ],
-            [
-                'name' => Concept::HOURS_EXT35,
-                'is_required' => false,
-                'is_active' => false,
-            ],
-            [
                 'name' => 'Horas extra',
                 'is_required' => false
             ],
@@ -122,6 +112,19 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
+                'name' => Concept::TOTAL_INCOME,
+                'is_required' => true
+            ],
+            [
+                'name' => Concept::TOTAL_DISCOUNT,
+                'is_required' => true
+            ],
+
+            [
+                'name' => Concept::TOTAL_CONTRIBUTION,
+                'is_required' => true
+            ],
+            [
                 'name'      => Concept::BASIC_SALARY,
                 'is_required' => true,
                 'has_account' => true,
@@ -134,20 +137,97 @@ class HeaderSeeder extends Seeder
                 'type'        => Header::TYPE_INCOME
             ],
             [
-                'name' => Concept::TOTAL_INCOME,
-                'is_required' => true
+                'name' => Concept::HOURS_EXT25,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
             ],
             [
-                'name' => Concept::AFP_CONTRIBUTION,
-                'is_required' => true,
-                'type'        => Header::TYPE_EXPENSE
+                'name' => Concept::HOURS_EXT35,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
             ],
+            [
+                'name' => Concept::TRUNCATED_GRATUITIES,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::EXTRA_BONUS,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::CTS,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::TRUNCATED_VACATION,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::OVERDUE_VACATION,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::VACATION_PAY,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::BONUS,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::WORK_CONDITION,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::MEDICAL_REST,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::AFFECTIVE_REFUND,
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => Concept::HEALTH,
+                'is_required' => true,
+                'has_account' => true,
+                'type'        => Header::TYPE_CONTRIBUTION
+            ],
+
+
             [
                 'name' => Concept::ONP,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
+            [
+                'name' => Concept::AFP_CONTRIBUTION,
+                'is_required' => true,
+                'type'        => Header::TYPE_EXPENSE
+            ],
+
             [
                 'name' => Concept::AFP_SURE_PRIME,
                 'is_required' => true,
@@ -159,35 +239,40 @@ class HeaderSeeder extends Seeder
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
+                'name' => 'Adelanto de sueldo',
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => 'Adel. Pago',
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+            [
+                'name' => 'Otros Descuentos/Condicion trab.',
+                'has_account' => true,
+                'is_required' => false,
+                'is_active' => false,
+            ],
+
+            [
                 'name' => Concept::FIFTH_CATEGORY,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'name' => 'EPS',
+                'name' => 'EPS Empleado',
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'name' => Concept::TOTAL_DISCOUNT,
-                'is_required' => true
-            ],
-            [
-                'name' => Concept::HEALTH,
-                'is_required' => true,
-                'has_account' => true,
-                'type'        => Header::TYPE_CONTRIBUTION
-            ],
-            [
                 'name' => 'EsSalud(P)',
                 'is_required' => true,
                 'has_account' => true
-            ],
-            [
-                'name' => Concept::TOTAL_CONTRIBUTION,
-                'is_required' => true
             ],
             [
                 'name' => Concept::NET,
