@@ -38,7 +38,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
 
     public function headingRow(): int
     {
-        return 2;
+        return 1;
     }
 
     public function collection(Collection $collection) //9266
@@ -69,7 +69,9 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
             Concept::insert($concepts);
 
             $accounts = $row->filter(function ($item,$row) use ($headers) { //7407
-                return  $headers->firstWhere('slug',$row) && $headers->firstWhere('slug',$row)->account_plan_id;
+                return  $headers->firstWhere('slug',$row) &&
+                        $headers->firstWhere('slug',$row)->account_plan_id &&
+                        !empty($item);
             })->map(function ($value1,$row) use ($headers,$employee) {
                 $header = $headers->firstWhere('slug',$row);
                 $nameAccountSecondary = !$header->is_account_main ? $header->name : null;
@@ -133,15 +135,15 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
         $pensions = $this->pensionRepo->listPensionsFund()->pluck('short')->toArray();
 
         return [
-            '*.codigo'         => 'required',
-            '*.trabajador'     => 'required',
-            '*.nro_identidad'  => 'required',
+            '*.cod_trab'         => 'required',
+            '*.apellidos_y_nombres'     => 'required',
+            '*.doc_identidad'  => 'required',
             '*.centro_costo'   => ['nullable',Rule::in($costs)],
-            '*.centro_costo2'   => ['nullable',Rule::in($costs2)],
-            '*.fecha_ingreso'  => 'required|date_format:d/m/Y',
+            //'*.centro_costo2'   => ['nullable',Rule::in($costs2)],
+            '*.fec_ing'  => 'required|date_format:d/m/Y',
             '*.fondo_de_pensiones' => ['required',Rule::in($pensions)],
             '*.remuneracion_basica' => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/',
-            '*.sueldo'           => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/'
+            '*.neto'           => 'required|regex:/^[0-9]+(\.[0-9][0-9]?)?$/'
         ];
 
     }

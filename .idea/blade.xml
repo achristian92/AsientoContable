@@ -56,6 +56,7 @@
       <data directive="@endwhile" />
       <data directive="@env" injection="true" prefix="&lt;?php if(app()-&gt;environment(" suffix=")): ?&gt;" />
       <data directive="@error" injection="true" prefix="&lt;?php $__errorArgs = [" suffix="];&#10;$__bag = $errors-&gt;getBag($__errorArgs[1] ?? 'default');&#10;if ($__bag-&gt;has($__errorArgs[0])) :&#10;if (isset($message)) { $__messageOriginal = $message; }&#10;$message = $__bag-&gt;first($__errorArgs[0]); ?&gt;" />
+      <data directive="@exposeTranslations" injection="true" prefix="&lt;?php _bladeDirective(" suffix="); ?&gt;" />
       <data directive="@extends" injection="true" prefix="&lt;?php echo $__env-&gt;make(" suffix=", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))-&gt;render(); ?&gt;" />
       <data directive="@extendsfirst" injection="true" prefix="&lt;?php echo $__env-&gt;first(" suffix=", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))-&gt;render(); ?&gt;" />
       <data directive="@for" injection="true" prefix="&lt;?php for(" suffix="): ?&gt;" />
@@ -63,6 +64,7 @@
       <data directive="@forelse" injection="true" prefix="&lt;?php foreach(" suffix="): ?&gt;" />
       <data directive="@guest" injection="true" prefix="&lt;?php if(auth()-&gt;guard(" suffix=")-&gt;guest()): ?&gt;" />
       <data directive="@hasSection" injection="true" prefix="&lt;?php if (! empty(trim($__env-&gt;yieldContent(" suffix=")))): ?&gt;" />
+      <data directive="@icon" injection="true" prefix="&lt;?php _bladeDirective(" suffix="); ?&gt;" />
       <data directive="@if" injection="true" prefix="&lt;?php if(" suffix="): ?&gt;" />
       <data directive="@include" injection="true" prefix="&lt;?php echo $__env-&gt;make(" suffix=", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))-&gt;render(); ?&gt;" />
       <data directive="@includeFirst" injection="true" prefix="&lt;?php echo $__env-&gt;first(" suffix=", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))-&gt;render(); ?&gt;" />
@@ -72,6 +74,7 @@
       <data directive="@json" injection="true" prefix="&lt;?php echo json_encode(" suffix=") ?&gt;" />
       <data directive="@lang" injection="true" prefix="&lt;?php echo app('translator')-&gt;get(" suffix="); ?&gt;" />
       <data directive="@method" injection="true" prefix="&lt;?php echo method_field(" suffix="); ?&gt;" />
+      <data directive="@og" injection="true" prefix="&lt;?php _bladeDirective(" suffix="); ?&gt;" />
       <data directive="@once" />
       <data directive="@overwrite" />
       <data directive="@parent" />

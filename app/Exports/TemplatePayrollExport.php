@@ -44,7 +44,7 @@ class TemplatePayrollExport implements FromView,WithEvents,ShouldAutoSize
 
                 $style = EventExportStyles();
                 $event->sheet->getDelegate()
-                    ->getStyle('A1:'.$endColumn.'2')
+                    ->getStyle('A1:'.$endColumn.'1')
                     ->applyFromArray($style['HEADER']);
             }
         ];

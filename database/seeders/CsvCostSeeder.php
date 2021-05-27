@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use DB;
 use Flynsarmy\CsvSeeder\CsvSeeder;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class CsvCostSeeder extends CsvSeeder
 {
@@ -16,6 +17,7 @@ class CsvCostSeeder extends CsvSeeder
 
     public function run()
     {
+        Log::info("load seeder costs");
         DB::disableQueryLog();
         DB::table($this->table)->truncate();
         parent::run();

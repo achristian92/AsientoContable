@@ -16,8 +16,8 @@ trait ConceptTrait
             'collaborator_id'   => $concept->collaborator_id,
             'file_id'           => $concept->file_id,
             'employee'          => $collection->firstWhere('header',Concept::FULL_NAME)->value,
-            'workArea'          => $collection->firstWhere('header',Concept::AREA)->value ?? '--',
-            'position'          => $collection->firstWhere('header',Concept::POSITION)->value ?? '--',
+            'workArea'          => $collection->firstWhere('header',Concept::CODAREA)->value ?? '--',
+            'position'          => $collection->firstWhere('header',Concept::NAMEAREA)->value ?? '--',
             'withFamily'        => (bool)$collection->firstWhere('header', Concept::WITH_FAMILY)->value,
             'pension'           => $this->searchPensionName($collection,$pensionFunds),
             'totalIncome'       => $this->totalIncome($collection),
@@ -81,7 +81,7 @@ trait ConceptTrait
     }
     public function netToPay(Collection $concepts): float
     {
-        $concept = $concepts->firstWhere('header',Concept::NET);
+        $concept = $concepts->firstWhere('header',Concept::NETO);
         if (is_numeric($concept->value))
             return $concept->value;
         return 0;

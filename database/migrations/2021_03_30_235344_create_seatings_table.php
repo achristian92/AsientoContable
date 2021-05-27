@@ -21,12 +21,12 @@ class CreateSeatingsTable extends Migration
             $table->string('fecha_registro');
             $table->string('mes');
             $table->integer('cuenta_contable');
-            $table->float('debe')->nullable();
-            $table->float('haber')->nullable();
+            $table->decimal('debe')->nullable();
+            $table->decimal('haber')->nullable();
             $table->string('moneda')->default('S');
-            $table->float('tipo_cambio');
-            $table->float('debe_usd')->nullable();
-            $table->float('haber_usd')->nullable();
+            $table->decimal('tipo_cambio');
+            $table->decimal('debe_usd')->nullable();
+            $table->decimal('haber_usd')->nullable();
             $table->string('glosa_asiento');
             $table->string('nro_documento');
             $table->string('doc')->default('PL');

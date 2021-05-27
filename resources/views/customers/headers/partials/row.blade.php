@@ -13,7 +13,7 @@
             <span class="fa fa-circle text-warning mr-2"> Pendiente!</span>
         @else
             @if ($header->account_plan_id)
-                {{ $header->account->code }} - {{  $header->is_account_main ? $header->account->name : $header->name }}
+                {{ $header->account->code }} - {{  $header->is_account_main == 1 ? $header->account->name : $header->name }}
             @endif
         @endif
     </td>

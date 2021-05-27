@@ -11,53 +11,98 @@ class Concept extends Model
 {
     protected $table = 'concepts';
 
-    CONST CODE = 'Código';
-    CONST FULL_NAME = 'Trabajador';
-    CONST NRO_DOC = 'Nro Identidad';
-    CONST AREA = 'Area';
-    CONST POSITION = 'Cargo';
+    CONST CODE = 'Cod. Trab.';
+    CONST FULL_NAME = 'Apellidos y Nombres';
 
     CONST COSTCENTER = 'Centro Costo';
-    CONST COSTCENTER2 = 'Centro Costo2';
+    CONST COSTNAME = 'C. Costo';
 
-    CONST WORKED_DAYS = 'Días trab';
-    CONST WORKED_NOT_DAYS = 'Días no trab';
-    CONST LCGH = 'Días L.C.G.H';
-    CONST VACATION_DAYS = 'Días Vac';
-    CONST WORKED_HOURS = 'Horas trab';
+    CONST CODAREA = 'Cod. Area';
+    CONST NAMEAREA = 'Area Trab.';
 
-    CONST DATE_ENTRY = 'Fecha Ingreso';
-    CONST DATE_TERMINATION = 'Fecha cese';
+    CONST CODCARGO = 'Cód. Cargo';
+    CONST NAMECARGO = 'Cargo';
+
+    CONST DATE_ENTRY = 'Fec. Ing.';
+    CONST DATE_TERMINATION = 'Fecha Cese';
+
+    CONST NRO_DOC = 'Doc. Identidad';
 
     CONST PENSION_SHORT = 'Fondo de Pensiones';
-    CONST AFP_CONTRIBUTION = 'AFP Aportación';
-    CONST AFP_SURE_PRIME = 'AFP Prima Seguro';
-    CONST AFP_COMISSION  = 'AFP Comisión RA';
-    CONST ONP = 'ONP';
+    CONST CURRENCY = 'Moneda';
 
-    CONST TOTAL_INCOME = 'Total Ingresos';
-    CONST TOTAL_DISCOUNT = 'Total Egresos';
-    CONST TOTAL_CONTRIBUTION  = 'Total Aportes';
+    CONST BASIC = 'Basico';
+    CONST DAYFERIADO = 'D.Feriado';
+    CONST WORKED_DAYS = 'Dias Trabajados';
+    CONST TDSUB = 'Total de Dias Subsidiados';
+    CONST TDNOTSUB = 'Total Dias No Subsidiados';
 
-    //DEBE
-    CONST BASIC_SALARY = 'Remuneración Basica';
-    CONST WITH_FAMILY  = 'Asignación Familiar';
-    CONST HOURS_EXT25  = 'Ingreso H.E. 25%';
-    CONST HOURS_EXT35  = 'Ingreso H.E. 35%';
-    CONST TRUNCATED_GRATUITIES = 'Gratificaciones Truncas';
+    CONST HOURS_EXT25  = 'H.E. 25 %'; //DEBE
+    CONST WORKED_HOURS = 'Horas Trabajadas';
+    CONST HOURS_EXT35  = 'H.E. 35 %'; //DEBE
+
+    CONST MEDICAL_REST  = 'Dias Desc. Medico';
+    CONST DAYSLV  = 'Dias Feriados Lun-Vie';
+
+    CONST HE100 = 'H.E. 100 %';
+
+    CONST WORKED_NOT_DAYS = 'Dias Falta';
+
+    CONST BASEIMPONIBLE = 'Base Imponible';
+
+    CONST LCGH = 'Dias Lic. con Goce';
+    CONST LSINGH = 'Dias Lic. sin Goce';
+    CONST DAYSSUBEMF = 'Dias Subs. Enfermedad';
+    CONST DAYSSUBMAT = 'Dias Subs. Maternidad';
+    CONST VACATION_DAYS = 'Dias Vacaciones';
+    CONST VACATION_DAYS_VENC = 'Dias Vac. Vendidas';
+
+    CONST BASIC_SALARY = 'Remuneración Basica'; //DEBE
+    CONST OVERDUE_VACATION  = 'Vacaciones Vendidas';
+    CONST WITH_FAMILY  = 'Asignación Familiar'; //DEBE
+    CONST INGHE25  = 'Ingreso H.E. 25%';
+    CONST INGHE35  = 'Ingreso H.E. 35%';
+    CONST INGFERIADO  = 'Ingr. Feriados';
+    CONST INGSUBENF  = 'Subs. Enfermedad';
+    CONST INGSUBMAT  = 'Subs. Maternidad';
+    CONST INGHE100  = 'Ingreso H.E. 100%';
+    CONST INGMOV  = 'Movilidad';
     CONST EXTRA_BONUS  = 'Bonif.Extraor.LEY 30334';
+    CONST INGCOMI  = 'Comisiones';
+    CONST VACATION_PAY  = 'Remuneración Vacacional';
     CONST CTS          = 'Remuneración CTS';
     CONST TRUNCATED_VACATION  = 'Vacaciones Truncas';
-    CONST OVERDUE_VACATION  = 'Vacaciones Vendidas';
-    CONST VACATION_PAY  = 'Remuneración Vacacional';
+    CONST TRUNCATED_GRATUITIES = 'Gratificaciones Truncas';
+    CONST INGLCH = 'Lic. con Goce de Haber';
     CONST BONUS  = 'Bonificación';
-    CONST WORK_CONDITION  = 'Condicion de Trabajo';
-    CONST MEDICAL_REST  = 'Descanso Medico';
+    CONST INGREINA  = 'Reintegro Inafecto';
+    CONST INGBONPROD  = 'Bono de Productividad';
+    CONST INGOTRAFC  = 'Otros Ingresos Afect.';
     CONST AFFECTIVE_REFUND  = 'Reintegro Afecto';
-    CONST HEALTH = 'EsSalud';
+    CONST TOTAL_INCOME  = 'TOTAL INGRESOS';
+
     //HABER
-    CONST FIFTH_CATEGORY = 'Renta de 5ta. Categoría';
-    CONST NET = 'Sueldo';
+    CONST AFP_CONTRIBUTION = 'AFP. Aportación Obligator';
+    CONST AFP_SURE_PRIME = 'AFP. Seguro de Vida';
+    CONST AFP_COMISSION  = 'AFP. Comisión sobre la RA';
+    CONST INASIS  = 'Inasistencia';
+    CONST ADPAGO  = 'Adel. Pago';
+    CONST PRESTAMOS  = 'Prestamos';
+    CONST FIFTH_CATEGORY = 'Renta de 5ta. Categoria';
+    CONST EGREADLVAC = 'Adel. Vacaciones';
+    CONST EGREADQUIN = "<Adelanto de Quincena>";
+
+    CONST TOTAL_DISCOUNT = 'TOTAL EGRESOS';
+
+    CONST HEALTH = 'EsSalud';
+    CONST TOTAL_CONTRIBUTION  = 'TOTAL APORT.';
+    CONST NETO  = 'NETO';
+
+    CONST HELTHPASIVO = 'EsSalud(P)';
+
+    CONST ONP = 'O.N.P.';
+    CONST COSTCENTER2 = '';
+    //HABER
 
     protected $guarded = ['id'];
 

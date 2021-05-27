@@ -63,9 +63,9 @@ class VoucherController extends Controller
         $model->admission = $data->date_start_work;
         $model->termination = $data->concepts->firstWhere('header',Concept::DATE_TERMINATION)->value ?? '-';
         $model->type = 'Empleado';
-        $model->area = $data->concepts->firstWhere('header',Concept::AREA)->value;
+        $model->area = $data->concepts->firstWhere('header',Concept::CODAREA)->value;
         $model->costCenter = $codeCostCenter ? $this->costCenterRepo->findCostCenterByCode($codeCostCenter,$customer)->name : '-Distribuidos-';
-        $model->position = $data->concepts->firstWhere('header',Concept::POSITION)->value ?? '-';
+        $model->position = $data->concepts->firstWhere('header',Concept::NAMEAREA)->value ?? '-';
         $model->pension = $this->pensionRepo->findPensionByShort($codePension,$customer)->name;
         $model->cuspp = $data->cuspp;
         $model->codeCuspp = $data->code_cuspp;
@@ -81,19 +81,21 @@ class VoucherController extends Controller
         $model->income = $income;
         $model->expense = $expense;
         $model->contribution = $contribution;
-        $model->net = $data->concepts->firstWhere('header',Concept::NET)->value;
+        $model->net = $data->concepts->firstWhere('header',Concept::NETO)->value;
 
        /* return view('pdf.voucher',[
             'customer' => $this->customerRepo->findCustomerById($customer),
             'payroll' => $this->fileRepo->findFileById($file),
             'data'  => $model
         ]);*/
+
         $fileModel = $this->fileRepo->findFileById($file);
          $pdf = PDF::loadView('pdf.voucher',[
              'customer' => $this->customerRepo->findCustomerById($customer),
              'payroll' => $fileModel,
              'data'  => $model
          ]);
+
          $employeeName = strtoupper(slug($data->full_name,'-'));
          $month = strtoupper($fileModel->name);
          $fileName = "BOLETA-$month-$employeeName.pdf";

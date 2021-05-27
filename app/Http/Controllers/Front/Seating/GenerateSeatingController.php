@@ -55,7 +55,9 @@ class GenerateSeatingController extends Controller
                 $dataInsert = collect($employee['accounts'])->map(function ($account) use ($employee,$exchangeRate,$nro_seat) {
                     return $this->transformDataToInsertMass($employee,$account,$employee['costCenters'][0],$nro_seat,$exchangeRate,false);
                 })->toArray();
+                //\Log::info("data",$dataInsert);
                 Seating::insert($dataInsert);
+                //dd("fin");
             }
             else {
                 collect($employee['accounts'])->each(function ($account) use ($employee,$exchangeRate,$nro_seat) {
@@ -110,8 +112,8 @@ class GenerateSeatingController extends Controller
             'haber'           => !$isExpense ? $penValue : 0,
             'moneda'          => 'S',
             'tipo_cambio'     => $exchangeRate,
-            'debe_usd'        => $isExpense ? number_format($USDValue,2) : 0,
-            'haber_usd'       => !$isExpense ? number_format($USDValue,2) : 0,
+            'debe_usd'        => $isExpense ? floatval($USDValue) : 0,
+            'haber_usd'       => !$isExpense ? floatval($USDValue) : 0,
             'glosa_asiento'   => 'PL/'.$employee['worked'].'/'.$account['concept'],
             'nro_documento'   => $employee['nroDoc'],
             'doc'             => 'PL',
@@ -141,7 +143,7 @@ class GenerateSeatingController extends Controller
                 'nroDoc'      => $employee->nro_document,
                 'createdAt'   => $payrollDate->format('d/m/Y'),
                 'month'       => $payrollDate->format('m'),
-                'costCenters2'=> $file->concepts->where('header',Concept::COSTCENTER2)->where('collaborator_id',$employee->id)->first()->value,
+                'costCenters2'=> $file->concepts->where('header',Concept::COSTCENTER2)->where('collaborator_id',$employee->id)->first() ? $file->concepts->where('header',Concept::COSTCENTER2)->where('collaborator_id',$employee->id)->first()->value : '',
                 'accounts'    => $this->conceptRepo->accounts($accountEmployee)->toArray(),
                 'costCenters' => $this->conceptRepo->costCenterEmployee($file->concepts, ['file_id'=> $file->id, 'collaborator_id'=> $id], $costs)
             ];

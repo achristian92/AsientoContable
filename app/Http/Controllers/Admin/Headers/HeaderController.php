@@ -44,6 +44,8 @@ class HeaderController extends Controller
     }
     public function edit($customer_id,$id)
     {
+
+
         return view('customers.headers.edit',[
             'model' => $this->headerRepo->findHeaderById($id),
             'accounts' => $this->accountsRepo->listAccountsAnalitica(),
@@ -53,20 +55,31 @@ class HeaderController extends Controller
 
     public function store(HeaderRequest $request,$customer_id)
     {
-        $request->merge([
-            'is_account_main' => $request->is_account_main === '1',
-            'is_active'       => $request->is_active === '1'
-        ]);
+        if ( $request->filled('account_plan_id') && $request->input('is_account_main') == "1") {
+            $headerUniqueMain = Header::where('account_plan_id',$request->account_plan_id)
+                ->where('is_account_main',1)
+                ->whereCustomerId(customerID())
+                ->count();
+            if ( $headerUniqueMain > 0 )
+                return redirect()->back()->with('error',"Cuenta contable ya está en uso de modo principal(selecciona modo secundaria)");
+        }
+
         $this->headerRepo->createHeader($request->all());
         return redirect()->route('admin.customers.headers.index',$customer_id)->with('message',"Registro creado");
     }
 
     public function update(HeaderRequest $request,$customer_id,$id)
     {
-        $request->merge([
-            'is_account_main' => $request->is_account_main === '1',
-            'is_active'       => $request->is_active === '1'
-        ]);
+        if ( $request->filled('account_plan_id') && $request->input('is_account_main') == "1") {
+            $headerUniqueMain = Header::where('account_plan_id',$request->account_plan_id)
+                ->where('is_account_main',1)
+                ->whereCustomerId(customerID())
+                ->count();
+            if ( $headerUniqueMain > 0 )
+                return redirect()->back()->with('error',"Cuenta contable ya está en uso de modo principal(selecciona modo secundaria)'");
+        }
+
+
         $this->headerRepo->updateHeader($request->all(),$id);
         return redirect()->route('admin.customers.headers.index',$customer_id)->with('message',"Registro actualizado");
     }

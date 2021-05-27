@@ -18,11 +18,11 @@ class CreateHeadersTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->boolean('has_account')->default(false);
-            $table->boolean('is_account_main')->default(false);
+            $table->smallInteger('is_account_main')->default(0);
             $table->boolean('is_required')->default(false);
             $table->string('type')->nullable();
             $table->integer('order')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->smallInteger('is_active')->default(1);
             $table->foreignId('account_plan_id')->nullable();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

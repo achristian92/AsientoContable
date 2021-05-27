@@ -30,23 +30,23 @@ class HeaderSeeder extends Seeder
                 'is_required' => true
             ],
             [
-                'name' => Concept::COSTCENTER2,
+                'name' => Concept::COSTNAME,
                 'is_required' => true
             ],
             [
-                'name' => 'Cod Area',
+                'name' => Concept::CODAREA,
                 'is_required' => false
             ],
             [
-                'name' => Concept::AREA,
+                'name' => Concept::NAMEAREA,
                 'is_required' => false
             ],
             [
-                'name' => 'Cod Cargo',
+                'name' => Concept::CODCARGO,
                 'is_required' => false
             ],
             [
-                'name' => Concept::POSITION,
+                'name' => Concept::NAMECARGO,
                 'is_required' => false
             ],
             [
@@ -66,11 +66,15 @@ class HeaderSeeder extends Seeder
                 'is_required' => true
             ],
             [
-                'name' => 'Moneda',
+                'name' => Concept::CURRENCY,
                 'is_required' => true
             ],
             [
-                'name' => 'Basico',
+                'name' => Concept::BASIC,
+                'is_required' => false
+            ],
+            [
+                'name' => Concept::DAYFERIADO,
                 'is_required' => false
             ],
             [
@@ -78,57 +82,82 @@ class HeaderSeeder extends Seeder
                 'is_required' => false
             ],
             [
-                'name' => Concept::LCGH,
-                'is_required' => false,
-                'is_active' => false,
-            ],
-            [
-                'name' => Concept::WORKED_NOT_DAYS,
+                'name' => Concept::TDSUB,
                 'is_required' => false
             ],
             [
-                'name' => Concept::VACATION_DAYS,
-                'is_required' => false,
-                'is_active' => false,
+                'name' => Concept::TDNOTSUB,
+                'is_required' => false
+            ],
+            [
+                'name' => Concept::HOURS_EXT25,
+                'is_required' => false
             ],
             [
                 'name' => Concept::WORKED_HOURS,
                 'is_required' => false
             ],
             [
-                'name' => 'Horas extra',
+                'name' => Concept::HOURS_EXT35,
                 'is_required' => false
             ],
             [
-                'name' => 'Min extra',
+                'name' => Concept::MEDICAL_REST,
                 'is_required' => false
             ],
             [
-                'name' => 'Días PDT',
+                'name' => Concept::DAYSLV,
                 'is_required' => false
             ],
             [
-                'name' => 'Base imponible',
+                'name' => Concept::HE100,
                 'is_required' => false
             ],
             [
-                'name' => Concept::TOTAL_INCOME,
-                'is_required' => true
+                'name' => Concept::WORKED_NOT_DAYS,
+                'is_required' => false
             ],
             [
-                'name' => Concept::TOTAL_DISCOUNT,
-                'is_required' => true
+                'name' => Concept::BASEIMPONIBLE,
+                'is_required' => false
             ],
 
             [
-                'name' => Concept::TOTAL_CONTRIBUTION,
-                'is_required' => true
+                'name' => Concept::LCGH,
+                'is_required' => false,
             ],
+            [
+                'name' => Concept::LSINGH,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::DAYSSUBEMF,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::DAYSSUBMAT,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::VACATION_DAYS,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::VACATION_DAYS_VENC,
+                'is_required' => false,
+            ],
+
+            //Azul
             [
                 'name'      => Concept::BASIC_SALARY,
                 'is_required' => true,
                 'has_account' => true,
                 'type'        => Header::TYPE_INCOME
+            ],
+            [
+                'name'      => Concept::OVERDUE_VACATION,
+                'is_required' => false,
+                'has_account' => true,
             ],
             [
                 'name'      => Concept::WITH_FAMILY,
@@ -137,85 +166,97 @@ class HeaderSeeder extends Seeder
                 'type'        => Header::TYPE_INCOME
             ],
             [
-                'name' => Concept::HOURS_EXT25,
+                'name' => Concept::INGHE25,
                 'has_account' => true,
                 'is_required' => false,
-                'is_active' => false,
             ],
             [
-                'name' => Concept::HOURS_EXT35,
+                'name' => Concept::INGHE35,
                 'has_account' => true,
                 'is_required' => false,
-                'is_active' => false,
             ],
             [
-                'name' => Concept::TRUNCATED_GRATUITIES,
-                'has_account' => true,
+                'name' => Concept::INGFERIADO,
                 'is_required' => false,
-                'is_active' => false,
+            ],
+            [
+                'name' => Concept::INGSUBENF,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::INGSUBMAT,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::INGHE100,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::INGMOV,
+                'is_required' => false,
             ],
             [
                 'name' => Concept::EXTRA_BONUS,
                 'has_account' => true,
                 'is_required' => false,
-                'is_active' => false,
             ],
             [
-                'name' => Concept::CTS,
-                'has_account' => true,
+                'name' => Concept::INGCOMI,
                 'is_required' => false,
-                'is_active' => false,
-            ],
-            [
-                'name' => Concept::TRUNCATED_VACATION,
-                'has_account' => true,
-                'is_required' => false,
-                'is_active' => false,
-            ],
-            [
-                'name' => Concept::OVERDUE_VACATION,
-                'has_account' => true,
-                'is_required' => false,
-                'is_active' => false,
             ],
             [
                 'name' => Concept::VACATION_PAY,
                 'has_account' => true,
                 'is_required' => false,
-                'is_active' => false,
+            ],
+            [
+                'name' => Concept::CTS,
+                'has_account' => true,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::TRUNCATED_VACATION,
+                'has_account' => true,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::TRUNCATED_GRATUITIES,
+                'has_account' => true,
+                'is_required' => false,
+            ],
+            [
+                'name' => Concept::INGLCH,
+                'is_required' => false,
             ],
             [
                 'name' => Concept::BONUS,
                 'has_account' => true,
                 'is_required' => false,
-                'is_active' => false,
             ],
             [
-                'name' => Concept::WORK_CONDITION,
-                'has_account' => true,
+                'name' => Concept::INGREINA,
                 'is_required' => false,
-                'is_active' => false,
             ],
             [
-                'name' => Concept::MEDICAL_REST,
-                'has_account' => true,
+                'name' => Concept::INGBONPROD,
                 'is_required' => false,
-                'is_active' => false,
+            ],
+            [
+                'name' => Concept::INGOTRAFC,
+                'is_required' => false,
             ],
             [
                 'name' => Concept::AFFECTIVE_REFUND,
                 'has_account' => true,
                 'is_required' => false,
-                'is_active' => false,
             ],
+
             [
-                'name' => Concept::HEALTH,
-                'is_required' => true,
-                'has_account' => true,
-                'type'        => Header::TYPE_CONTRIBUTION
+                'name' => Concept::TOTAL_INCOME,
+                'is_required' => true
             ],
 
-
+            // ROJO
             [
                 'name' => Concept::ONP,
                 'is_required' => true,
@@ -227,7 +268,6 @@ class HeaderSeeder extends Seeder
                 'is_required' => true,
                 'type'        => Header::TYPE_EXPENSE
             ],
-
             [
                 'name' => Concept::AFP_SURE_PRIME,
                 'is_required' => true,
@@ -239,24 +279,14 @@ class HeaderSeeder extends Seeder
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'name' => 'Adelanto de sueldo',
-                'has_account' => true,
-                'is_required' => false,
-                'is_active' => false,
+                'name' => Concept::INASIS,
             ],
             [
-                'name' => 'Adel. Pago',
-                'has_account' => true,
-                'is_required' => false,
-                'is_active' => false,
+                'name' => Concept::ADPAGO,
             ],
             [
-                'name' => 'Otros Descuentos/Condicion trab.',
-                'has_account' => true,
-                'is_required' => false,
-                'is_active' => false,
+                'name' => Concept::PRESTAMOS,
             ],
-
             [
                 'name' => Concept::FIFTH_CATEGORY,
                 'is_required' => true,
@@ -264,18 +294,36 @@ class HeaderSeeder extends Seeder
                 'type'        => Header::TYPE_EXPENSE
             ],
             [
-                'name' => 'EPS Empleado',
+                'name' => Concept::EGREADLVAC,
+            ],
+            [
+                'name' => Concept::EGREADQUIN,
+            ],
+
+            [
+                'name' => Concept::TOTAL_DISCOUNT,
+                'is_required' => true
+            ],
+
+            [
+                'name' => Concept::HEALTH,
                 'is_required' => true,
                 'has_account' => true,
-                'type'        => Header::TYPE_EXPENSE
+                'type'        => Header::TYPE_CONTRIBUTION
             ],
             [
-                'name' => 'EsSalud(P)',
+                'name' => Concept::HELTHPASIVO,
                 'is_required' => true,
-                'has_account' => true
+                'has_account' => true,
             ],
+
             [
-                'name' => Concept::NET,
+                'name' => Concept::TOTAL_CONTRIBUTION,
+                'is_required' => true
+            ],
+
+            [
+                'name' => Concept::NETO,
                 'is_required' => true,
                 'has_account' => true
             ],
@@ -286,7 +334,7 @@ class HeaderSeeder extends Seeder
                 'slug'        => slug($item['name']),
                 'type'        => $item['type'] ?? '',
                 'order'       => $key * 10,
-                'is_required' => $item['is_required'],
+                'is_required' => $item['is_required'] ?? false,
                 'has_account' => $item['has_account'] ?? false,
                 'is_account_main' => (bool)$item['has_account'],
                 'is_active'   => $item['is_active'] ?? true,

@@ -10,6 +10,7 @@ use Str;
 
 class HeaderRequest extends FormRequest
 {
+
     public function rules() {
         $rules = [
             'name' => [
@@ -23,6 +24,8 @@ class HeaderRequest extends FormRequest
             'order' => 'required|numeric',
         ];
         if ($this->isMethod('PUT')) {
+
+
             $rules['name'] = [
                 'required',
                 'max:30',
@@ -40,7 +43,8 @@ class HeaderRequest extends FormRequest
         return [
             'name.required' => "La cabecera es obligatorio",
             'name.max' => "La cabecera debe contener máximo 255 caracteres",
-            'name.unique' => 'Cabecera ya esta en uso'
+            'name.unique' => 'Cabecera ya esta en uso',
+            'account_plan_id.unique' => 'Cuenta contable ya está en uso de modo principal(selecciona modo secundaria)',
         ];
     }
 }

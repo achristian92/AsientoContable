@@ -56,7 +56,7 @@ class PayrollImportController extends Controller
         if (!$this->headerRepo->isAssignedAccountWithHeaders())
             return response()->json([
                 'is_correct' => false,
-                'msg' => 'Falta asignar las cuentas contables a algunas cabeceras del excel',
+                'msg' => 'Falta asignar las cuentas contables a las cabeceras',
             ]);
 
         if (!$this->pensionRepo->isAssignedAccountWithPensions())
@@ -65,10 +65,10 @@ class PayrollImportController extends Controller
                 'msg' => 'Falta asignar las cuentas contables a las pensiones',
             ]);
 
-        if (!$this->hasEqualsHeaders($request))
+        if (!$this->isValidHeaders($request))
             return response()->json([
                 'is_correct' => false,
-                'msg' => 'Las cabeceras del excel no coinciden con la del cliente',
+                'msg' => 'Tu excel tiene cabeceras no registras en el sistema',
             ]);
 
         if (!$this->canCreateOrUpdate($request))
@@ -82,6 +82,7 @@ class PayrollImportController extends Controller
         DB::table('concept_accounts')->where('file_id',$file->id)->delete();
         DB::table('seatings')->where('file_id',$file->id)->delete();
         DB::table('cost_employee')->where('file_id',$file->id)->delete();
+
         Excel::import(new PayrollImport($customer_id,$file), $request->file('file_upload'));
 
         $time_end = $this->microtime_float();
@@ -97,11 +98,12 @@ class PayrollImportController extends Controller
         ],201);
     }
 
-    private function hasEqualsHeaders(Request $request): bool
+    private function isValidHeaders(Request $request): bool
     {
-        $fileHeaders = (new HeadingRowImport(2))->toArray($request->file('file_upload'))[0][0];
+        $fileHeaders = (new HeadingRowImport())->toArray($request->file('file_upload'))[0][0];
         $currentHeaders = $this->headerRepo->listHeaders()->pluck('slug');
-        $diff = $currentHeaders->diff($fileHeaders);
+        $diff = collect($fileHeaders)->diff($currentHeaders);
+        \Log::info("DIFF". $diff->count());
         return $diff->count() === 0;
     }
 
