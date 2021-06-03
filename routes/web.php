@@ -98,6 +98,7 @@ Route::group(['prefix' => 'api', 'middleware' => ['auth.customer']], function ()
         Route::post('generate-seating', GenerateSeatingController::class);
         Route::get('template-payroll', TemplatePayrollController::class)->name('template-payroll');
         Route::post('payroll-import', PayrollImportController::class);
+        Route::delete('payroll/{id}/destroy', [PayrollImportController::class,'destroy']);
     });
 });
 

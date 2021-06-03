@@ -2,6 +2,17 @@
     <div class="card app-content-body">
         <div class="card-body">
             <div class="row">
+                <div class="col">
+                    <h3 class="text-primary d-flex">Planilla {{ file.name }}
+                        <h4 v-if="file.status === 'Abierto'" @click.prevent="destroy(file.id)">
+                            <a href="#"  data-toggle="tooltip" title="Eliminar">
+                                <i class="fa fa-trash ml-2 text-danger"></i>
+                            </a>
+                        </h4>
+
+                    </h3>
+
+                </div>
                 <div class="col text-right">
                     Estado:
                     <span class="badge badge-success" v-if="file.status === 'Abierto'">Abierto</span>
@@ -173,6 +184,8 @@ export default {
             this.moreOneCosts = this.p_more_one_costs
         if (this.p_without_costs)
             this.withoutCosts = this.p_without_costs
+
+        console.log(this.p_file)
     },
     computed: {
         building: function(){
@@ -180,6 +193,18 @@ export default {
         }
     },
     methods: {
+        destroy(id) {
+            if ( !confirm('Estas seguro de eliminar la planilla?') )
+                return false;
+
+            axios.delete(`${this.baseUrl}api/customer/${this.currentCustomerID}/payroll/${id}/destroy`).
+            then(res => {
+                Vue.$toast.success(res.data.msg)
+                setTimeout(() => {
+                    window.location.href = res.data.url;
+                }, 1000)
+            })
+        },
         openPayroll() {
             if(confirm("Perderás toda la información cargada del mes si vuelves a cargar la planilla. Estas seguro de continuar?")) {
                 axios.post(`${this.baseUrl}api/customer/${this.currentCustomerID}/open-payroll`, {

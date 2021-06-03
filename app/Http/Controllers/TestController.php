@@ -61,15 +61,12 @@ class TestController extends Controller
     public function __invoke(Request $request, int $customer)
     {
 
-        $headers = $this->headerRepo->listHeaders();
-        $transform = $headers->transform(function ($header) {
-            return [
-                'name' => $header->name,
-                'nroAccount' => $header->nroAccount(),
-                'bgColor' => $header->bgColorByAccountType()
-            ];
-        });
-        dd($transform);
+        $name = 'PARRA QUIÑONES PATRICIA MILAGROS';
+        $format = mb_substr($name,0,10);
+        $name2= 'MUÑOZ SANCHEZ JOSE CARLOS';
+        $format2 = substr($name2,0,10);
+
+        dd($name,$format,$name2,$format2);
 
     }
 

@@ -11,7 +11,7 @@ interface IFile
 {
     public function findFileById(int $id): File;
 
-    public function listFiles(string $orderBy = 'id', string $sortBy = 'desc');
+    public function listFiles(string $orderBy = 'month_payroll', string $sortBy = 'desc');
 
     public function listAssignments(int $id);
 

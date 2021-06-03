@@ -2657,6 +2657,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2682,6 +2693,7 @@ __webpack_require__.r(__webpack_exports__);
     if (this.p_payrolls) this.payrolls = this.p_payrolls;
     if (this.p_more_one_costs) this.moreOneCosts = this.p_more_one_costs;
     if (this.p_without_costs) this.withoutCosts = this.p_without_costs;
+    console.log(this.p_file);
   },
   computed: {
     building: function building() {
@@ -2689,6 +2701,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    destroy: function destroy(id) {
+      if (!confirm('Estas seguro de eliminar la planilla?')) return false;
+      axios["delete"]("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/payroll/").concat(id, "/destroy")).then(function (res) {
+        Vue.$toast.success(res.data.msg);
+        setTimeout(function () {
+          window.location.href = res.data.url;
+        }, 1000);
+      });
+    },
     openPayroll: function openPayroll() {
       if (confirm("Perderás toda la información cargada del mes si vuelves a cargar la planilla. Estas seguro de continuar?")) {
         axios.post("".concat(this.baseUrl, "api/customer/").concat(this.currentCustomerID, "/open-payroll"), {
@@ -3758,7 +3779,7 @@ module.exports = {
       return JSON.parse(customerID.content);
     },
     baseUrl: function baseUrl() {
-      if (true) return "http://ec2-18-234-129-86.compute-1.amazonaws.com/jga-entries/";else {}
+      if (false) {}else return '/';
     }
   }
 };
@@ -23548,6 +23569,28 @@ var render = function() {
   return _c("div", { staticClass: "card app-content-body" }, [
     _c("div", { staticClass: "card-body" }, [
       _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("h3", { staticClass: "text-primary d-flex" }, [
+            _vm._v(
+              "Planilla " + _vm._s(_vm.file.name) + "\n                    "
+            ),
+            _vm.file.status === "Abierto"
+              ? _c(
+                  "h4",
+                  {
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.destroy(_vm.file.id)
+                      }
+                    }
+                  },
+                  [_vm._m(0)]
+                )
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "col text-right" }, [
           _vm._v("\n                Estado:\n                "),
           _vm.file.status === "Abierto"
@@ -23583,7 +23626,7 @@ var render = function() {
           _c("div", { staticClass: "card mb-0" }, [
             _c("div", { staticClass: "card-body p-3" }, [
               _c("div", { staticClass: "d-flex align-items-center" }, [
-                _vm._m(0),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("div", [
                   _c("h6", { staticClass: "text-uppercase font-size-11" }, [
@@ -23603,7 +23646,7 @@ var render = function() {
           _c("div", { staticClass: "card mb-0" }, [
             _c("div", { staticClass: "card-body p-3" }, [
               _c("div", { staticClass: "d-flex align-items-center" }, [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("div", [
                   _c("h6", { staticClass: "text-uppercase font-size-11" }, [
@@ -23955,6 +23998,16 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { attrs: { href: "#", "data-toggle": "tooltip", title: "Eliminar" } },
+      [_c("i", { staticClass: "fa fa-trash ml-2 text-danger" })]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

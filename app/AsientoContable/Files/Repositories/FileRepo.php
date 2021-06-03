@@ -26,7 +26,7 @@ class FileRepo extends BaseRepository implements IFile
         return $this->model::findOrFail($id);
     }
 
-    public function listFiles(string $orderBy = 'id', string $sortBy = 'desc')
+    public function listFiles(string $orderBy = 'month_payroll', string $sortBy = 'desc')
     {
         return $this->model::with('concepts','assignments','seating')->where('customer_id',customerID())
             ->orderBy($orderBy,$sortBy)

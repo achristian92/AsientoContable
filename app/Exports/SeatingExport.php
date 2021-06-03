@@ -7,11 +7,13 @@ namespace App\Exports;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class SeatingExport implements FromView,ShouldAutoSize,WithCustomStartCell,WithEvents
+class SeatingExport implements FromView,ShouldAutoSize,WithCustomStartCell,WithEvents,WithColumnFormatting
 {
 
     private $data;
@@ -40,6 +42,8 @@ class SeatingExport implements FromView,ShouldAutoSize,WithCustomStartCell,WithE
         return [
             AfterSheet::class => function(AfterSheet $event) use ($style,$endRow) {
                 $event->sheet->setShowGridlines(false);
+
+
                 /* Styles */
                 $event->sheet->getDelegate()
                     ->getStyle('A1:T1')
@@ -68,6 +72,27 @@ class SeatingExport implements FromView,ShouldAutoSize,WithCustomStartCell,WithE
                 /* Row Height */
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(25);
             }
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'A' => NumberFormat::FORMAT_TEXT,
+            'B' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_TEXT,
+            'D' => NumberFormat::FORMAT_TEXT,
+            'E' => NumberFormat::FORMAT_TEXT,
+            'F' => NumberFormat::FORMAT_TEXT,
+            'I' => NumberFormat::FORMAT_TEXT,
+            'M' => NumberFormat::FORMAT_TEXT,
+            'N' => NumberFormat::FORMAT_TEXT,
+            'O' => NumberFormat::FORMAT_TEXT,
+            'P' => NumberFormat::FORMAT_TEXT,
+            'Q' => NumberFormat::FORMAT_TEXT,
+            'R' => NumberFormat::FORMAT_TEXT,
+            'S' => NumberFormat::FORMAT_TEXT,
+            'T' => NumberFormat::FORMAT_TEXT,
         ];
     }
 }

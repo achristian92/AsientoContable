@@ -139,7 +139,7 @@ class GenerateSeatingController extends Controller
                 'workedID'    => $employee->id,
                 'fileID'      => $file->id,
                 'customerID'  => $file->customer_id,
-                'worked'      => substr($employee->full_name,0,10),
+                'worked'      => mb_substr($employee->full_name,0,10),
                 'nroDoc'      => $employee->nro_document,
                 'createdAt'   => $payrollDate->format('d/m/Y'),
                 'month'       => $payrollDate->format('m'),

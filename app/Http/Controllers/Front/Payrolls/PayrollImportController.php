@@ -103,6 +103,7 @@ class PayrollImportController extends Controller
         $fileHeaders = (new HeadingRowImport())->toArray($request->file('file_upload'))[0][0];
         $currentHeaders = $this->headerRepo->listHeaders()->pluck('slug');
         $diff = collect($fileHeaders)->diff($currentHeaders);
+        \Log::info("DIFF". $diff);
         \Log::info("DIFF". $diff->count());
         return $diff->count() === 0;
     }
@@ -116,6 +117,26 @@ class PayrollImportController extends Controller
                 return false;
 
         return true;
+    }
+
+    public function destroy(int $customer_id,int $id)
+    {
+        $file = File::find($id);
+        if ($file->status === 'Cerrado')
+            return response()->json([
+                'msg' => 'La planilla se encuentra cerrada',
+                'url' => route('admin.customers.payrolls.index',$customer_id)
+            ]);
+
+        \DB::table('seatings')->where('file_id',$file->id)->delete();
+        \DB::table('concepts')->where('file_id',$file->id)->delete();
+        \DB::table('concept_accounts')->where('file_id',$file->id)->delete();
+        $file->delete();
+
+        return response()->json([
+            'msg' => 'La planilla eliminada',
+            'url' => route('admin.customers.payrolls.index',$customer_id)
+        ]);
     }
 
 }
