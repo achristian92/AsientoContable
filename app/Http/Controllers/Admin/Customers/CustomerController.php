@@ -124,9 +124,9 @@ class CustomerController extends Controller
     public function destroy(int $id)
     {
         $customer = Customer::find($id);
-        if ($customer->has('files')->count() > 0) {
+        if ($customer->files()->exists()) {
             $this->customerRepo->deleteCustomer($id);
-            return redirect()->route('admin.customers.index')->with('message',"Cliente tiene planillas cargadas");
+            return redirect()->route('admin.customers.index')->with('message',"Cliente tiene planillas cargadas(primero eliminalas)");
         }
 
         Header::where('customer_id',$customer->id)->delete();

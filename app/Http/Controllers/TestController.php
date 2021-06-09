@@ -62,12 +62,11 @@ class TestController extends Controller
 
     public function __invoke(Request $request, int $customer)
     {
-        $aaa = 'FFFF';
-       dd(Str::length($aaa));
-        $file = Customer::all()->map(function ($customer,$key) {
-            return $item[$key]     = strlen($customer->name);
-        });
-        dd($file);
+
+        $customer = Customer::find(1);
+        $hasPayroll = $customer->files()->exists();
+        dd($hasPayroll);
+
         $oldCustomerId = 2;
         $newCustomerId = 4;
         AccountPlan::where('customer_id',$oldCustomerId)->get()
