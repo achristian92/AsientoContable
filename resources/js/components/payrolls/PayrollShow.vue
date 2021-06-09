@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="table-responsive" tabindex="1" style="overflow: hidden; outline: none;">
-                <table class="table table-striped mb-0">
+                <table class="table table-striped mb-0 w-100">
                     <thead>
                     <tr>
                         <th class="text-center">
@@ -98,7 +98,7 @@
                                 &nbsp;&nbsp;
                             </label>
                         </th>
-                        <th>Nombres</th>
+                        <th class="w-10">Nombres</th>
                         <th class="text-center">Ingresos</th>
                         <th class="text-center">Descuentos</th>
                         <th class="text-center">Aportes</th>
@@ -120,7 +120,7 @@
                             </label>
                         </td>
                         <td>
-                            {{ payroll.employee }} <span class="badge badge-danger" v-if="payroll.centerCost.length === 0">SIN CENTRO COSTO</span> <br>
+                            {{ payroll.employeeShort }} <span class="badge badge-danger" v-if="payroll.centerCost.length === 0">SIN CENTRO COSTO</span> <br>
                             <small class="text-muted">
                                 <a href="#" class="text-muted" data-toggle="tooltip" :title="payroll.workArea+' | '+payroll.position">
                                     <i class="fa fa-id-card-o"></i>
@@ -136,10 +136,10 @@
                                 </a>
                             </small>
                         </td>
-                        <td class="text-primary text-center">{{ payroll.totalIncome }}</td>
-                        <td class="text-danger text-center">{{ payroll.totalExpense }}</td>
-                        <td class="text-success text-center">{{ payroll.totalContribution }}</td>
-                        <td class="text-info text-center">{{ payroll.netToPay }}</td>
+                        <td class="text-primary text-right">{{ payroll.totalIncome }}</td>
+                        <td class="text-danger text-right">{{ payroll.totalExpense }}</td>
+                        <td class="text-success text-right">{{ payroll.totalContribution }}</td>
+                        <td class="text-info text-right">{{ payroll.netToPay }}</td>
                         <td class="text-right">
                             <a :href="`${baseUrl}admin/customer/${currentCustomerID}/payrolls/${payroll.file_id}/detail/${payroll.collaborator_id}`" data-toggle="tooltip" title="Detalle" data-original-title="Detalle">
                                 <i class="fa fa-external-link"></i>

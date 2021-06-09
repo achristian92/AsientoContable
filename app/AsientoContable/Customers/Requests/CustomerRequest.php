@@ -12,7 +12,8 @@ class CustomerRequest extends FormRequest
         $rules = [
             'ruc' => 'required|numeric|unique:customers',
             'name' => 'required|max:255|unique:customers',
-            'email' => 'nullable|email'
+            'email' => 'nullable|email',
+            'parent_id' => 'nullable|exists:customers,id',
         ];
         if ($this->isMethod('PUT')) {
             $rules['ruc'] = 'required|unique:customers,ruc,'.$this->segment(3);

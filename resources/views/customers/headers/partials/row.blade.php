@@ -9,11 +9,15 @@
     </td>
     <td> {{ $header->order }} </td>
     <td>
-        @if ($header->has_account && !$header->account_plan_id)
-            <span class="fa fa-circle text-warning mr-2"> Pendiente!</span>
-        @else
-            @if ($header->account_plan_id)
-                {{ $header->account->code }} - {{  $header->is_account_main == 1 ? $header->account->name : $header->name }}
+        @if ($header->has_account || $header->account_plan_id)
+            @if (!$header->account_plan_id)
+                <span class="fa fa-circle text-warning mr-2"> Pendiente!</span>
+            @else
+                @if ($header->is_account_main)
+                    [{{ $header->account->code }}] - {{ $header->account->name }}
+                @else
+                    [{{ $header->account->code }}] - {{ $header->name }}
+                @endif
             @endif
         @endif
     </td>

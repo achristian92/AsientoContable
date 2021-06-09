@@ -8,24 +8,20 @@
                         <table class="table">
                             <thead class="thead-light">
                             <tr class="font-italic font-weight-bold">
-                                <th scope="col">Moneda</th>
-                                <th scope="col">Compra</th>
-                                <th scope="col">Venta</th>
-                                <th scope="col">Fecha creación</th>
-                                <th class="text-right" scope="col"></th>
+                                <th>Fecha</th>
+                                <th>Moneda</th>
+                                <th>Tipo de cambio</th>
+                                {{--<th>Venta</th>--}}
+                                <th class="text-right"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($currencies as $currency)
                                     <tr>
-                                        @if ($loop->first)
-                                        <td>{{ $currency->code }} <span class="badge badge-info">Usando</span></td>
-                                        @else
-                                            <td>{{ $currency->code }} </td>
-                                        @endif
+                                        <td>{{ formatDate($currency->created_at) }}</td>
+                                        <td>{{ $currency->code }} </td>
                                         <td>{{ $currency->buy }}</td>
-                                        <td>{{ $currency->sell }}</td>
-                                        <td>{{ formatDate($currency->created_at,true) }}</td>
+                                      {{--  <td>{{ $currency->sell }}</td>--}}
                                         <td class="text-right">
                                             <a href="{{ route('admin.currencies.edit',$currency->id) }}" data-toggle="tooltip" title="" data-original-title="Editar">
                                                 <i class="fa fa-pencil"></i>

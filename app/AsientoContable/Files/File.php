@@ -6,6 +6,7 @@ namespace App\AsientoContable\Files;
 
 use App\AsientoContable\ConceptAccounts\ConceptAccount;
 use App\AsientoContable\Concepts\Concept;
+use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
 use App\AsientoContable\Employees\CostEmployees\CostEmployee;
 use Illuminate\Database\Eloquent\Model;
@@ -35,5 +36,10 @@ class File extends Model
     public function accountingAccounts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ConceptAccount::class);
+    }
+
+    public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

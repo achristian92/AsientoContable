@@ -29,6 +29,23 @@
         @include('components.input-sm',['name' => 'address'])
     </div>
 </div>
+@if(!$model->id)
+    <div class="form-row mb-1">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Copiar plan de cuenta de...(opcional)</label>
+            <select name="parent_id" class="form-control form-control-sm">
+                <option value="" selected>Seleccionar</option>
+                @foreach ($customers as $key => $customer)
+                    <option value="{{ $customer->id }}"
+                            @if ($customer->id == old('parent_id', $model->parent_id))
+                            selected="selected"
+                        @endif
+                    >{{ $customer->name }}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+@endif
 @if(isset($model->id))
     <div class="form-check mt-0">
         <input

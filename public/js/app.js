@@ -23738,7 +23738,7 @@ var render = function() {
           attrs: { tabindex: "1" }
         },
         [
-          _c("table", { staticClass: "table table-striped mb-0" }, [
+          _c("table", { staticClass: "table table-striped mb-0 w-100" }, [
             _c("thead", [
               _c("tr", [
                 _c("th", { staticClass: "text-center" }, [
@@ -23790,7 +23790,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("th", [_vm._v("Nombres")]),
+                _c("th", { staticClass: "w-10" }, [_vm._v("Nombres")]),
                 _vm._v(" "),
                 _c("th", { staticClass: "text-center" }, [_vm._v("Ingresos")]),
                 _vm._v(" "),
@@ -23874,7 +23874,7 @@ var render = function() {
                   _c("td", [
                     _vm._v(
                       "\n                        " +
-                        _vm._s(payroll.employee) +
+                        _vm._s(payroll.employeeShort) +
                         " "
                     ),
                     payroll.centerCost.length === 0
@@ -23950,19 +23950,19 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-primary text-center" }, [
+                  _c("td", { staticClass: "text-primary text-right" }, [
                     _vm._v(_vm._s(payroll.totalIncome))
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-danger text-center" }, [
+                  _c("td", { staticClass: "text-danger text-right" }, [
                     _vm._v(_vm._s(payroll.totalExpense))
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-success text-center" }, [
+                  _c("td", { staticClass: "text-success text-right" }, [
                     _vm._v(_vm._s(payroll.totalContribution))
                   ]),
                   _vm._v(" "),
-                  _c("td", { staticClass: "text-info text-center" }, [
+                  _c("td", { staticClass: "text-info text-right" }, [
                     _vm._v(_vm._s(payroll.netToPay))
                   ]),
                   _vm._v(" "),

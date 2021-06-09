@@ -9,6 +9,7 @@ use App\AsientoContable\Customers\Presenters\CustomerPresenter;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
 use App\AsientoContable\Headers\Presenters\HeaderPresenter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Header extends Model
 {
@@ -70,4 +71,5 @@ class Header extends Model
 
         return  intval($number) + 10;
     }
+
 }

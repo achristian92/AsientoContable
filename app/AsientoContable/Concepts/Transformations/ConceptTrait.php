@@ -6,6 +6,7 @@ namespace App\AsientoContable\Concepts\Transformations;
 
 use App\AsientoContable\Concepts\Concept;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 trait ConceptTrait
 {
@@ -16,6 +17,7 @@ trait ConceptTrait
             'collaborator_id'   => $concept->collaborator_id,
             'file_id'           => $concept->file_id,
             'employee'          => $collection->firstWhere('header',Concept::FULL_NAME)->value,
+            'employeeShort'     => Str::limit($collection->firstWhere('header',Concept::FULL_NAME)->value,25),
             'workArea'          => $collection->firstWhere('header',Concept::CODAREA)->value ?? '--',
             'position'          => $collection->firstWhere('header',Concept::NAMEAREA)->value ?? '--',
             'withFamily'        => (bool)$collection->firstWhere('header', Concept::WITH_FAMILY)->value,

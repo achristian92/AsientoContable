@@ -4,8 +4,12 @@
 namespace App\Http\Controllers\Admin\Customers;
 
 
+use App\AsientoContable\AccountPlan\AccountPlan;
 use App\AsientoContable\Base\BaseHeader;
 use App\AsientoContable\Base\BasePension;
+use App\AsientoContable\CenterCosts\Cost;
+use App\AsientoContable\Collaborators\Collaborator;
+use App\AsientoContable\CostsCenter2\CostCenter2;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Requests\CustomerRequest;
 use App\AsientoContable\Headers\Header;
@@ -37,21 +41,67 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return view('admin.customers.create', ['model' => new Customer()]);
+        return view('admin.customers.create', [
+            'customers' => Customer::orderBy('name','asc')->get(),
+            'model' => new Customer()
+        ]);
     }
 
     public function store(CustomerRequest $request)
     {
         $customer = $this->customerRepo->createCustomer($request->all());
-        BaseHeader::all()->each(function ($base) use ($customer) {
-            $base['customer_id'] = $customer->id;
-            Header::create($base->toArray());
-        });
 
-        BasePension::all()->each(function ($value) use($customer){
-            $value['customer_id'] = $customer->id;
-            PensionFund::create($value->toArray());
-        });
+        if ($request->filled('parent_id')) {
+            $oldCustomerId = Customer::find($request->input('parent_id'))->id;
+
+            AccountPlan::where('customer_id',$oldCustomerId)->get()
+                ->each(function ($plan) use ($customer) {
+                    $plan['customer_id'] = $customer->id;
+                    $plan['from_id'] = $plan->id;
+                    $plan['updated_at'] = now();
+                    $plan['created_at'] = now();
+                    AccountPlan::create($plan->toArray());
+                });
+
+            $newPlan = AccountPlan::where('customer_id',$customer->id)->get();
+
+            Header::where('customer_id',$oldCustomerId)->get()
+                ->each(function ($plan) use ($customer,$newPlan) {
+                    $idNewPlan = null;
+                    if ($plan->account_plan_id)
+                        $idNewPlan = $newPlan->firstWhere('from_id',$plan->account_plan_id)->id;
+
+                    $plan['account_plan_id'] = $idNewPlan;
+                    $plan['customer_id'] = $customer->id;
+                    $plan['created_at'] = now();
+                    $plan['updated_at'] = now();
+                    Header::create($plan->toArray());
+                });
+
+            PensionFund::where('customer_id',$oldCustomerId)->get()
+                ->each(function ($pension) use ($customer,$newPlan) {
+                    $idNewPlan = null;
+                    if ($pension->account_plan_id)
+                        $idNewPlan = $newPlan->firstWhere('from_id',$pension->account_plan_id)->id;
+
+                    $pension['account_plan_id'] = $idNewPlan;
+                    $pension['customer_id'] = $customer->id;
+                    $pension['created_at'] = now();
+                    $pension['updated_at'] = now();
+                    PensionFund::create($pension->toArray());
+                });
+        } else {
+            BaseHeader::all()->each(function ($base) use ($customer) {
+                $base['customer_id'] = $customer->id;
+                Header::create($base->toArray());
+            });
+
+            BasePension::all()->each(function ($value) use($customer){
+                $value['customer_id'] = $customer->id;
+                PensionFund::create($value->toArray());
+            });
+        }
+
         return redirect()->route('admin.customers.index')->with('message',"Cliente creado");
     }
 
@@ -73,8 +123,21 @@ class CustomerController extends Controller
 
     public function destroy(int $id)
     {
-        $this->customerRepo->deleteCustomer($id);
-        return redirect()->route('admin.customers.index')->with('message',"Cliente desactivado");
+        $customer = Customer::find($id);
+        if ($customer->has('files')->count() > 0) {
+            $this->customerRepo->deleteCustomer($id);
+            return redirect()->route('admin.customers.index')->with('message',"Cliente tiene planillas cargadas");
+        }
+
+        Header::where('customer_id',$customer->id)->delete();
+        PensionFund::where('customer_id',$customer->id)->delete();
+        AccountPlan::where('customer_id',$customer->id)->delete();
+        Cost::where('customer_id',$customer->id)->delete();
+        CostCenter2::where('customer_id',$customer->id)->delete();
+        Collaborator::where('customer_id',$customer->id)->delete();
+        $customer->delete();
+
+        return redirect()->route('admin.customers.index')->with('message',"Cliente eliminado");
     }
 
     public function notify(Customer $customer)

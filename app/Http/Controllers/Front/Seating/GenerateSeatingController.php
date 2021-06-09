@@ -44,9 +44,17 @@ class GenerateSeatingController extends Controller
         if ($request->has('all'))
             \DB::table('seatings')->where('file_id',$request->file_id)->delete();
 
+
+        $file = $this->fileRepo->findFileById($request->file_id);
+        $date = Carbon::parse($file->month_payroll)->endOfMonth()->toDateString();
+        $currency = Currency::whereDate('created_at',$date)->first();
+        if ($currency)
+            $exchangeRate = $currency->buy;
+        else
+            $exchangeRate = floatval(Currency::latest()->first()->buy);
+
         $data = $this->transformData($IDS,$request->input('file_id'));//316 queries || 213 || 110 || 7
 
-        $exchangeRate = floatval(Currency::latest()->first()->buy);
 
         $data->each(function ($employee) use ($exchangeRate) { //1665
             $nro_seat  = Seating::getNextSeatNumber($employee['fileID'],$employee['workedID']);
@@ -128,11 +136,11 @@ class GenerateSeatingController extends Controller
     {
         $employees   = $this->employeeRepo->listEmployeesByWhereIn($IDS->toArray());
         $file        = $this->fileRepo->findFileById($file_id)->load('concepts');
-        $payrollDate = Carbon::parse($file->created_at);
+        $date        = Carbon::parse($file->month_payroll)->endOfMonth();
         $costs       = $this->costCenterRepo->listCostsCenter();
         $accounts    = $this->conceptAccountRepo->listAccountsByFileId($file->id);
 
-        $data =  $IDS->map(function ($id) use ($file,$payrollDate,$employees,$costs,$accounts) {
+        $data =  $IDS->map(function ($id) use ($file,$date,$employees,$costs,$accounts) {
             $employee  = $employees->firstWhere('id',$id);
             $accountEmployee = $accounts->where('collaborator_id',$id);
             return [
@@ -141,8 +149,8 @@ class GenerateSeatingController extends Controller
                 'customerID'  => $file->customer_id,
                 'worked'      => mb_substr($employee->full_name,0,10),
                 'nroDoc'      => $employee->nro_document,
-                'createdAt'   => $payrollDate->format('d/m/Y'),
-                'month'       => $payrollDate->format('m'),
+                'createdAt'   => $date->format('d/m/Y'),
+                'month'       => $date->format('m'),
                 'costCenters2'=> $file->concepts->where('header',Concept::COSTCENTER2)->where('collaborator_id',$employee->id)->first() ? $file->concepts->where('header',Concept::COSTCENTER2)->where('collaborator_id',$employee->id)->first()->value : '',
                 'accounts'    => $this->conceptRepo->accounts($accountEmployee)->toArray(),
                 'costCenters' => $this->conceptRepo->costCenterEmployee($file->concepts, ['file_id'=> $file->id, 'collaborator_id'=> $id], $costs)
