@@ -3779,7 +3779,7 @@ module.exports = {
       return JSON.parse(customerID.content);
     },
     baseUrl: function baseUrl() {
-      if (true) return "http://ec2-18-234-129-86.compute-1.amazonaws.com/jga-entries/";else {}
+      if (true) return "https://tavera.pe/asiento-contable/";else {}
     }
   }
 };
