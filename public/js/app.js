@@ -3779,7 +3779,7 @@ module.exports = {
       return JSON.parse(customerID.content);
     },
     baseUrl: function baseUrl() {
-      if (false) {}else return '/';
+      if (true) return "https://brainbox.pe/asiento-contable/";else {}
     }
   }
 };
