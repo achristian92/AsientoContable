@@ -19,18 +19,18 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive" tabindex="1" style="overflow: hidden; outline: none;">
-                                <table class="table table-striped mb-0">
+                                <table class="w-100" >
                                     <thead>
                                     <tr>
-                                        <th>Centro de costo</th>
-                                        <th>Porcentage</th>
-                                        <th class="text-right">Acción</th>
+                                        <th class="w-80">Centro de costo</th>
+                                        <th class="w-10 text-center">Porcentaje</th>
+                                        <th class="w-10 text-right">Acción</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr v-for="assign in assigns">
-                                        <td>{{  assign.cost }}</td>
-                                        <td>{{ assign.percentage }}%</td>
+                                        <td><small>{{  assign.cost }}</small></td>
+                                        <td class="text-right">{{ assign.percentage }}%</td>
                                         <td class="text-right">
                                             <a href=""
                                                class="btn btn-outline-light btn-sm mr-1"
@@ -45,7 +45,7 @@
                                     <tfoot>
                                     <tr>
                                         <td class="text-right"><strong>Total</strong></td>
-                                        <td> {{ total }}%</td>
+                                        <td class="text-right"> {{ total }}%</td>
                                         <td class="text-right"></td>
                                     </tr>
                                     </tfoot>

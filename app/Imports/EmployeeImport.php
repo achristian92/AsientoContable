@@ -55,7 +55,7 @@ class EmployeeImport implements ToCollection,WithHeadingRow,WithValidation
         return [
             '*.nombres_completo' => 'required',
             '*.codigo'           => 'required',
-            '*.nro_doc'          => 'required',
+            '*.nro_doc'          => 'required|numeric',
             '*.fecha_ingreso'    => 'required',
         ];
     }

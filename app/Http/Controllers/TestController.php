@@ -63,55 +63,14 @@ class TestController extends Controller
     public function __invoke(Request $request, int $customer)
     {
 
-        $customer = Customer::find(1);
-        $hasPayroll = $customer->files()->exists();
-        dd($hasPayroll);
+        $collaborator = Collaborator::find(17);
 
-        $oldCustomerId = 2;
-        $newCustomerId = 4;
-        AccountPlan::where('customer_id',$oldCustomerId)->get()
-                ->each(function ($plan) use ($newCustomerId) {
-                    $plan['customer_id'] = $newCustomerId;
-                    $plan['from_id'] = $plan->id;
-                    $plan['updated_at'] = now();
-                    $plan['created_at'] = now();
-                    AccountPlan::create($plan->toArray());
-                });
+        $concepts = $collaborator->concepts->pluck('file_id')->unique();
 
-        $newPlan = AccountPlan::where('customer_id',$newCustomerId)->get();
+        $files = File::with('createdby')->whereIn('id',$concepts)->get();
 
-        Header::where('customer_id',$oldCustomerId)->get()
-                ->each(function ($plan) use ($newCustomerId,$newPlan) {
-                    $idNewPlan = null;
-                    if ($plan->account_plan_id)
-                        $idNewPlan = $newPlan->firstWhere('from_id',$plan->account_plan_id)->id;
+        dd($concepts,$files);
 
-                    $plan['account_plan_id'] = $idNewPlan;
-                    $plan['customer_id'] = $newCustomerId;
-                    $plan['created_at'] = now();
-                    $plan['updated_at'] = now();
-                    Header::create($plan->toArray());
-                });
-        PensionFund::where('customer_id',$oldCustomerId)->get()
-                ->each(function ($pension) use ($newCustomerId,$newPlan) {
-                    $idNewPlan = null;
-                    if ($pension->account_plan_id)
-                        $idNewPlan = $newPlan->firstWhere('from_id',$pension->account_plan_id)->id;
-
-                    $pension['account_plan_id'] = $idNewPlan;
-                    $pension['customer_id'] = $newCustomerId;
-                    $pension['created_at'] = now();
-                    $pension['updated_at'] = now();
-                    PensionFund::create($pension->toArray());
-                });
-
-        dd("end");
     }
 
-    public function dataOC()
-    {
-       $model = new Customer();
-       $model->supplier = 'Coorporación Wong';
-       return $model;
-    }
 }

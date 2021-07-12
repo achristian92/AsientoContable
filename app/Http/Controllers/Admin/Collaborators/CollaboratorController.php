@@ -4,7 +4,9 @@
 namespace App\Http\Controllers\Admin\Collaborators;
 
 
+use App\AsientoContable\Collaborators\Collaborator;
 use App\AsientoContable\Collaborators\Repositories\ICollaborator;
+use App\AsientoContable\Files\File;
 use App\AsientoContable\Tools\FileExcelRequest;
 use App\AsientoContable\Tools\UploadableTrait;
 use App\Exports\EmployeeExport;
@@ -31,6 +33,36 @@ class CollaboratorController extends Controller
         return view('customers.collaborators.matriz.index',[
             'collaborators' => $collaborators
         ]);
+    }
+
+    public function show(int $customer_id, int $collaborator_id)
+    {
+
+        $collaborator = Collaborator::find($collaborator_id);
+
+        $concepts_id = $collaborator->concepts->pluck('file_id')->unique();
+
+        $files = File::with('createdby')->whereIn('id',$concepts_id)->get();
+
+        return view('customers.collaborators.matriz.show', [
+            'collaborator' => $collaborator,
+            'files' => $files
+        ]);
+    }
+
+    public function destroy(int $customer_id, int $collaborator_id)
+    {
+        $collaborator = Collaborator::find($collaborator_id);
+
+        if ($collaborator->concepts()->exists())
+            return redirect()->route('admin.customers.collaborators.index',$customer_id)->with('error','No se puede eliminar porque tiene planillas registradas(Ver detalle).');
+
+
+        $collaborator->delete();
+
+        return redirect()->route('admin.customers.collaborators.index',$customer_id)
+            ->with('message','Colaborador eliminado');
+
     }
 
     public function template(): \Symfony\Component\HttpFoundation\BinaryFileResponse

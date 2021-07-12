@@ -94,15 +94,12 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
 
     private function pensionAccount($pensions,$row)
     {
-        Log::info('Buscar Pension Account');
         $pension = $pensions->firstWhere('short',$row[slug(Concept::PENSION_SHORT)]);
         return $this->transformAccountToJson($pension->account); //Cuenta contable a la q pertecenece
     }
 
     public function transformAccountToJson(AccountPlan $account, string $name = null): array
     {
-        Log::info('Transforma account to json');
-
         return [
             'code' => $account->code,
             'name' => is_null($name) ? $account->name : $name,
@@ -137,7 +134,7 @@ class PayrollImport implements ToCollection,WithHeadingRow,WithValidation,WithCh
         return [
             '*.cod_trab'         => 'required',
             '*.apellidos_y_nombres'     => 'required',
-            '*.doc_identidad'  => 'required',
+            '*.doc_identidad'  => 'numeric|required',
             '*.centro_costo'   => ['nullable',Rule::in($costs)],
             //'*.centro_costo2'   => ['nullable',Rule::in($costs2)],
             '*.fec_ing'  => 'required|date_format:d/m/Y',

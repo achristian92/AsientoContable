@@ -23374,16 +23374,20 @@ var render = function() {
                     attrs: { tabindex: "1" }
                   },
                   [
-                    _c("table", { staticClass: "table table-striped mb-0" }, [
+                    _c("table", { staticClass: "w-100" }, [
                       _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "tbody",
                         _vm._l(_vm.assigns, function(assign) {
                           return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(assign.cost))]),
+                            _c("td", [
+                              _c("small", [_vm._v(_vm._s(assign.cost))])
+                            ]),
                             _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(assign.percentage) + "%")]),
+                            _c("td", { staticClass: "text-right" }, [
+                              _vm._v(_vm._s(assign.percentage) + "%")
+                            ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-right" }, [
                               _c(
@@ -23411,7 +23415,9 @@ var render = function() {
                         _c("tr", [
                           _vm._m(3),
                           _vm._v(" "),
-                          _c("td", [_vm._v(" " + _vm._s(_vm.total) + "%")]),
+                          _c("td", { staticClass: "text-right" }, [
+                            _vm._v(" " + _vm._s(_vm.total) + "%")
+                          ]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-right" })
                         ])
@@ -23459,11 +23465,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Centro de costo")]),
+        _c("th", { staticClass: "w-80" }, [_vm._v("Centro de costo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Porcentage")]),
+        _c("th", { staticClass: "w-10 text-center" }, [_vm._v("Porcentaje")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-right" }, [_vm._v("Acción")])
+        _c("th", { staticClass: "w-10 text-right" }, [_vm._v("Acción")])
       ])
     ])
   },

@@ -61,7 +61,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'a
 
     Route::group(['prefix'=>'customer/{customer_id}','as'=>'customers.'],function () {
         Route::get('test',\App\Http\Controllers\TestController::class);
-        Route::resource('collaborators', CollaboratorController::class)->only('index');
+        Route::resource('collaborators', CollaboratorController::class)->only('index','show','destroy');
         Route::get('template/employees', [CollaboratorController::class,'template'])->name('employee.template');
         Route::post('import/employees', [CollaboratorController::class,'import'])->name('employee.import');
         Route::get('export/employees', [CollaboratorController::class,'export'])->name('employee.export');

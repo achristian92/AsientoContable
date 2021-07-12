@@ -9,6 +9,7 @@ use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Employees\AccountingSeating\Seating;
 use App\AsientoContable\Employees\CostEmployees\CostEmployee;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class File extends Model
@@ -41,5 +42,10 @@ class File extends Model
     public function customer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function createdby(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 }
