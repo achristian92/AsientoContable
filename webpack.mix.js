@@ -15,7 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .vue()
     .copy('resources/css/app.css','public/css')
     .browserSync({
-        proxy: "http://asientos.test",
+        proxy: "http://asiento.test",
         browser: "Microsoft Edge",
         open: false
     });

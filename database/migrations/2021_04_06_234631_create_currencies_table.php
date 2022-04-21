@@ -23,10 +23,10 @@ class CreateCurrenciesTable extends Migration
             $table->timestamps();
         });
 
-        \App\AsientoContable\Currencies\Currency::create([
-            'buy' => '3.834',
-            'sell' => '3.841',
-        ]);
+//        \App\AsientoContable\Currencies\Currency::create([
+//            'buy' => '3.834',
+//            'sell' => '3.841',
+//        ]);
     }
 
     /**

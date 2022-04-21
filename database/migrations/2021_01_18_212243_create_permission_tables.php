@@ -88,19 +88,19 @@ class CreatePermissionTables extends Migration
             ->forget(config('permission.cache.key'));
 
         // Create the initial admin user
-        $roles = ['Administrador','Usuario'];
-        foreach ($roles as $rol) {
-            DB::table('roles')->insert([
-                'name'        => $rol,
-                'guard_name'  => 'web',
-            ]);
-        }
-
-        DB::table('model_has_roles')->insert([
-            'role_id'    => '1',
-            'model_type' => 'App\Models\User',
-            'model_id'   => '1',
-        ]);
+//        $roles = ['Administrador','Usuario'];
+//        foreach ($roles as $rol) {
+//            DB::table('roles')->insert([
+//                'name'        => $rol,
+//                'guard_name'  => 'web',
+//            ]);
+//        }
+//
+//        DB::table('model_has_roles')->insert([
+//            'role_id'    => '1',
+//            'model_type' => 'App\Models\User',
+//            'model_id'   => '1',
+//        ]);
     }
 
     /**

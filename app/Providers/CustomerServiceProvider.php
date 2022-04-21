@@ -36,7 +36,7 @@ class CustomerServiceProvider extends ServiceProvider
             ]);
         });
 
-        if (customerID() != 0) {
+        if (customerID()) {
             View::share('currentCustomer', Customer::find(customerID()));
         }
     }
