@@ -136,10 +136,10 @@
                                 </a>
                             </small>
                         </td>
-                        <td class="text-primary text-right">{{ payroll.totalIncome }}</td>
-                        <td class="text-danger text-right">{{ payroll.totalExpense }}</td>
-                        <td class="text-success text-right">{{ payroll.totalContribution }}</td>
-                        <td class="text-info text-right">{{ payroll.netToPay }}</td>
+                        <td class="text-primary text-right">S/{{ $utils.formatMoney(payroll.totalIncome) }}</td>
+                        <td class="text-danger text-right">S/{{ $utils.formatMoney(payroll.totalExpense) }}</td>
+                        <td class="text-success text-right">S/{{ $utils.formatMoney(payroll.totalContribution) }}</td>
+                        <td class="text-info text-right">S/{{ $utils.formatMoney(payroll.netToPay) }}</td>
                         <td class="text-right">
                             <a :href="`${baseUrl}admin/customer/${currentCustomerID}/payrolls/${payroll.file_id}/detail/${payroll.collaborator_id}`" data-toggle="tooltip" title="Detalle" data-original-title="Detalle">
                                 <i class="fa fa-external-link"></i>

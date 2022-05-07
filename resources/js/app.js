@@ -8,6 +8,9 @@ require('./bootstrap');
 window.Vue = require('vue').default;
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import utils from './helpers/utilities'
+Vue.prototype.$utils = utils
+
 Vue.use(VueToast)
 
 //Payrolls
