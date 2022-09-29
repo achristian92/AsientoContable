@@ -52,4 +52,11 @@ class AccountingSeatController extends Controller
 
         return Excel::download(new SeatingExport($seating->toArray()), $nameFile);
     }
+
+    public function delete(int $customer_id, int $id)
+    {
+        \DB::table('seatings')->where('file_id',$id)->delete();
+
+        return redirect()->route('admin.customers.accounting-seat.show',[$customer_id,$id])->with('message','Eliminado');
+    }
 }

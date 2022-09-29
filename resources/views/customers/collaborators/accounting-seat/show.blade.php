@@ -11,6 +11,11 @@
                             <H4>Asientos generado  {{ $file->name }}</H4>
                             <div class="row">
                                 <div class="col-md-12 text-right" >
+                                    @if($file->status === 'Abierto')
+                                        <a href="{{ route('admin.customers.seating.delete',[$currentCustomer->id,$file->id]) }}" class="btn btn-outline-danger btn-pulse btn-sm ml-2">
+                                            <i class="ti-trash mr-1 ml-1"></i> Eliminar
+                                        </a>
+                                    @endif
                                     <a href="{{ route('admin.customers.seating.export',[$currentCustomer->id,$file->id]) }}" class="btn btn-outline-light btn-pulse btn-sm ml-2">
                                         <i class="ti-download mr-1 ml-1"></i> Exportar
                                     </a>

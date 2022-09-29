@@ -38,10 +38,10 @@ class GenerateSeatingController extends Controller
 
     public function __invoke(Request $request): \Illuminate\Http\JsonResponse
     {
-
+        $customerId =  (int) request()->segment(3);
         $IDS = $this->employeeIDS($request);
 
-        if ($request->has('all'))
+        if ($request->boolean('all'))
             \DB::table('seatings')->where('file_id',$request->file_id)->delete();
 
 
@@ -56,8 +56,8 @@ class GenerateSeatingController extends Controller
         $data = $this->transformData($IDS,$request->input('file_id'));//316 queries || 213 || 110 || 7
 
 
-        $data->each(function ($employee) use ($exchangeRate) { //1665
-            $nro_seat  = Seating::getNextSeatNumber($employee['fileID'],$employee['workedID']);
+        $data->each(function ($employee) use ($exchangeRate,$customerId) { //1665
+            $nro_seat  = Seating::getNextSeatNumber($employee['fileID'],$employee['workedID'],$customerId);
 
             if (count($employee['costCenters']) === 1) {
                 $dataInsert = collect($employee['accounts'])->map(function ($account) use ($employee,$exchangeRate,$nro_seat) {
@@ -164,7 +164,7 @@ class GenerateSeatingController extends Controller
 
     private function employeeIDS(Request $request): Collection
     {
-        if ($request->input('all',true))
+        if ($request->boolean('all'))
             return $this->conceptRepo->employeeIDS($request->input('file_id'));
 
         return collect($request->input('employeeIDS'));

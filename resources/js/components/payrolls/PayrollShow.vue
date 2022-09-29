@@ -115,9 +115,7 @@
                                    style="margin-left: 2px;"
                                    type="checkbox"
                                    :value="payroll.id">
-                            <label class="form-check-label">
-                                &nbsp;&nbsp;
-                            </label>
+                            <label class="form-check-label"></label>
                         </td>
                         <td>
                             {{ payroll.employeeShort }} <span class="badge badge-danger" v-if="payroll.centerCost.length === 0">SIN CENTRO COSTO</span> <br>

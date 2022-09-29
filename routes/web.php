@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth.customer'], 'as' => 'a
         Route::resource('vouchers', \App\Http\Controllers\Admin\Vouchers\VoucherController::class);
         Route::resource('accounting-seat', AccountingSeatController::class);
         Route::get('accounting-seat/{file}/export', [AccountingSeatController::class,'export'])->name('seating.export');
+        Route::get('accounting-seat/{file}/delete', [AccountingSeatController::class,'delete'])->name('seating.delete');
         Route::resource('cost-center', CostCenterController::class);
         Route::resource('cost-center2', CostCenter2Controller::class);
         Route::post('cost-center-import', CenterCostImportController::class)->name('center-cost.import');
