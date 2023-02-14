@@ -62,14 +62,37 @@ class TestController extends Controller
 
     public function __invoke(Request $request, int $customer)
     {
+//        $seating  = Seating::where('file_id',82)->get()->unique('nro_documento')->pluck('nro_documento');
+//        $concep = Concept::where('file_id',82)->get()->unique('collaborator_id')->pluck('collaborator_id');
+//        $colaborar = Collaborator::whereIn('id',$concep)->get()->unique('nro_document')->pluck('nro_document');
+//        $diff = $colaborar->diff($seating);
+//        dd($seating,$concep,$colaborar,$diff);
+        //Quitar espacios
+        Collaborator::all()
+            ->each(function ($colaborador) {
+                $colaborador->nro_document = trim($colaborador->nro_document);
+                $colaborador->save();
+            });
 
-        $collaborator = Collaborator::find(17);
 
-        $concepts = $collaborator->concepts->pluck('file_id')->unique();
 
-        $files = File::with('createdby')->whereIn('id',$concepts)->get();
+        $collaborator = Collaborator::where('customer_id',$customer)->get()
+            ->transform(function ($collaborator) {
+                return [
+                    'id' => $collaborator->id,
+                    'nro' => trim($collaborator->nro_document),
+                    'name' => $collaborator->full_name
+                ];
+            });
 
-        dd($concepts,$files);
+        $duplicados = collect($collaborator)->duplicates('nro')->values();
+
+        foreach ($duplicados as $duplicado) {
+            $employe = Collaborator::where('customer_id',$customer)->where('nro_document',$duplicado)->latest()->first();
+            $employe->delete();
+        }
+
+        dd("limpiado");
 
     }
 

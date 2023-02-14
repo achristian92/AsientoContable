@@ -40,7 +40,7 @@ Route::get('/dashboard', function () {
     return redirect()->route('admin.customers.index');
 });
 
-Route::get("reboot",function (){
+Route::get("reboot",function () {
     Artisan::call('config:cache');
     Artisan::call('queue:restart');
     dd("Ready to Re-start");

@@ -51,7 +51,7 @@ class CollaboratorRepo extends BaseRepository implements ICollaborator
     {
         return $this->model::updateOrCreate(
             [
-                'nro_document' => $params[slug(Concept::NRO_DOC)],
+                'nro_document' => trim($params[slug(Concept::NRO_DOC)]),
                 'customer_id'  => $customer
             ],
             [
