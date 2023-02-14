@@ -63,6 +63,7 @@ class CostsDistributionImport implements ToCollection,WithHeadingRow,WithValidat
     private function searchEmployeeByNroDocument(string $nro_document): int
     {
         $employee = resolve(CollaboratorRepo::class);
+        info("DOC :" .$nro_document);
         return $employee->findEmployeeByNroDocument($nro_document,$this->customer)->id;
     }
 
