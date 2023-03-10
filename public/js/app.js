@@ -3818,7 +3818,7 @@ __webpack_require__.r(__webpack_exports__);
     if (numberRegexp.test(number)) return Number(number.toFixed(decimals));else return Number(number.toFixed(decimals)) === 0 ? 0 : number;
   },
   baseUrl: function baseUrl() {
-    if (false) {}else return '/';
+    if (true) return "https://brainbox.pe/asiento-contable/";else {}
   }
 });
 
@@ -3837,7 +3837,7 @@ module.exports = {
       return JSON.parse(customerID.content);
     },
     baseUrl: function baseUrl() {
-      if (false) {}else return '/';
+      if (true) return "https://brainbox.pe/asiento-contable/";else {}
     }
   }
 };
