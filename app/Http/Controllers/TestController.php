@@ -14,6 +14,7 @@ use App\AsientoContable\ConceptAccounts\Repositories\IConceptAccount;
 use App\AsientoContable\Concepts\Concept;
 use App\AsientoContable\Concepts\Repositories\IConcept;
 use App\AsientoContable\Concepts\Transformations\ConceptTrait;
+use App\AsientoContable\CostsCenter2\CostCenter2;
 use App\AsientoContable\Currencies\Currency;
 use App\AsientoContable\Customers\Customer;
 use App\AsientoContable\Customers\Repositories\ICustomer;
@@ -62,6 +63,9 @@ class TestController extends Controller
 
     public function __invoke(Request $request, int $customer)
     {
+        $code = '36002';
+        $cost = Cost::where('code',$code)->where('customer_id',2)->first();
+        dd($cost);
 //        $seating  = Seating::where('file_id',82)->get()->unique('nro_documento')->pluck('nro_documento');
 //        $concep = Concept::where('file_id',82)->get()->unique('collaborator_id')->pluck('collaborator_id');
 //        $colaborar = Collaborator::whereIn('id',$concep)->get()->unique('nro_document')->pluck('nro_document');

@@ -33,8 +33,8 @@ class CostsDistributionImport implements ToCollection,WithHeadingRow,WithValidat
         $rows->each(function ($row) {
             CostEmployee::updateOrCreate(
                 [
-                    'collaborator_id' => $this->searchEmployeeByNroDocument($row['nro_documento']),
-                    'cost_id'         => $this->searchCostCenterByCode($row['cod_centro_costo']),
+                    'collaborator_id' => $this->searchEmployeeByNroDocument(trim($row['nro_documento'])),
+                    'cost_id'         => $this->searchCostCenterByCode(trim($row['cod_centro_costo'])),
                     'file_id'         => $this->file
                 ],
                 [
@@ -70,6 +70,8 @@ class CostsDistributionImport implements ToCollection,WithHeadingRow,WithValidat
     private function searchCostCenterByCode(string $code): int
     {
         $employee = resolve(CenterCostRepo::class);
+        info("Centro costo :" .$code);
+        info("customer :" .$this->customer);
         return $employee->findCostCenterByCode($code,$this->customer)->id;
     }
 }
