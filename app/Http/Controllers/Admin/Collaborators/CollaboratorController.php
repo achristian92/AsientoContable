@@ -14,6 +14,7 @@ use App\Exports\TemplateEmployee;
 use App\Http\Controllers\Controller;
 use App\Imports\EmployeeImport;
 use App\Models\History;
+use DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CollaboratorController extends Controller
@@ -29,7 +30,8 @@ class CollaboratorController extends Controller
 
     public function index()
     {
-        $collaborators = $this->employeeRepo->listCollaborators();
+
+        $collaborators = DB::table('collaborators')->where('customer_id',customerID())->get();
         return view('customers.collaborators.matriz.index',[
             'collaborators' => $collaborators
         ]);

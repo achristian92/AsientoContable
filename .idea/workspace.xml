@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="a89910eb-9c40-4bd7-a1f4-611ad75e5aa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Imports/CostsDistributionImport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Imports/CostsDistributionImport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AsientoContable/Files/Repositories/FileRepo.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AsientoContable/Files/Repositories/FileRepo.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/Collaborators/CollaboratorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/Collaborators/CollaboratorController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -361,7 +361,7 @@
       <workItem from="1676394544599" duration="7286000" />
       <workItem from="1678479760178" duration="619000" />
       <workItem from="1681412004090" duration="2129000" />
-      <workItem from="1686257840489" duration="367000" />
+      <workItem from="1686257840489" duration="5407000" />
     </task>
     <servers />
   </component>
